@@ -1,0 +1,6 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="25" cy="25" r="20" fill="#1a365d" opacity="0.1"/>
+<path d="M25 10c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15zm0 2c7.18 0 13 5.82 13 13s-5.82 13-13 13S12 32.18 12 25s5.82-13 13-13z" fill="#1a365d"/>
+<path d="M23 18h4v14h-4V18zm-5 5h14v4H18v-4z" fill="#00d4aa"/>
+<circle cx="25" cy="25" r="3" fill="#1a365d"/>
+</svg>

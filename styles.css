@@ -5,42 +5,81 @@
     box-sizing: border-box;
 }
 
-/* カスタムプロパティ（CSS変数） - 医療機関らしい清潔で温かみのあるデザイン */
+/* カスタムプロパティ（CSS変数） - 濃紺×ガラス質感×清潔×洗練デザイン */
 :root {
-    --primary-color: #2d5016;
-    --primary-light: #4a7c23;
-    --secondary-color: #d97706;
-    --accent-color: #65a30d;
-    --text-dark: #374151;
-    --text-medium: #6b7280;
-    --text-light: #9ca3af;
-    --text-muted: #d1d5db;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-warm: #fefdf8;
-    --bg-accent: #f0f9ff;
-    --green-50: #f0fdf4;
-    --green-100: #dcfce7;
-    --green-500: #22c55e;
-    --orange-50: #fff7ed;
-    --orange-100: #ffedd5;
-    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-    --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-    --border-radius: 12px;
-    --border-radius-sm: 6px;
-    --border-radius-lg: 16px;
-    --transition: all 0.2s ease-in-out;
+    /* 濃紺ベースカラー */
+    --primary-navy: #0f172a;
+    --primary-deep: #1e293b;
+    --primary-mid: #334155;
+    --primary-light: #64748b;
+    
+    /* アクセントカラー */
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-emerald: #10b981;
+    --accent-white: #f8fafc;
+    
+    /* テキストカラー */
+    --text-primary: #f8fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dark: #1e293b;
+    
+    /* 背景色 */
+    --bg-primary: #0f172a;
+    --bg-glass: rgba(248, 250, 252, 0.05);
+    --bg-glass-light: rgba(248, 250, 252, 0.1);
+    --bg-glass-strong: rgba(248, 250, 252, 0.15);
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --bg-overlay: rgba(15, 23, 42, 0.8);
+    
+    /* ガラス効果 */
+    --glass-border: rgba(248, 250, 252, 0.2);
+    --glass-highlight: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    
+    /* シャドウ */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 16px 64px rgba(0, 0, 0, 0.4);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* ボーダー半径 */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    /* トランジション */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease;
 }
 
 /* 基本設定 */
 body {
     font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.8;
-    color: var(--text-dark);
-    background: var(--bg-warm);
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
     font-weight: 400;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .container {
@@ -49,584 +88,356 @@ body {
     padding: 0 20px;
 }
 
-/* ヘッダー */
-header {
-    background: var(--bg-primary);
-    border-bottom: 2px solid var(--green-100);
-    box-shadow: var(--shadow-soft);
-    position: fixed;
+/* ガラス効果の基本スタイル */
+.glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    position: relative;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    height: 1px;
+    background: var(--glass-highlight);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+/* ヘッダー */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
     transition: var(--transition);
 }
 
 .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 20px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 76px;
 }
 
 .logo-image {
-    height: 52px;
+    height: 50px;
     width: auto;
-    transition: var(--transition);
+    filter: brightness(1.2) contrast(1.1);
+    transition: var(--transition-fast);
 }
 
 .logo-image:hover {
-    opacity: 0.8;
+    transform: scale(1.05);
+    filter: brightness(1.3) contrast(1.2);
 }
 
 /* ナビゲーション */
 .main-nav ul {
     display: flex;
     list-style: none;
-    gap: 40px;
+    gap: 2rem;
     align-items: center;
 }
 
 .main-nav a {
+    color: var(--text-primary);
     text-decoration: none;
-    color: var(--text-medium);
     font-weight: 500;
-    font-size: 15px;
-    padding: 12px 16px;
-    border-radius: var(--border-radius-sm);
-    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
     transition: var(--transition);
-    letter-spacing: 0.01em;
+    position: relative;
+    backdrop-filter: blur(10px);
 }
 
 .main-nav a:hover {
-    color: var(--primary-color);
-    background-color: var(--green-50);
+    background: var(--bg-glass);
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
 }
 
+/* ドロップダウンメニュー */
 .dropdown {
     position: relative;
 }
 
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 20px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-primary);
-    box-shadow: var(--shadow-medium);
-    min-width: auto;
-    border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: row;
-    border: 1px solid var(--text-muted);
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
     transition: var(--transition);
+    box-shadow: var(--shadow-glass);
     z-index: 1001;
-    overflow: hidden;
 }
 
 .dropdown:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
-.dropdown-menu li {
-    position: relative;
-    white-space: nowrap;
-}
-
-.dropdown-menu a {
+.dropdown-menu li a {
     display: block;
-    padding: 16px 20px;
-    font-size: 14px;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: var(--transition);
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    border-radius: 0;
+    margin: 0 0.5rem;
 }
 
-.dropdown-menu a::after {
-    display: none;
+.dropdown-menu li a:hover {
+    background: var(--bg-glass-light);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    transform: translateX(5px);
 }
 
-.dropdown-menu a:hover {
-    background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(37, 99, 235, 0.05) 100%);
-    color: var(--primary-color);
-    transform: translateX(4px);
-}
-
-/* モバイルメニュー */
+/* モバイルメニュートグル */
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    width: 30px;
-    height: 24px;
-    justify-content: space-between;
+    padding: 0.5rem;
+    background: var(--bg-glass);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
 }
 
 .mobile-menu-toggle span {
-    width: 100%;
+    width: 25px;
     height: 3px;
-    background-color: #333;
-    transition: all 0.3s ease;
+    background: var(--text-primary);
+    margin: 3px 0;
+    transition: var(--transition-fast);
+    border-radius: 2px;
 }
 
-/* メインコンテンツ */
-main {
-    margin-top: 90px;
+.mobile-menu-toggle:hover {
+    background: var(--bg-glass-light);
+    transform: scale(1.05);
 }
 
 /* ヒーローセクション */
 .hero {
-    background: var(--bg-primary);
-    padding: 100px 0;
-    min-height: 600px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     position: relative;
-    margin-top: 76px;
+    padding: 120px 0 80px;
+    background: transparent;
     overflow: hidden;
 }
 
-.hero .container {
-    position: relative;
-    z-index: 2;
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(248,250,252,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
 }
 
 .hero-content {
-    max-width: 600px;
     position: relative;
-    z-index: 3;
+    z-index: 2;
+    text-align: center;
 }
 
-.hero-content h2 {
-    font-size: 48px;
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 24px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+    animation: fadeInUp 1s ease;
 }
 
-.hero-content p {
-    font-size: 18px;
-    color: var(--text-medium);
-    margin-bottom: 36px;
-    line-height: 1.7;
-    font-weight: 400;
+.hero p {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s 0.2s ease both;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-}
-
+/* ボタン */
 .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 16px 32px;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--bg-glass);
+    color: var(--text-primary);
     text-decoration: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-lg);
     font-weight: 600;
-    font-size: 16px;
-    transition: var(--transition);
-    border: 2px solid transparent;
-    letter-spacing: 0.01em;
-    box-shadow: var(--shadow-soft);
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
-}
-
-.btn-secondary {
-    background: var(--bg-primary);
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.btn-secondary:hover {
-    background: var(--primary-color);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
-}
-
-.btn-outline {
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    padding: 14px 28px;
-    font-size: 15px;
-}
-
-.btn-outline:hover {
-    background: var(--primary-gradient);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-.hero-image {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    width: 700px;
-    height: 500px;
-}
-
-.hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-large);
-    transition: var(--transition);
-}
-
-.hero-image img:hover {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-large);
-}
-
-/* セクション共通スタイル */
-section {
-    padding: 120px 0;
-    position: relative;
-}
-
-section h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-align: center;
-    margin-bottom: 60px;
-    letter-spacing: -0.01em;
-    position: relative;
-}
-
-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: -16px;
-    left: 50%;
-    width: 60px;
-    height: 2px;
-    background: var(--primary-color);
-    border-radius: 1px;
-    transform: translateX(-50%);
-}
-
-/* 診療科目セクション */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 48px;
-}
-
-.service-card {
-    background: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 48px 40px;
-    border-radius: var(--border-radius);
-    text-align: center;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
-.service-card::before {
+.btn::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-gradient);
-    transform: scaleX(0);
-    transition: var(--transition);
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
 }
 
-.service-card:hover::before {
-    transform: scaleX(1);
+.btn:hover::before {
+    left: 100%;
 }
 
-.service-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-xl);
+.btn:hover {
+    background: var(--bg-glass-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
 }
 
-.service-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 32px;
-    background: linear-gradient(135deg, rgba(26, 54, 93, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+    color: white;
+}
+
+/* セクション */
+.section {
+    padding: 5rem 0;
     position: relative;
 }
 
-.service-icon::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: var(--primary-gradient);
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.service-card:hover .service-icon::after {
-    opacity: 0.1;
-}
-
-.service-icon img {
-    width: 48px;
-    height: 48px;
-}
-
-.service-card h3 {
-    font-size: 26px;
+.section h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 20px;
-    letter-spacing: -0.01em;
-}
-
-.service-card p {
-    font-size: 16px;
-    color: var(--text-light);
-    line-height: 1.7;
-    font-weight: 400;
-}
-
-/* お知らせセクション */
-.news {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(237, 242, 247, 0.5) 100%);
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
     position: relative;
 }
 
-.news::before {
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    border-radius: 2px;
+}
+
+/* カード */
+.card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-glass);
+}
+
+.card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="10" cy="90" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    pointer-events: none;
+    height: 1px;
+    background: var(--glass-highlight);
 }
 
-.news-list {
-    max-width: 800px;
-    margin: 0 auto;
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    background: var(--bg-glass-light);
+    border-color: var(--accent-cyan);
 }
 
-.news-item {
-    background-color: #fff;
-    padding: 30px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border-left: 4px solid #2c5282;
-}
-
-.news-item:last-child {
-    margin-bottom: 0;
-}
-
-.news-item time {
-    display: inline-block;
-    font-size: 14px;
-    color: #666;
-    background-color: #f0f7ff;
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.news-item h3 {
-    font-size: 18px;
+.card h3 {
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
 }
 
-.news-item h3 a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s ease;
+.card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
 }
 
-.news-item h3 a:hover {
-    color: #2c5282;
-}
-
-.news-item p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
-}
-
-.news-more {
-    text-align: center;
-    margin-top: 40px;
-}
-
-/* 特徴セクション */
-.features-grid {
+/* グリッドレイアウト */
+.grid {
     display: grid;
+    gap: 2rem;
+}
+
+.grid-2 {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
 }
 
-.feature-item {
-    text-align: center;
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.feature-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    background-color: #f0f7ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.feature-icon img {
-    width: 50px;
-    height: 50px;
-}
-
-.feature-item h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #2c5282;
-    margin-bottom: 15px;
-}
-
-.feature-item p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* 医師紹介セクション */
-.doctor-profile {
-    background-color: #f8fafc;
-}
-
-.doctor-info {
-    display: flex;
-    gap: 60px;
-    align-items: flex-start;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.doctor-photo {
-    flex-shrink: 0;
-}
-
-.doctor-photo img {
-    width: 300px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.doctor-details {
-    flex: 1;
-}
-
-.doctor-details h3 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #2c5282;
-    margin-bottom: 10px;
-}
-
-.doctor-title {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 30px;
-}
-
-.doctor-credentials,
-.doctor-career,
-.doctor-message {
-    margin-bottom: 30px;
-}
-
-.doctor-credentials h4,
-.doctor-career h4,
-.doctor-message h4 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.doctor-credentials ul,
-.doctor-career ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.doctor-credentials li,
-.doctor-career li {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
-}
-
-.doctor-credentials li::before,
-.doctor-career li::before {
-    content: "•";
-    color: #2c5282;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-}
-
-.doctor-message p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.6;
+.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 /* フッター */
 footer {
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: 60px 0 20px;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 3rem 0 1rem;
+    margin-top: 5rem;
 }
 
 .footer-container {
@@ -636,94 +447,165 @@ footer {
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    gap: 60px;
-    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .clinic-info h3 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
 
 .contact-info p {
-    margin-bottom: 8px;
-    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
 }
 
 .contact-info a {
-    color: #fff;
+    color: var(--accent-cyan);
     text-decoration: none;
+    transition: var(--transition-fast);
 }
 
 .contact-info a:hover {
-    text-decoration: underline;
+    color: var(--text-primary);
+    text-shadow: 0 0 8px var(--accent-cyan);
 }
 
-.footer-hours h4 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    color: var(--primary-color);
-}
-
+/* 診療時間テーブル */
 .footer-hours table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    margin: 1rem 0;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
 }
 
 .footer-hours th,
 .footer-hours td {
-    padding: 8px 12px;
+    padding: 0.75rem 0.5rem;
     text-align: center;
-    border: 1px solid var(--text-muted);
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .footer-hours th {
-    background-color: var(--primary-color);
-    color: white;
+    background: var(--bg-glass-strong);
+    color: var(--text-primary);
     font-weight: 600;
-}
-
-.footer-hours td {
-    color: var(--text-dark);
-    background-color: white;
-}
-
-.footer-hours td:first-child {
-    text-align: left;
-    font-weight: 500;
-    background-color: var(--green-100);
-    color: var(--primary-color);
-}
-
-.hours-note {
-    font-size: 12px;
-    color: #cbd5e0;
-    margin-top: 10px;
 }
 
 .footer-bottom {
     text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-muted);
+}
+
+/* パンくずナビ */
+.breadcrumb-section {
+    padding: 120px 0 2rem;
+    background: transparent;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    align-items: center;
+    background: var(--bg-glass);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+}
+
+.breadcrumb a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.breadcrumb a:hover {
+    color: var(--text-primary);
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: '→';
+    margin-left: 0.5rem;
+    color: var(--text-muted);
+}
+
+/* ページヘッダー */
+.page-header {
+    text-align: center;
+    padding: 4rem 0;
+    position: relative;
+    background: var(--bg-glass);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    margin: 2rem 0 4rem;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-emerald));
+}
+
+.page-header h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glassShine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
-    .header-container {
-        padding: 0 15px;
-    }
-    
-    .logo-image {
-        height: 45px;
-    }
-    
     .main-nav {
         display: none;
     }
@@ -733,72 +615,35 @@ footer {
     }
     
     .hero {
-        padding: 60px 0;
-        overflow: visible;
+        padding: 120px 0 60px;
+        min-height: 80vh;
     }
     
-    .hero-content {
-        max-width: 100%;
-        text-align: center;
-        z-index: 3;
+    .hero h1 {
+        font-size: 2.5rem;
     }
     
-    .hero-image {
-        position: static;
-        transform: none;
-        width: 100%;
-        height: 300px;
-        margin-top: 40px;
-        right: auto;
+    .section {
+        padding: 3rem 0;
     }
     
-    .hero-content h2 {
-        font-size: 36px;
+    .card {
+        padding: 1.5rem;
     }
     
-    .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
+    .grid {
+        gap: 1.5rem;
     }
     
-    section {
-        padding: 60px 0;
-    }
-    
-    section h2 {
-        font-size: 28px;
-        margin-bottom: 40px;
-    }
-    
-    .services-grid,
-    .features-grid {
+    .grid-2,
+    .grid-3,
+    .grid-4 {
         grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .doctor-info {
-        flex-direction: column;
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .doctor-photo img {
-        width: 250px;
-        height: 300px;
     }
     
     .footer-content {
-        flex-direction: column;
-        gap: 40px;
-    }
-    
-    .footer-hours table {
-        font-size: 12px;
-    }
-    
-    .footer-hours th,
-    .footer-hours td {
-        padding: 6px 8px;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -807,1091 +652,61 @@ footer {
         padding: 0 15px;
     }
     
-    .hero-content h2 {
-        font-size: 32px;
+    .hero {
+        padding: 100px 0 40px;
     }
     
-    .hero-content p {
-        font-size: 16px;
+    .card {
+        padding: 1.25rem;
     }
     
     .btn {
-        padding: 14px 28px;
-        font-size: 15px;
-    }
-    
-    .service-card,
-    .news-item {
-        padding: 32px 24px;
-    }
-    
-    .doctor-photo img {
-        width: 200px;
-        height: 240px;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
     }
 }
 
-/* アニメーション用CSS */
-.animate-element {
-    opacity: 0;
-    transform: translateY(60px) scale(0.9);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.animate-element.animate-in {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* スタッガードアニメーション */
-.services-grid .service-card:nth-child(1) {
-    transition-delay: 0ms;
-}
-
-.services-grid .service-card:nth-child(2) {
-    transition-delay: 150ms;
-}
-
-.services-grid .service-card:nth-child(3) {
-    transition-delay: 300ms;
-}
-
-.features-grid .feature-item:nth-child(1) {
-    transition-delay: 0ms;
-}
-
-.features-grid .feature-item:nth-child(2) {
-    transition-delay: 150ms;
-}
-
-.features-grid .feature-item:nth-child(3) {
-    transition-delay: 300ms;
-}
-
-/* グローバルスタイルの改善 */
-::selection {
-    background: var(--accent-color);
-    color: white;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-gradient);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
-
-/* プリローダー */
-.preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 1;
-    visibility: visible;
-    transition: var(--transition);
-}
-
-.preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.preloader-spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid transparent;
-    border-top: 3px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* 診療時間 */
-.clinic-hours {
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-}
-
-.hours-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 60px;
-    align-items: start;
-}
-
-.hours-table {
-    background: var(--bg-primary);
-    border-radius: var(--border-radius);
-    padding: 32px;
-    box-shadow: var(--shadow-medium);
-    border: 1px solid var(--text-muted);
-}
-
-.hours-table table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
-}
-
-.hours-table th {
-    background: var(--primary-color);
-    color: white;
-    padding: 16px 12px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 14px;
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.hours-table th:first-child {
-    text-align: center;
-    min-width: 120px;
-}
-
-.hours-table td {
-    padding: 16px 12px;
-    text-align: center;
-    border-bottom: 1px solid var(--text-muted);
-    font-weight: 500;
-    color: var(--text-dark);
-    background: white;
-}
-
-.hours-table tr:nth-child(even) td {
-    background: #f8fffe;
-}
-
-.hours-table .time-period {
-    text-align: center !important;
-    font-weight: 600;
-    color: var(--primary-color);
-    background: var(--green-100);
-    font-size: 15px;
-}
-
-.hours-table .time {
-    display: block;
-    font-size: 13px;
-    color: var(--text-light);
-    font-weight: 500;
-    margin-top: 4px;
-    opacity: 0.8;
-}
-
-.hours-table .available {
-    color: #16a34a;
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.hours-table .unavailable {
-    color: #dc2626;
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.hours-table .partial {
-    color: #f59e0b;
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.hours-info {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
-.hours-note, .reservation-info {
-    background: var(--bg-primary);
-    padding: 24px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--text-muted);
-    transition: var(--transition);
-}
-
-.hours-note:hover, .reservation-info:hover {
-    box-shadow: var(--shadow-medium);
-}
-
-.hours-note h3, .reservation-info h3 {
-    color: var(--primary-color);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-}
-
-.hours-note h3::before {
-    content: '⏰';
-    margin-right: 8px;
-    font-size: 18px;
-}
-
-.reservation-info h3::before {
-    content: '📞';
-    margin-right: 8px;
-    font-size: 18px;
-}
-
-.hours-note p, .reservation-info p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-.reception-hours {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--text-muted);
-}
-
-.reception-hours h4 {
-    color: var(--primary-color);
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.reception-hours h4::before {
-    content: '🕒';
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-.reception-hours p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--text-medium);
-    font-weight: 500;
-}
-
-.phone-reservation {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-    padding: 16px;
-    background: var(--primary-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.phone-reservation:hover {
-    background: var(--primary-light);
-    box-shadow: var(--shadow-medium);
-}
-
-.phone-icon {
-    font-size: 18px;
-}
-
-.phone-number {
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-    letter-spacing: 0.02em;
-}
-
-/* アクセスセクション */
-.access {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(237, 242, 247, 0.5) 100%);
-}
-
-.access-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-}
-
-.access-info {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.clinic-address,
-.access-transport,
-.parking-info {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 32px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.clinic-address h3,
-.access-transport h3,
-.parking-info h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.clinic-address h3::before {
-    content: "📍";
-    font-size: 18px;
-}
-
-.access-transport h3::before {
-    content: "🚃";
-    font-size: 18px;
-}
-
-.parking-info h3::before {
-    content: "🅿️";
-    font-size: 18px;
-}
-
-.clinic-address p,
-.parking-info p {
-    color: var(--text-light);
-    line-height: 1.8;
-    font-size: 16px;
-}
-
-.access-transport ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.access-transport li {
-    color: var(--text-light);
-    font-size: 16px;
-    margin-bottom: 12px;
-    padding-left: 24px;
-    position: relative;
-    line-height: 1.6;
-}
-
-.access-transport li::before {
-    content: "→";
-    color: var(--primary-color);
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-}
-
-.access-map {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 32px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* お問い合わせセクション */
-.contact {
-    background: var(--bg-primary);
-}
-
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 60px;
-    align-items: start;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
-.contact-item {
-    background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(0, 212, 170, 0.05) 100%);
-    padding: 32px;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(26, 54, 93, 0.1);
-}
-
-.contact-item h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 16px;
-}
-
-.phone-number {
-    font-size: 32px;
-    font-weight: 800;
-    margin: 16px 0;
-}
-
-.phone-number a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.phone-number a:hover {
-    color: var(--accent-color);
-}
-
-.phone-hours {
-    color: var(--text-light);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.contact-form {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 48px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.contact-form h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 32px;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 24px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-    font-size: 15px;
-}
-
-.required {
-    color: #e53e3e;
-    font-weight: bold;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 16px;
-    border: 2px solid rgba(26, 54, 93, 0.1);
-    border-radius: var(--border-radius-sm);
-    font-size: 16px;
-    font-family: inherit;
-    transition: var(--transition);
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.form-submit {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.form-submit .btn {
-    padding: 20px 48px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .hours-content,
-    .access-content,
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
-    
-    .hours-table {
-        border-radius: 16px;
-    }
-    
-    .hours-table th {
-        padding: 16px 8px;
-        font-size: 13px;
-    }
-    
-    .hours-table th:first-child {
-        min-width: 80px;
-        border-radius: 16px 0 0 0;
-    }
-    
-    .hours-table th:last-child {
-        border-radius: 0 16px 0 0;
-    }
-    
-    .hours-table td {
-        padding: 16px 8px;
-        font-size: 14px;
-    }
-    
-    .hours-table .time-period {
-        font-size: 14px;
-    }
-    
-    .hours-table .time {
-        font-size: 11px;
-    }
-    
-    .hours-table .available,
-    .hours-table .unavailable {
-        font-size: 16px;
-    }
-    
-    .hours-note, .reservation-info {
-        padding: 24px;
-        border-radius: 16px;
-    }
-    
-    .hours-note h3, .reservation-info h3 {
-        font-size: 18px;
-    }
-    
-    .phone-reservation {
-        padding: 16px;
-        border-radius: 12px;
-    }
-    
-    .phone-number {
-        font-size: 18px;
-    }
-    
-    .access-info {
-        gap: 24px;
-    }
-    
-    .clinic-address,
-    .access-transport,
-    .parking-info,
-    .contact-item,
-    .contact-form {
-        padding: 24px;
-    }
-    
-    .phone-number {
-        font-size: 24px;
-    }
-    
-    .contact-form {
-        padding: 32px 24px;
-    }
-    
-    .main-nav.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(20px);
-        box-shadow: var(--shadow-xl);
-        border-radius: 0 0 var(--border-radius) var(--border-radius);
-        padding: 20px 0;
-        z-index: 1000;
-    }
-    
-    .main-nav.active ul {
-        flex-direction: column;
-        gap: 0;
-        width: 100%;
-    }
-    
-    .main-nav.active li {
-        width: 100%;
-    }
-    
-    .main-nav.active a {
-        display: block;
-        padding: 16px 32px;
-        border-bottom: 1px solid rgba(26, 54, 93, 0.1);
-    }
-    
-    .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
+}
+
+/* ホバー効果が使えないデバイス対応 */
+@media (hover: none) {
+    .card:hover {
         transform: none;
+    }
+    
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* ダークモード対応準備 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* プリント対応 */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card {
+        background: white;
+        border: 1px solid #ccc;
         box-shadow: none;
-        background: rgba(247, 250, 252, 0.9);
-        margin-top: 0;
-        border-radius: 0;
-        border: none;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
     }
     
-    .dropdown.active .dropdown-menu {
-        max-height: 200px;
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-}
-
-/* クリニック紹介ページ専用スタイル */
-
-/* パンくずナビ */
-.breadcrumb-section {
-    background: var(--bg-secondary);
-    padding: 20px 0;
-    margin-top: 76px;
-}
-
-.breadcrumb ol {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-}
-
-.breadcrumb li {
-    margin-right: 16px;
-    position: relative;
-}
-
-.breadcrumb li:not(:last-child)::after {
-    content: '>';
-    margin-left: 16px;
-    color: var(--text-light);
-}
-
-.breadcrumb a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.breadcrumb a:hover {
-    color: var(--accent-color);
-}
-
-.breadcrumb li:last-child {
-    color: var(--text-medium);
-}
-
-/* ページヘッダー */
-.page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-    color: white;
-    padding: 80px 0;
-    text-align: center;
-}
-
-.page-header h1 {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-}
-
-.page-header p {
-    font-size: 18px;
-    opacity: 0.9;
-    font-weight: 400;
-}
-
-/* 院長紹介セクション */
-.doctor-introduction {
-    padding: 120px 0;
-    background: var(--bg-primary);
-}
-
-.doctor-profile-detail {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 80px;
-    align-items: start;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.doctor-photo-large {
-    position: sticky;
-    top: 120px;
-}
-
-.doctor-photo-large img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    object-fit: cover;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-large);
-}
-
-.doctor-info-detail h3 {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 12px;
-}
-
-.doctor-title {
-    font-size: 16px;
-    color: var(--text-medium);
-    margin-bottom: 40px;
-    font-weight: 500;
-}
-
-.doctor-greeting,
-.doctor-credentials-detail,
-.doctor-career-detail {
-    margin-bottom: 48px;
-}
-
-.doctor-greeting h4,
-.doctor-credentials-detail h4,
-.doctor-career-detail h4 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.doctor-greeting h4::before {
-    content: '💬';
-    margin-right: 8px;
-}
-
-.doctor-credentials-detail h4::before {
-    content: '🏆';
-    margin-right: 8px;
-}
-
-.doctor-career-detail h4::before {
-    content: '📋';
-    margin-right: 8px;
-}
-
-.doctor-greeting p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text-medium);
-    margin-bottom: 16px;
-}
-
-.doctor-credentials-detail ul,
-.doctor-career-detail ul {
-    list-style: none;
-    padding: 0;
-}
-
-.doctor-credentials-detail li,
-.doctor-career-detail li {
-    font-size: 16px;
-    color: var(--text-medium);
-    margin-bottom: 12px;
-    padding-left: 24px;
-    position: relative;
-    line-height: 1.6;
-}
-
-.doctor-credentials-detail li::before,
-.doctor-career-detail li::before {
-    content: "✓";
-    color: var(--primary-color);
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-}
-
-/* 診療時間詳細セクション */
-.clinic-hours-detail {
-    padding: 120px 0;
-    background: var(--bg-secondary);
-}
-
-.hours-content-detail {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 80px;
-    align-items: start;
-}
-
-.hours-table-detail {
-    background: var(--bg-primary);
-    border-radius: var(--border-radius);
-    padding: 40px;
-    box-shadow: var(--shadow-medium);
-}
-
-.hours-table-detail table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-}
-
-.hours-table-detail th {
-    background: var(--primary-color);
-    color: white;
-    padding: 20px 12px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.hours-table-detail td {
-    padding: 20px 12px;
-    text-align: center;
-    border-bottom: 1px solid var(--text-muted);
-    font-weight: 500;
-    color: var(--text-dark);
-    background: white;
-}
-
-.hours-info-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.hours-note-detail,
-.special-note {
-    background: var(--bg-primary);
-    padding: 32px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-}
-
-.hours-note-detail h3,
-.special-note h4 {
-    color: var(--primary-color);
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.special-note {
-    border-left-color: #f59e0b;
-    border-left-width: 4px;
-    border-left-style: solid;
-}
-
-.special-note h4 {
-    color: #f59e0b;
-}
-
-/* 院内設備セクション */
-.clinic-facilities {
-    padding: 120px 0;
-    background: var(--bg-primary);
-}
-
-.facilities-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
-}
-
-.facility-item {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
-    align-items: center;
-    background: var(--bg-secondary);
-    padding: 40px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition);
-}
-
-.facility-item:nth-child(even) {
-    grid-template-columns: 2fr 1fr;
-}
-
-.facility-item:nth-child(even) .facility-image {
-    order: 2;
-}
-
-.facility-item:nth-child(even) .facility-content {
-    order: 1;
-}
-
-.facility-item:hover {
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-4px);
-}
-
-.facility-image img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: var(--border-radius);
-}
-
-.facility-content h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 16px;
-}
-
-.facility-content p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text-medium);
-}
-
-/* 院内風景ギャラリー */
-.clinic-gallery {
-    padding: 120px 0;
-    background: var(--bg-secondary);
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 32px;
-}
-
-.gallery-item {
-    position: relative;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-medium);
-    transition: var(--transition);
-}
-
-.gallery-item:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-large);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    transition: var(--transition);
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    color: white;
-    padding: 32px 24px 24px;
-    transform: translateY(100%);
-    transition: var(--transition);
-}
-
-.gallery-item:hover .gallery-overlay {
-    transform: translateY(0);
-}
-
-.gallery-overlay h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.gallery-overlay p {
-    font-size: 14px;
-    opacity: 0.9;
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .page-header h1 {
-        font-size: 36px;
-    }
-    
-    .doctor-profile-detail {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .doctor-photo-large {
-        position: static;
-    }
-    
-    .hours-content-detail {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .facility-item,
-    .facility-item:nth-child(even) {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    
-    .facility-item:nth-child(even) .facility-image {
-        order: 1;
-    }
-    
-    .facility-item:nth-child(even) .facility-content {
-        order: 2;
-    }
-    
-    .gallery-grid {
-        grid-template-columns: 1fr;
+    header, footer {
+        display: none;
     }
 }

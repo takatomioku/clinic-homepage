@@ -5,63 +5,82 @@
     box-sizing: border-box;
 }
 
-/* カスタムプロパティ（CSS変数） - 濃紺×ガラス質感×清潔×洗練デザイン */
+/* カスタムプロパティ（CSS変数） - 濃紺×ガラス質感×洗練された大人の雰囲気 */
 :root {
-    /* 濃紺ベースカラー */
-    --primary-navy: #0f172a;
-    --primary-deep: #1e293b;
-    --primary-mid: #334155;
-    --primary-light: #64748b;
+    /* プライマリ濃紺カラー - より深く洗練された色調 */
+    --primary-navy: #0a0e1a;
+    --primary-deep: #161b2e;
+    --primary-mid: #242b42;
+    --primary-light: #3b4463;
+    --primary-slate: #4a5568;
     
-    /* アクセントカラー */
-    --accent-blue: #3b82f6;
-    --accent-cyan: #06b6d4;
-    --accent-emerald: #10b981;
-    --accent-white: #f8fafc;
+    /* アクセントカラー - より上品で控えめな色調 */
+    --accent-platinum: #e2e8f0;
+    --accent-silver: #cbd5e0;
+    --accent-blue: #4299e1;
+    --accent-cyan: #0891b2;
+    --accent-emerald: #059669;
+    --accent-gold: #d69e2e;
     
-    /* テキストカラー */
-    --text-primary: #f8fafc;
+    /* テキストカラー - 階層をより明確に */
+    --text-primary: #f7fafc;
     --text-secondary: #e2e8f0;
-    --text-muted: #94a3b8;
-    --text-dark: #1e293b;
+    --text-muted: #a0aec0;
+    --text-subtle: #718096;
+    --text-dark: #0a0e1a;
     
-    /* 背景色 */
-    --bg-primary: #0f172a;
-    --bg-glass: rgba(248, 250, 252, 0.05);
-    --bg-glass-light: rgba(248, 250, 252, 0.1);
-    --bg-glass-strong: rgba(248, 250, 252, 0.15);
-    --bg-card: rgba(30, 41, 59, 0.7);
-    --bg-overlay: rgba(15, 23, 42, 0.8);
+    /* 背景色 - より洗練されたガラス効果 */
+    --bg-primary: linear-gradient(135deg, #0a0e1a 0%, #161b2e 50%, #242b42 100%);
+    --bg-glass: rgba(247, 250, 252, 0.03);
+    --bg-glass-light: rgba(247, 250, 252, 0.08);
+    --bg-glass-strong: rgba(247, 250, 252, 0.12);
+    --bg-card: rgba(22, 27, 46, 0.6);
+    --bg-overlay: rgba(10, 14, 26, 0.85);
+    --bg-surface: rgba(36, 43, 66, 0.4);
     
-    /* ガラス効果 */
-    --glass-border: rgba(248, 250, 252, 0.2);
-    --glass-highlight: rgba(255, 255, 255, 0.1);
-    --glass-shadow: rgba(0, 0, 0, 0.3);
+    /* ガラス効果 - より繊細で高級感のある効果 */
+    --glass-border: rgba(226, 232, 240, 0.15);
+    --glass-border-light: rgba(226, 232, 240, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.25);
+    --glass-glow: rgba(67, 153, 225, 0.1);
     
-    /* シャドウ */
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 16px 64px rgba(0, 0, 0, 0.4);
-    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    /* シャドウ - より立体感のある影 */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(67, 153, 225, 0.1);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --shadow-deep: 0 25px 80px rgba(0, 0, 0, 0.6);
     
-    /* ボーダー半径 */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
+    /* ボーダー半径 - より滑らかで洗練された角 */
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-2xl: 32px;
     
-    /* トランジション */
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.2s ease;
+    /* トランジション - よりスムーズな動き */
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* スペーシング - より余白を意識した設計 */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    --space-3xl: 6rem;
 }
 
 /* 基本設定 */
 body {
     font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.7;
+    line-height: 1.8;
     color: var(--text-primary);
-    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
+    background: var(--bg-primary);
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.025em;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -74,28 +93,35 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
+        radial-gradient(ellipse at 15% 40%, rgba(67, 153, 225, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 85% 20%, rgba(8, 145, 178, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 85%, rgba(5, 150, 105, 0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(214, 158, 46, 0.04) 0%, transparent 45%),
+        conic-gradient(from 180deg at 50% 50%, 
+            var(--primary-navy) 0deg, 
+            var(--primary-deep) 90deg, 
+            var(--primary-mid) 180deg, 
+            var(--primary-deep) 270deg, 
+            var(--primary-navy) 360deg);
     pointer-events: none;
     z-index: -1;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--space-xl);
 }
 
-/* ガラス効果の基本スタイル */
+/* ガラス効果の基本スタイル - より洗練された質感 */
 .glass {
     background: var(--bg-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px) saturate(1.2);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-glass);
     position: relative;
+    overflow: hidden;
 }
 
 .glass::before {
@@ -104,9 +130,25 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: var(--glass-highlight);
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--glass-highlight) 20%, 
+        var(--accent-platinum) 50%, 
+        var(--glass-highlight) 80%, 
+        transparent 100%);
+    opacity: 0.6;
+}
+
+.glass::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, var(--glass-glow) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 /* ヘッダー */
@@ -344,10 +386,11 @@ header {
     color: white;
 }
 
-/* セクション */
+/* セクション - より余白を意識したレイアウト */
 .section {
-    padding: 5rem 0;
+    padding: var(--space-3xl) 0;
     position: relative;
+    margin: var(--space-lg) 0;
 }
 
 .section h2 {
@@ -371,13 +414,15 @@ header {
     border-radius: 2px;
 }
 
-/* カード */
+/* カード - より洗練されたガラス効果 */
 .card {
     background: var(--bg-glass);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px) saturate(1.1);
+    -webkit-backdrop-filter: blur(24px) saturate(1.1);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin: var(--space-md);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -390,15 +435,37 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: var(--glass-highlight);
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--glass-highlight) 30%, 
+        var(--accent-silver) 50%, 
+        var(--glass-highlight) 70%, 
+        transparent 100%);
+    opacity: 0.7;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, var(--glass-glow) 0%, transparent 60%);
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(1.02);
     box-shadow: var(--shadow-hover);
     background: var(--bg-glass-light);
-    border-color: var(--accent-cyan);
+    border-color: var(--accent-platinum);
+}
+
+.card:hover::after {
+    opacity: 0.8;
 }
 
 .card h3 {
@@ -413,22 +480,30 @@ header {
     line-height: 1.8;
 }
 
-/* グリッドレイアウト */
+/* グリッドレイアウト - より余白を意識したレイアウト */
 .grid {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-2xl);
+}
+
+.grid-1 {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
 }
 
 .grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-2xl);
 }
 
 .grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-2xl);
 }
 
 .grid-4 {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-xl);
 }
 
 /* フッター */

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>診療案内 - おく内科消化器クリニック | 帯広市の内科・消化器内科・内視鏡内科</title>
-    <meta name="description" content="おく内科消化器クリニックの診療案内。内科、消化器内科、内視鏡検査、健康診断など幅広い診療内容をご紹介。専門医による丁寧な診察と最新設備での検査を提供しています。">
-    <meta name="keywords" content="おく内科消化器クリニック,診療案内,内科,消化器内科,内視鏡検査,健康診断,帯広市">
+    <meta name="description" content="おく内科消化器クリニックの診療案内。内科、消化器内科、内視鏡検査など幅広い診療内容をご紹介。専門医による丁寧な診察と最新設備での検査を提供しています。">
+    <meta name="keywords" content="おく内科消化器クリニック,診療案内,内科,消化器内科,内視鏡検査,帯広市">
     <meta property="og:title" content="診療案内 - おく内科消化器クリニック">
     <meta property="og:description" content="内科・消化器内科・内視鏡検査などの診療案内。専門医による質の高い医療を提供します。">
     <meta property="og:type" content="website">
@@ -13,8 +13,440 @@
     <link rel="canonical" href="https://www.oku-clinic.com/medical-services.html">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 診療案内専用スタイル */
+        .medical-services-page {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><path d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,133-24.9C337.9,20.2,399.3,9,421.9,6.5z"/></svg>') no-repeat bottom center;
+            background-size: cover;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-overview {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .service-icon img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .service-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .conditions-list {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .conditions-list h4 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .conditions-list h4::before {
+            content: '🏥';
+            font-size: 1.5rem;
+        }
+        
+        .conditions-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .conditions-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .conditions-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .conditions-list li::before {
+            content: '✓';
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .symptoms-list h4::before {
+            content: '⚕️';
+        }
+        
+        .symptoms-list li::before {
+            content: '📋';
+        }
+        
+        /* 内視鏡セクション特別スタイル */
+        .endoscopy-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 80px 0;
+            color: white;
+        }
+        
+        .endoscopy-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .endoscopy-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 40px;
+            color: #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .endoscopy-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .endoscopy-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .endoscopy-card h3 {
+            color: #333;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+        
+        .endoscopy-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .endoscopy-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .endoscopy-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .endoscopy-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        .endoscopy-details h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .endoscopy-details h4:first-of-type::before {
+            content: '⭐';
+        }
+        
+        .endoscopy-details h4:last-of-type::before {
+            content: '👥';
+        }
+        
+        .endoscopy-details ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+        
+        .endoscopy-details li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .endoscopy-details li::before {
+            content: '▶️';
+            font-size: 0.8rem;
+        }
+        
+        /* 検査の流れ */
+        .examination-flow {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .examination-flow h3 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .flow-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .flow-step h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .flow-step p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 予約情報セクション */
+        .appointment-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card h3::before {
+            content: '📞';
+            font-size: 1.5rem;
+        }
+        
+        .info-card:nth-child(2) h3::before {
+            content: '📋';
+        }
+        
+        .info-card:nth-child(3) h3::before {
+            content: '⚠️';
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card li::before {
+            content: '•';
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+        
+        .phone {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .phone a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .phone a:hover {
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .service-card {
+                padding: 30px;
+            }
+            
+            .endoscopy-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .endoscopy-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .flow-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="medical-services-page">
     <header>
         <div class="header-container">
             <div class="logo">
@@ -38,7 +470,6 @@
                             <li><a href="#internal">内科</a></li>
                             <li><a href="#gastroenterology">消化器内科</a></li>
                             <li><a href="#endoscopy">内視鏡内科</a></li>
-                            <li><a href="#healthcheck">健康診断</a></li>
                         </ul>
                     </li>
                     <li><a href="index.html#access">アクセス</a></li>
@@ -69,265 +500,184 @@
         <section class="page-header">
             <div class="container">
                 <h1>診療案内</h1>
-                <p>幅広い診療内容で地域の皆様の健康をサポートいたします</p>
+                <p>専門医による質の高い医療で、地域の皆様の健康をサポートいたします</p>
             </div>
         </section>
 
-        <!-- 内科セクション -->
-        <section id="internal" class="medical-service-section">
+        <!-- 診療科目概要 -->
+        <section class="services-overview">
             <div class="container">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <img src="images/internal-icon.svg" alt="内科アイコン">
-                    </div>
-                    <h2>内科</h2>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>内科全般にわたる診療を行っております。風邪や発熱などの急性疾患から、高血圧・糖尿病・脂質異常症などの生活習慣病、慢性疾患まで幅広く対応いたします。</p>
-                        <p>患者様一人ひとりの症状に丁寧に向き合い、適切な診断と治療を提供することを心がけています。</p>
-                    </div>
-                    
-                    <div class="conditions-grid">
-                        <div class="condition-category">
-                            <h3>主な対応疾患</h3>
+                <div class="services-grid">
+                    <!-- 内科カード -->
+                    <div class="service-card" id="internal">
+                        <div class="service-icon">
+                            <img src="images/internal-icon.svg" alt="内科アイコン">
+                        </div>
+                        <h3>内科</h3>
+                        <div class="service-description">
+                            <p>風邪や発熱などの急性疾患から、高血圧・糖尿病・脂質異常症などの生活習慣病まで幅広く対応。患者様一人ひとりに丁寧な診療を提供いたします。</p>
+                        </div>
+                        
+                        <div class="conditions-list">
+                            <h4>主な対応疾患</h4>
                             <ul>
                                 <li>風邪・インフルエンザ</li>
-                                <li>発熱・頭痛・めまい</li>
-                                <li>高血圧症</li>
-                                <li>糖尿病</li>
-                                <li>脂質異常症（高脂血症）</li>
-                                <li>慢性腎臓病</li>
-                                <li>貧血</li>
+                                <li>高血圧症・糖尿病</li>
+                                <li>脂質異常症</li>
+                                <li>慢性腎臓病・貧血</li>
                                 <li>甲状腺疾患</li>
                             </ul>
                         </div>
-                        <div class="condition-category">
-                            <h3>症状</h3>
+
+                        <div class="conditions-list symptoms-list">
+                            <h4>こんな症状の方</h4>
                             <ul>
                                 <li>発熱・咳・のどの痛み</li>
                                 <li>胸痛・動悸・息切れ</li>
-                                <li>頭痛・めまい</li>
-                                <li>疲労感・だるさ</li>
-                                <li>むくみ</li>
-                                <li>不眠・食欲不振</li>
-                                <li>体重増減</li>
-                                <li>その他気になる症状</li>
+                                <li>頭痛・めまい・疲労感</li>
+                                <li>むくみ・不眠</li>
+                                <li>体重の増減</li>
                             </ul>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                            <h4 style="color: white; margin-bottom: 10px;">睡眠時無呼吸症候群</h4>
+                            <p style="margin: 0; font-size: 0.95rem;">いびきや日中の眠気でお悩みの方、簡易検査から精密検査まで対応しております。</p>
                         </div>
                     </div>
 
-                    <div class="special-care">
-                        <h3>睡眠時無呼吸症候群</h3>
-                        <p>当院では睡眠時無呼吸症候群の診断・治療も行っております。いびきがひどい、日中の眠気が強い、朝起きたときの頭痛や疲労感などの症状がある方はご相談ください。簡易検査から精密検査まで対応可能です。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 消化器内科セクション -->
-        <section id="gastroenterology" class="medical-service-section">
-            <div class="container">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <img src="images/gastro-icon.svg" alt="消化器内科アイコン">
-                    </div>
-                    <h2>消化器内科</h2>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>消化器系疾患を専門とする診療科です。胃・十二指腸・小腸・大腸・肝臓・胆のう・膵臓などの消化器系臓器の疾患を診療いたします。</p>
-                        <p>日本消化器病学会専門医として、最新の知識と技術で的確な診断と治療を提供いたします。</p>
-                    </div>
-                    
-                    <div class="conditions-grid">
-                        <div class="condition-category">
-                            <h3>主な対応疾患</h3>
+                    <!-- 消化器内科カード -->
+                    <div class="service-card" id="gastroenterology">
+                        <div class="service-icon">
+                            <img src="images/gastro-icon.svg" alt="消化器内科アイコン">
+                        </div>
+                        <h3>消化器内科</h3>
+                        <div class="service-description">
+                            <p>胃・腸・肝臓・胆のう・膵臓などの消化器系疾患を専門的に診療。日本消化器病学会専門医として最新の知識と技術で対応いたします。</p>
+                        </div>
+                        
+                        <div class="conditions-list">
+                            <h4>主な対応疾患</h4>
                             <ul>
                                 <li>胃炎・胃潰瘍・十二指腸潰瘍</li>
                                 <li>逆流性食道炎</li>
                                 <li>過敏性腸症候群</li>
-                                <li>炎症性腸疾患</li>
                                 <li>脂肪肝・肝炎・肝硬変</li>
-                                <li>胆石症・胆のう炎</li>
-                                <li>膵炎</li>
-                                <li>ピロリ菌感染症</li>
+                                <li>胆石症・膵炎</li>
                             </ul>
                         </div>
-                        <div class="condition-category">
-                            <h3>症状</h3>
+
+                        <div class="conditions-list symptoms-list">
+                            <h4>こんな症状の方</h4>
                             <ul>
-                                <li>胃痛・腹痛</li>
-                                <li>胸やけ・げっぷ</li>
+                                <li>胃痛・腹痛・胸やけ</li>
                                 <li>吐き気・嘔吐</li>
-                                <li>下痢・便秘</li>
-                                <li>血便・下血</li>
-                                <li>食欲不振</li>
-                                <li>腹部膨満感</li>
+                                <li>下痢・便秘・血便</li>
+                                <li>食欲不振・腹部膨満感</li>
                                 <li>黄疸</li>
                             </ul>
                         </div>
-                    </div>
 
-                    <div class="special-care">
-                        <h3>ピロリ菌検査・除菌治療</h3>
-                        <p>当院では、ピロリ菌感染の診断から除菌治療まで一貫して行っております。尿素呼気試験による迅速な検査が可能で、結果は約5分で判明します。除菌治療後の判定も含め、適切なフォローアップを行います。</p>
+                        <div style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                            <h4 style="color: white; margin-bottom: 10px;">ピロリ菌検査・除菌治療</h4>
+                            <p style="margin: 0; font-size: 0.95rem;">尿素呼気試験による迅速検査（約5分で結果判明）から除菌治療まで一貫して対応します。</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 内視鏡内科セクション -->
-        <section id="endoscopy" class="medical-service-section">
+        <section id="endoscopy" class="endoscopy-section">
             <div class="container">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <img src="images/endoscopy-icon.svg" alt="内視鏡内科アイコン">
-                    </div>
-                    <h2>内視鏡内科</h2>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>最新の内視鏡設備を使用し、胃カメラ（上部消化管内視鏡検査）・大腸カメラ（下部消化管内視鏡検査）を行っております。</p>
-                        <p>日本消化器内視鏡学会専門医・指導医として、安全で精度の高い検査を提供いたします。</p>
-                    </div>
-                    
-                    <div class="endoscopy-types">
-                        <div class="endoscopy-type">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">内視鏡内科</h2>
+                <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">最新の内視鏡設備と日本消化器内視鏡学会専門医・指導医による安全で精度の高い検査</p>
+                
+                <div class="endoscopy-types">
+                    <div class="endoscopy-card">
+                        <div class="endoscopy-header">
+                            <div class="endoscopy-icon">🔍</div>
                             <h3>胃カメラ（経鼻内視鏡検査）</h3>
+                        </div>
+                        
+                        <div class="endoscopy-content">
+                            <div class="endoscopy-image">
+                                <img src="images/endoscopy-equipment.jpg" alt="経鼻内視鏡装置">
+                            </div>
                             <div class="endoscopy-details">
-                                <div class="endoscopy-image">
-                                    <img src="images/endoscopy-equipment.jpg" alt="経鼻内視鏡装置">
-                                </div>
-                                <div class="endoscopy-info">
-                                    <h4>検査の特徴</h4>
-                                    <ul>
-                                        <li>鼻から挿入するため、吐き気が少ない</li>
-                                        <li>検査中に医師と会話可能</li>
-                                        <li>最新のハイビジョン画質で観察</li>
-                                        <li>検査時間は約5-10分</li>
-                                    </ul>
-                                    
-                                    <h4>対象となる方</h4>
-                                    <ul>
-                                        <li>胃痛・胸やけがある方</li>
-                                        <li>ピロリ菌感染が疑われる方</li>
-                                        <li>健康診断で異常を指摘された方</li>
-                                        <li>胃がん検診を希望される方</li>
-                                    </ul>
-                                </div>
+                                <h4>検査の特徴</h4>
+                                <ul>
+                                    <li>鼻から挿入で吐き気が少ない</li>
+                                    <li>検査中に医師と会話可能</li>
+                                    <li>ハイビジョン画質で観察</li>
+                                    <li>検査時間約5-10分</li>
+                                </ul>
+                                
+                                <h4>こんな方におすすめ</h4>
+                                <ul>
+                                    <li>胃痛・胸やけがある方</li>
+                                    <li>ピロリ菌感染が疑われる方</li>
+                                    <li>健康診断で異常を指摘された方</li>
+                                    <li>胃がん検診希望の方</li>
+                                </ul>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="endoscopy-type">
+                    <div class="endoscopy-card">
+                        <div class="endoscopy-header">
+                            <div class="endoscopy-icon">🔬</div>
                             <h3>大腸カメラ（大腸内視鏡検査）</h3>
+                        </div>
+                        
+                        <div class="endoscopy-content">
+                            <div class="endoscopy-image">
+                                <img src="images/colonoscopy-equipment.jpg" alt="大腸内視鏡装置">
+                            </div>
                             <div class="endoscopy-details">
-                                <div class="endoscopy-image">
-                                    <img src="images/colonoscopy-equipment.jpg" alt="大腸内視鏡装置">
-                                </div>
-                                <div class="endoscopy-info">
-                                    <h4>検査の特徴</h4>
-                                    <ul>
-                                        <li>炭酸ガス送気装置使用で検査後の腹部膨満感を軽減</li>
-                                        <li>高精細画像による精密な観察</li>
-                                        <li>ポリープの切除も同時に可能</li>
-                                        <li>拡大観察機能で微細な病変も発見</li>
-                                    </ul>
-                                    
-                                    <h4>対象となる方</h4>
-                                    <ul>
-                                        <li>血便・下血がある方</li>
-                                        <li>便潜血検査で陽性の方</li>
-                                        <li>腹痛・下痢・便秘が続く方</li>
-                                        <li>大腸がん検診を希望される方</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="examination-flow">
-                        <h3>検査の流れ</h3>
-                        <div class="flow-steps">
-                            <div class="flow-step">
-                                <div class="step-number">1</div>
-                                <h4>事前診察・説明</h4>
-                                <p>検査の必要性や方法について詳しく説明いたします</p>
-                            </div>
-                            <div class="flow-step">
-                                <div class="step-number">2</div>
-                                <h4>前処置</h4>
-                                <p>検査に応じた前処置を行います（大腸検査の場合は前日からの食事制限と下剤服用）</p>
-                            </div>
-                            <div class="flow-step">
-                                <div class="step-number">3</div>
-                                <h4>検査実施</h4>
-                                <p>最新の内視鏡機器を使用し、丁寧に検査を行います</p>
-                            </div>
-                            <div class="flow-step">
-                                <div class="step-number">4</div>
-                                <h4>結果説明</h4>
-                                <p>検査結果を画像とともに詳しく説明いたします</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 健康診断セクション -->
-        <section id="healthcheck" class="medical-service-section">
-            <div class="container">
-                <div class="service-header">
-                    <div class="service-icon">
-                        <img src="images/feature-medical.svg" alt="健康診断アイコン">
-                    </div>
-                    <h2>健康診断</h2>
-                </div>
-                <div class="service-content">
-                    <div class="service-description">
-                        <p>定期的な健康チェックで、病気の早期発見・早期治療につなげます。各種健康診断に対応しており、結果に応じた適切な指導・治療を行います。</p>
-                    </div>
-                    
-                    <div class="health-check-types">
-                        <div class="check-type">
-                            <h3>一般健康診断</h3>
-                            <div class="check-items">
-                                <h4>基本項目</h4>
+                                <h4>検査の特徴</h4>
                                 <ul>
-                                    <li>身体測定（身長・体重・BMI・腹囲）</li>
-                                    <li>血圧測定</li>
-                                    <li>尿検査（糖・蛋白・潜血）</li>
-                                    <li>血液検査（血糖・HbA1c・肝機能・腎機能・脂質）</li>
-                                    <li>胸部レントゲン検査</li>
-                                    <li>心電図検査</li>
+                                    <li>炭酸ガス使用で腹部膨満感軽減</li>
+                                    <li>高精細画像による精密観察</li>
+                                    <li>ポリープ切除も同時に可能</li>
+                                    <li>拡大観察で微細病変も発見</li>
                                 </ul>
-                            </div>
-                        </div>
-
-                        <div class="check-type">
-                            <h3>特定健康診査（特定健診）</h3>
-                            <p>40歳から74歳の方を対象とした健診です。生活習慣病の予防を目的として、メタボリックシンドロームに着目した健診を行います。</p>
-                        </div>
-
-                        <div class="check-type">
-                            <h3>オプション検査</h3>
-                            <div class="option-tests">
+                                
+                                <h4>こんな方におすすめ</h4>
                                 <ul>
-                                    <li>腹部エコー検査</li>
-                                    <li>胃内視鏡検査（胃カメラ）</li>
-                                    <li>大腸内視鏡検査</li>
-                                    <li>ピロリ菌検査</li>
-                                    <li>動脈硬化検査（ABI/PWV）</li>
-                                    <li>睡眠時無呼吸症候群検査</li>
+                                    <li>血便・下血がある方</li>
+                                    <li>便潜血検査で陽性の方</li>
+                                    <li>腹痛・下痢・便秘が続く方</li>
+                                    <li>大腸がん検診希望の方</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="health-advice">
-                        <h3>健康相談・生活指導</h3>
-                        <p>健診結果に基づいて、食事や運動などの生活習慣の改善についてアドバイスいたします。必要に応じて継続的な経過観察や治療を行います。</p>
+                <div class="examination-flow">
+                    <h3>検査の流れ</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <h4>事前診察・説明</h4>
+                            <p>検査の必要性や方法について詳しくご説明いたします</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <h4>前処置</h4>
+                            <p>検査に応じた前処置（食事制限や下剤服用など）</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <h4>検査実施</h4>
+                            <p>最新の内視鏡機器を使用し、丁寧に検査を行います</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <h4>結果説明</h4>
+                            <p>検査結果を画像とともに詳しくご説明いたします</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -336,14 +686,16 @@
         <!-- 予約・注意事項セクション -->
         <section class="appointment-info">
             <div class="container">
-                <h2>予約・注意事項</h2>
-                <div class="info-grid">
-                    <div class="info-item">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">予約・注意事項</h2>
+                <div class="info-cards">
+                    <div class="info-card">
                         <h3>診療予約</h3>
-                        <p>内視鏡検査をご希望の方は事前にご予約をお願いいたします。一般診療は予約不要ですが、待ち時間短縮のため予約をお勧めしております。</p>
-                        <p class="phone">📞 <a href="tel:0155-66-6170">0155-66-6170</a></p>
+                        <p>内視鏡検査をご希望の方は事前にご予約をお願いいたします。一般診療も予約をお勧めしております。</p>
+                        <div class="phone">
+                            📞 <a href="tel:0155-66-6170">0155-66-6170</a>
+                        </div>
                     </div>
-                    <div class="info-item">
+                    <div class="info-card">
                         <h3>持参いただくもの</h3>
                         <ul>
                             <li>健康保険証</li>
@@ -352,11 +704,11 @@
                             <li>健診結果（お持ちの場合）</li>
                         </ul>
                     </div>
-                    <div class="info-item">
+                    <div class="info-card">
                         <h3>注意事項</h3>
                         <ul>
-                            <li>内視鏡検査前の食事制限について事前に説明いたします</li>
-                            <li>服用中のお薬がある方は必ずお伝えください</li>
+                            <li>内視鏡検査前の食事制限について事前説明</li>
+                            <li>服用中のお薬は必ずお伝えください</li>
                             <li>妊娠中・妊娠の可能性がある方はお申し出ください</li>
                         </ul>
                     </div>

@@ -88,11 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // ヘッダーの背景色変更
         const header = document.querySelector('header');
         if (scrollTop > 50) {
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            header.style.backdropFilter = 'blur(10px)';
+            header.style.backgroundColor = 'rgba(10, 14, 26, 0.98)';
+            header.style.backdropFilter = 'blur(24px)';
         } else {
-            header.style.backgroundColor = '#fff';
-            header.style.backdropFilter = 'none';
+            header.style.backgroundColor = 'rgba(10, 14, 26, 0.95)';
+            header.style.backdropFilter = 'blur(20px)';
         }
     });
     

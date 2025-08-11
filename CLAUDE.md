@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with three main pages showcasing the clinic's services, facilities, and information.
+This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with five main pages showcasing the clinic's services, facilities, and information.
 
 ## Architecture
 
@@ -12,9 +12,11 @@ This is a static medical clinic website for おく内科消化器クリニック
 - `index.html` - Main homepage with hero section, service overview, clinic features, and doctor introduction
 - `clinic-introduction.html` - Detailed clinic information including doctor profile, hours, facilities, and gallery
 - `medical-services.html` - Comprehensive medical services breakdown (Internal Medicine, Gastroenterology, Endoscopy)
+- `faq.html` - Frequently asked questions page with common patient inquiries
+- `vaccination-health-check.html` - Vaccination and health check services information
 - `styles.css` - Unified CSS with glass-morphism design system using CSS custom properties
 - `script.js` - Interactive JavaScript for navigation, animations, and UX enhancements
-- `images/` - Medical equipment photos, clinic exterior/interior images, and icons
+- `images/` - Medical equipment photos, clinic exterior/interior images, and specialty icons
 
 ### Design System
 
@@ -76,6 +78,8 @@ Medical equipment and facility images are stored in `images/` directory:
 - Optimize images for web (recommended: 300-400px width for equipment photos)
 - Include comprehensive alt text for accessibility
 - Follow existing naming conventions (e.g., `fujifilm-endoscopy-processor-ep8000.jpg`)
+- Specialty icons: Use PNG format for medical specialty icons (e.g., `internal-medicine-icon.png`, `gastroenterology-icon.png`, `endoscopy-icon.png`)
+- Icon sizing: Medical specialty icons are displayed as 100x100px circular images with `border-radius: 50%`
 
 ## Deployment
 

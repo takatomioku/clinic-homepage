@@ -520,12 +520,12 @@ header {
 
 .grid-1 {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: 0rem;
 }
 
 /* お知らせセクション専用スタイル */
 .grid-1 .card {
-    padding: var(--space-lg);
+    padding: var(--space-sm);
 }
 
 .grid-1 .card article {
@@ -539,15 +539,15 @@ header {
 }
 
 .grid-1 .card article h3 {
-    font-size: 1.1rem;
-    margin: var(--space-xs) 0;
-    line-height: 1.4;
+    font-size: 1rem;
+    margin: var(--space-xxs) 0;
+    line-height: 1.3;
 }
 
 .grid-1 .card article p {
-    margin: var(--space-xs) 0 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    margin: var(--space-xxs) 0 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .grid-2 {
@@ -719,6 +719,12 @@ header {
     font-size: 1.1rem;
     font-weight: 500;
     transition: var(--transition);
+}
+
+/* すべてのFAQ質問項目に小さいパディングを適用 */
+.faq-section .faq-question,
+.faq-container .faq-question {
+    padding: 0.2rem 1rem;
 }
 
 .faq-question:hover {
@@ -1047,6 +1053,226 @@ footer {
         padding: 0.875rem 1.5rem;
         font-size: 1rem;
     }
+}
+
+/* 胃カメラページ専用スタイル */
+.breadcrumb {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.breadcrumb a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.breadcrumb a:hover {
+    color: var(--text-primary);
+}
+
+.breadcrumb span {
+    color: var(--text-muted);
+    margin: 0 var(--space-xs);
+}
+
+/* 検査の流れスタイル */
+.procedure-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.procedure-step {
+    text-align: center;
+    max-width: 500px;
+    padding: var(--space-lg);
+    background: var(--bg-glass-light);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    position: relative;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    color: var(--text-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 auto var(--space-md);
+    box-shadow: var(--shadow-glass);
+}
+
+.procedure-step h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    font-size: 1.2rem;
+}
+
+.procedure-step p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.flow-arrow {
+    color: var(--accent-cyan);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 麻酔手順スタイル */
+.anesthesia-steps {
+    padding: var(--space-lg);
+}
+
+.anesthesia-step {
+    padding: var(--space-lg);
+    background: var(--bg-glass-light);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    margin-bottom: var(--space-md);
+}
+
+.anesthesia-step:last-child {
+    margin-bottom: 0;
+}
+
+.step-badge {
+    background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+    color: var(--text-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: var(--space-sm);
+}
+
+.anesthesia-step h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+}
+
+.anesthesia-step p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* FAQスタイル */
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.faq-item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: var(--space-lg);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.faq-question:hover {
+    background: var(--bg-glass-light);
+}
+
+.faq-question span:first-child {
+    flex: 1;
+    text-align: left;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-cyan);
+    transition: var(--transition);
+}
+
+.faq-item.active .faq-icon {
+    color: var(--accent-emerald);
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: var(--bg-glass-light);
+    border-top: 1px solid var(--glass-border);
+}
+
+.faq-answer p {
+    padding: 0.3rem 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* 予約案内スタイル */
+.reservation-info {
+    background: var(--bg-glass-strong);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .procedure-flow {
+        gap: var(--space-md);
+    }
+    
+    .procedure-step {
+        padding: var(--space-md);
+    }
+    
+    .flow-arrow {
+        font-size: 1.2rem;
+    }
+    
+    .anesthesia-step {
+        padding: var(--space-md);
+    }
+    
+    .faq-question {
+        padding: var(--space-md);
+        font-size: 1rem;
+    }
+    
+    /* すべてのFAQ質問項目に小さいパディングを適用 */
+    .faq-section .faq-question,
+    .faq-container .faq-question {
+        padding: 0.2rem 1rem;
+    }
+    
+    .faq-answer p {
+        padding: var(--space-md);
+    }
+}
 }
 
 /* アクセシビリティ */

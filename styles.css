@@ -600,6 +600,41 @@ header {
     margin-bottom: var(--space-2xl);
 }
 
+/* ワクチンカード拡張のためのグリッド調整 */
+.vaccination-grid .vaccine-card-expand {
+    position: relative;
+    height: auto;
+    overflow: visible;
+}
+
+/* インフルエンザカードを他のカードと統一 */
+.vaccine-card-expand {
+    /* 通常のカードと同じスタイルを使用 */
+}
+
+/* ホバー時にカード全体が右に拡張するスペースを確保 */
+.vaccination-grid .vaccine-card-expand:hover {
+    margin-right: 200px;
+    transition-delay: 0s;
+}
+
+/* 画面サイズに応じて調整 */
+@media (max-width: 1400px) {
+    .vaccination-grid .vaccine-card-expand:hover {
+        margin-right: 250px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .vaccination-grid .vaccine-card-expand:hover {
+        margin-right: 200px;
+    }
+    
+    .vaccine-card-expand:hover .vaccine-card-container {
+        width: 160%;
+    }
+}
+
 .health-check-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1302,6 +1337,119 @@ footer {
     }
 }
 
+/* ワクチンカード横拡張効果 */
+.vaccine-card-expand {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+    width: 100%;
+    max-width: none;
+}
+
+.vaccine-card-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: auto;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vaccine-basic-content {
+    width: 100%;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 詳細情報のデフォルト状態 */
+.vaccine-detailed-info {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(22, 27, 46, 0.95);
+    backdrop-filter: blur(20px) saturate(1.2);
+    border-left: 1px solid var(--glass-border);
+    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    box-shadow: var(--shadow-glass);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+/* ホバー時の横拡張効果 */
+.vaccine-card-expand:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    z-index: 10;
+}
+
+.vaccine-card-expand:hover .vaccine-card-container {
+    width: 170%;
+}
+
+.vaccine-card-expand:hover .vaccine-basic-content {
+    width: 58%;
+}
+
+.vaccine-card-expand:hover .vaccine-detailed-info {
+    width: 42%;
+    opacity: 1;
+    overflow: visible !important;
+}
+
+.vaccine-card-expand:hover .vaccine-detailed-info table {
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .vaccine-card-expand:hover {
+        transform: none;
+    }
+    
+    .vaccine-card-container {
+        flex-direction: column;
+    }
+    
+    .vaccine-basic-content {
+        min-width: 100%;
+    }
+    
+    .vaccine-detailed-info {
+        width: 100%;
+        opacity: 1;
+        border-left: none;
+        border-top: 1px solid var(--glass-border);
+        border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        transform: none;
+    }
+}
+
 /* プリント対応 */
 @media print {
     body {
@@ -1313,6 +1461,11 @@ footer {
         background: white;
         border: 1px solid #ccc;
         box-shadow: none;
+    }
+    
+    .vaccine-detailed-info {
+        opacity: 1 !important;
+        max-height: none !important;
     }
     
     header, footer {

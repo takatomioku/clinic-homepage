@@ -229,3 +229,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 });
+
+// ギャラリーライトボックス機能
+function openLightbox(imageSrc, title, description) {
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDescription = document.getElementById('lightboxDescription');
+    
+    if (lightbox && lightboxImage && lightboxTitle && lightboxDescription) {
+        lightboxImage.src = imageSrc;
+        lightboxImage.alt = title;
+        lightboxTitle.textContent = title;
+        lightboxDescription.textContent = description;
+        
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // スクロールを無効化
+    }
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('galleryLightbox');
+    
+    if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // スクロールを有効化
+    }
+}
+
+// ESCキーでライトボックスを閉じる
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+});
+
+// ライトボックス内のクリックイベントを制御
+document.addEventListener('DOMContentLoaded', function() {
+    const lightboxContainer = document.querySelector('.lightbox-container');
+    
+    if (lightboxContainer) {
+        lightboxContainer.addEventListener('click', function(e) {
+            e.stopPropagation(); // バブリングを停止して背景クリックでの閉じる動作を防ぐ
+        });
+    }
+});

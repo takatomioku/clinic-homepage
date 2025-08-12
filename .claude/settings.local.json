@@ -9,7 +9,14 @@
       "WebFetch(domain:www.oku-clinic.com)",
       "Bash(git clone:*)",
       "Bash(git config:*)",
-      "Bash(dir \"C:\\Users\\takat\\clinic-homepage\\images\"\")"
+      "Bash(dir \"C:\\Users\\takat\\clinic-homepage\\images\"\")",
+      "Bash(dir:*)",
+      "Bash(magick:*)",
+      "Bash(where magick)",
+      "Bash(convert:*)",
+      "Bash(powershell:*)",
+      "Bash(python:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

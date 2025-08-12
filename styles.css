@@ -203,6 +203,7 @@ header {
     color: var(--text-primary);
     text-decoration: none;
     font-weight: 500;
+    font-size: 1.1rem;
     padding: 0.5rem 1rem;
     border-radius: var(--radius-sm);
     transition: var(--transition);
@@ -240,7 +241,7 @@ header {
     z-index: 1001;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -255,12 +256,12 @@ header {
 
 .dropdown-menu li a {
     display: block;
-    padding: 0.75rem 1rem;
+    padding: 0.2rem 1rem;
     color: var(--text-secondary);
     border-radius: var(--radius-sm);
     text-align: left;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: var(--transition);
 }
 

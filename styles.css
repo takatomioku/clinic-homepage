@@ -71,6 +71,11 @@
     --space-xl: 3rem;
     --space-2xl: 4rem;
     --space-3xl: 6rem;
+    
+    /* モーダル用変数 */
+    --modal-overlay: rgba(10, 14, 26, 0.9);
+    --modal-backdrop: rgba(0, 0, 0, 0.6);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* 基本設定 */
@@ -221,7 +226,7 @@ header {
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 400px;
+    min-width: 200px;
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
@@ -234,8 +239,8 @@ header {
     box-shadow: var(--shadow-glass);
     z-index: 1001;
     display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -245,7 +250,7 @@ header {
 }
 
 .dropdown-menu li {
-    flex: 1;
+    width: 100%;
 }
 
 .dropdown-menu li a {
@@ -253,9 +258,10 @@ header {
     padding: 0.75rem 1rem;
     color: var(--text-secondary);
     border-radius: var(--radius-sm);
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 .dropdown-menu li a:hover {
@@ -288,6 +294,18 @@ header {
 .mobile-menu-toggle:hover {
     background: var(--bg-glass-light);
     transform: scale(1.05);
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* ヒーローセクション */
@@ -1014,19 +1032,374 @@ footer {
     }
 }
 
+/* モバイル上部固定ヘッダー */
+.mobile-top-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 1000;
+    padding: 10px 0;
+    height: 60px;
+}
+
+.mobile-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    max-width: 100%;
+}
+
+.mobile-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-logo img {
+    height: 30px;
+    width: auto;
+    border-radius: var(--radius-sm);
+}
+
+.mobile-logo h1 {
+    font-size: 1.1rem;
+    color: #1e3a8a;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* モバイル上部ナビゲーション */
+.mobile-top-nav {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    z-index: 999;
+    padding: 6px 0;
+}
+
+.mobile-top-nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-top-nav li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.mobile-top-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    min-width: 50px;
+}
+
+.mobile-top-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e0;
+}
+
+/* フォントベースのアイコンスタイル */
+.mobile-top-nav .nav-icon {
+    font-size: 1.3rem;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+/* ブルーのテキストシンボルアイコン */
+.mobile-top-nav .nav-icon.phone-icon::before {
+    content: "📞";
+    filter: hue-rotate(200deg) saturate(1.5);
+    font-size: 1.4rem;
+}
+
+.mobile-top-nav .nav-icon.location-icon::before {
+    content: "📍";  
+    filter: hue-rotate(200deg) saturate(1.5);
+    font-size: 1.4rem;
+}
+
+.mobile-top-nav .nav-icon.phone-icon,
+.mobile-top-nav .nav-icon.location-icon {
+    font-size: 0;
+}
+
+/* 文字の高さを統一 */
+.mobile-top-nav li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    height: 50px;
+    justify-content: center;
+}
+
+.mobile-top-nav span {
+    font-size: 0.75rem;
+    line-height: 1;
+    margin-top: 2px;
+    color: white;
+}
+
+/* デフォルトアイコンの色も白に */
+.mobile-top-nav .nav-icon {
+    color: white;
+}
+
+/* モバイルメニューウィンドウ（マージン付き透明度あり） */
+.mobile-fullscreen-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 40px 20px;
+}
+
+.mobile-fullscreen-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-container {
+    position: relative;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(24px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-deep);
+    height: 100%;
+    overflow: hidden;
+}
+
+.menu-header {
+    position: relative;
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--glass-border);
+    text-align: center;
+}
+
+.menu-title {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.menu-close-btn {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.menu-close-btn:hover {
+    background: var(--bg-glass-light);
+    color: var(--text-primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.mobile-fullscreen-menu .menu-list {
+    list-style: none;
+    padding: 20px 30px 30px;
+    margin: 0;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.mobile-fullscreen-menu .menu-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0;
+}
+
+.mobile-fullscreen-menu .menu-list li:last-child {
+    border-bottom: none;
+}
+
+.mobile-fullscreen-menu .menu-list a {
+    display: block;
+    padding: 18px 0;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    border-radius: var(--radius-sm);
+}
+
+.mobile-fullscreen-menu .menu-list a:hover {
+    color: var(--accent-cyan);
+    background: var(--bg-glass-light);
+    padding-left: 10px;
+}
+
+/* 健診コース表のモバイル対応 */
+.health-check-table-desktop {
+    display: block;
+}
+
+.health-check-table-mobile {
+    display: none;
+}
+
+.health-check-course-card {
+    background: var(--bg-glass-light);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.course-header {
+    text-align: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--accent-cyan);
+}
+
+.course-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.course-price {
+    font-size: 1.1rem;
+    color: var(--accent-cyan);
+    font-weight: 600;
+    margin: var(--space-xs) 0 0;
+}
+
+.course-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.course-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.course-items li:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.item-included {
+    color: var(--accent-emerald);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.item-not-included {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
+    /* デスクトップヘッダーを非表示 */
+    header {
+        display: none;
+    }
+    
+    /* モバイル上部ヘッダーとナビを表示 */
+    .mobile-top-header {
+        display: block;
+    }
+    
+    .mobile-top-nav {
+        display: block;
+    }
+    
+    /* 全画面メニューを表示可能に */
+    .mobile-fullscreen-menu {
+        display: block;
+    }
+    
+    /* 健診表のモバイル表示切り替え */
+    .health-check-table-desktop {
+        display: none;
+    }
+    
+    .health-check-table-mobile {
+        display: block;
+    }
+    
+    
+    /* メインコンテンツの上部マージンを追加（ヘッダー分） */
+    body {
+        padding-top: 100px;
+    }
+    
     .main-nav {
         display: none;
     }
     
     .mobile-menu-toggle {
-        display: flex;
+        display: none;
     }
     
     .hero {
-        padding: 120px 0 60px;
-        min-height: 80vh;
+        padding: 40px 0 60px;
+        min-height: 70vh;
+        margin-top: 20px;
     }
     
     .hero .container {
@@ -1065,6 +1438,10 @@ footer {
         grid-template-columns: 1fr;
     }
     
+    
+    
+    
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -1470,5 +1847,227 @@ footer {
     
     header, footer {
         display: none;
+    }
+}
+
+/* モーダルウィンドウのスタイル */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-overlay);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+    overflow-y: auto;
+    padding: var(--space-lg);
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    background: var(--bg-glass-strong);
+    backdrop-filter: blur(24px) saturate(1.1);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-deep);
+    transform: translateY(20px);
+    transition: transform var(--transition-smooth);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    background: var(--bg-glass-strong);
+    backdrop-filter: blur(24px);
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    z-index: 10;
+}
+
+.modal-title {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    background: var(--bg-glass-light);
+    transform: scale(1.1);
+}
+
+.modal-content {
+    padding: 0 var(--space-xl) var(--space-xl);
+}
+
+.modal-section {
+    margin-bottom: var(--space-2xl);
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--glass-border-light);
+}
+
+.modal-section h4 {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.modal-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+}
+
+.modal-section ul {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.modal-section li {
+    margin-bottom: var(--space-xs);
+}
+
+.modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.modal-table th,
+.modal-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-table th {
+    background: var(--bg-glass-strong);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: center;
+}
+
+.modal-table td {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.modal-table tr:last-child td {
+    border-bottom: none;
+}
+
+.modal-highlight {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.modal-warning {
+    background: var(--bg-glass-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    border: 1px solid var(--glass-border);
+    margin: var(--space-lg) 0;
+}
+
+.modal-warning h4 {
+    color: var(--accent-cyan);
+    margin-bottom: var(--space-md);
+    margin-top: 0;
+}
+
+/* アニメーション */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: var(--space-md);
+    }
+    
+    .modal-container {
+        max-height: 95vh;
+    }
+    
+    .modal-header {
+        padding: var(--space-lg) var(--space-lg) var(--space-md);
+    }
+    
+    .modal-content {
+        padding: 0 var(--space-lg) var(--space-lg);
+    }
+    
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    .modal-table th,
+    .modal-table td {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
     }
 }

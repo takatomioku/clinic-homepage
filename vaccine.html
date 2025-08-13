@@ -27,8 +27,8 @@
                     <li class="dropdown">
                         <a href="clinic-introduction.html">クリニック紹介</a>
                         <ul class="dropdown-menu">
-                            <li><a href="clinic-introduction.html#about">当院について</a></li>
                             <li><a href="clinic-introduction.html#doctor">医師紹介</a></li>
+                            <li><a href="clinic-introduction.html#hours">診療時間</a></li>
                             <li><a href="clinic-introduction.html#facilities">院内設備</a></li>
                             <li><a href="clinic-introduction.html#gallery">院内風景</a></li>
                         </ul>
@@ -334,6 +334,15 @@
         </section>
     </main>
 
+    <!-- モバイル上部固定ヘッダー -->
+    <header class="mobile-top-header">
+        <div class="mobile-header-content">
+            <div class="mobile-logo">
+                <img src="images/logo-mobile.png" alt="おく内科消化器クリニック">
+            </div>
+        </div>
+    </header>
+
     <footer>
         <div class="footer-container">
             <div class="footer-content">
@@ -392,6 +401,98 @@
         </div>
     </footer>
 
+    <!-- モバイル上部ナビゲーション -->
+    <nav class="mobile-top-nav">
+        <ul>
+            <li>
+                <a href="index.html">
+                    <div class="nav-icon">🏠</div>
+                    <span>ホーム</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:0155-66-6170">
+                    <div class="nav-icon phone-icon"></div>
+                    <span>電話</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#access">
+                    <div class="nav-icon location-icon"></div>
+                    <span>アクセス</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="mobile-menu-trigger">
+                    <div class="nav-icon">☰</div>
+                    <span>Menu</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- モバイルメニューウィンドウ -->
+    <div class="mobile-fullscreen-menu" id="mobile-fullscreen-menu">
+        <div class="menu-container">
+            <div class="menu-header">
+                <h3 class="menu-title">メニュー</h3>
+                <button class="menu-close-btn" id="menu-close-btn" aria-label="メニューを閉じる">×</button>
+            </div>
+            <ul class="menu-list">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="clinic-introduction.html">クリニック紹介</a></li>
+                <li><a href="medical-services.html">診療案内</a></li>
+                <li><a href="faq.html">よくある質問</a></li>
+                <li><a href="index.html#access">アクセス</a></li>
+            </ul>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+        // モバイルメニューの制御
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+            const mobileFullscreenMenu = document.getElementById('mobile-fullscreen-menu');
+            const menuCloseBtn = document.getElementById('menu-close-btn');
+
+            function openMenu() {
+                mobileFullscreenMenu.classList.add('active');
+                mobileMenuTrigger.querySelector('.nav-icon').textContent = '✕';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                mobileFullscreenMenu.classList.remove('active');
+                mobileMenuTrigger.querySelector('.nav-icon').textContent = '☰';
+                document.body.style.overflow = '';
+            }
+
+            if (mobileMenuTrigger) {
+                mobileMenuTrigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (mobileFullscreenMenu.classList.contains('active')) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+
+            if (menuCloseBtn) {
+                menuCloseBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            const menuLinks = mobileFullscreenMenu.querySelectorAll('.menu-list a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMenu();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

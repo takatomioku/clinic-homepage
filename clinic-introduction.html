@@ -9,7 +9,7 @@
     <meta property="og:title" content="クリニック紹介 - おく内科消化器クリニック">
     <meta property="og:description" content="おく内科消化器クリニックの院長紹介、診療時間、最新の医療設備をご紹介します。">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/logo-claude.jpg">
+    <meta property="og:image" content="images/logo-desktop.png">
     <link rel="canonical" href="https://www.oku-clinic.com/clinic-introduction.html">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -18,7 +18,8 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img src="images/logo-claude.jpg" alt="医療法人社団 陸仁会 おく内科消化器クリニック" class="logo-image">
+                <img src="images/logo-desktop.png" alt="医療法人社団 陸仁会 おく内科消化器クリニック" class="logo-image logo-desktop">
+                <img src="images/logo-mobile.png" alt="医療法人社団 陸仁会 おく内科消化器クリニック" class="logo-image logo-mobile">
             </div>
             <nav class="main-nav">
                 <ul>
@@ -356,13 +357,6 @@
                                 <p>看板とエントランス</p>
                             </div>
                         </div>
-                        <div class="gallery-item" onclick="openLightbox('images/clinic-outside3.jpg', 'クリニック側面', '建物の側面外観')">
-                            <img src="images/clinic-outside3.jpg" alt="クリニック側面" class="gallery-thumbnail">
-                            <div class="gallery-overlay">
-                                <h4>クリニック側面</h4>
-                                <p>建物の側面外観</p>
-                            </div>
-                        </div>
                         <div class="gallery-item" onclick="openLightbox('images/clinic-outside4.jpg', 'クリニック周辺', '駐車場と周辺環境')">
                             <img src="images/clinic-outside4.jpg" alt="クリニック周辺" class="gallery-thumbnail">
                             <div class="gallery-overlay">
@@ -377,28 +371,21 @@
                 <div class="gallery-section">
                     <h3 class="gallery-category-title">待合室・診察室</h3>
                     <div class="gallery-grid">
-                        <div class="gallery-item">
+                        <div class="gallery-item" onclick="openLightbox('images/waiting-room-1.jpg', '待合室', '明るく快適な待合空間')">
                             <img src="images/waiting-room-1.jpg" alt="待合室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
                                 <h4>待合室</h4>
                                 <p>明るく快適な待合空間</p>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/waiting-room-2.jpg" alt="待合室（別角度）" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/waiting-room-new-3.jpg', '待合室（新しい角度）', '新しい視点からの待合室')">
+                            <img src="images/waiting-room-new-3.jpg" alt="待合室（新しい角度）" class="gallery-thumbnail">
                             <div class="gallery-overlay">
-                                <h4>待合室（別角度）</h4>
-                                <p>ゆったりとした座席配置</p>
+                                <h4>待合室（新しい角度）</h4>
+                                <p>新しい視点からの待合室</p>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/reception-area.jpg" alt="受付・待合エリア" class="gallery-thumbnail">
-                            <div class="gallery-overlay">
-                                <h4>受付・待合エリア</h4>
-                                <p>受付カウンターと待合スペース全体</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" onclick="openLightbox('images/consultation-room.jpg', '診察室', 'プライバシーに配慮した診察環境')">
                             <img src="images/consultation-room.jpg" alt="診察室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
                                 <h4>診察室</h4>
@@ -412,25 +399,25 @@
                 <div class="gallery-section">
                     <h3 class="gallery-category-title">処置室・点滴室/内視鏡前処置室</h3>
                     <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="images/treatment-room.jpg" alt="処置室" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/treatment-room-new.jpg', '処置室', '各種処置を行う清潔な処置室')">
+                            <img src="images/treatment-room-new.jpg" alt="処置室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
                                 <h4>処置室</h4>
                                 <p>各種処置を行う清潔な処置室</p>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/iv-room.jpg" alt="点滴室" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/iv-bed-new.jpg', '点滴ベッド', 'ゆっくりと点滴治療を受けられる専用ベッド')">
+                            <img src="images/iv-bed-new.jpg" alt="点滴ベッド" class="gallery-thumbnail">
                             <div class="gallery-overlay">
-                                <h4>点滴室</h4>
-                                <p>ゆっくりと点滴治療を受けられる個室</p>
+                                <h4>点滴ベッド</h4>
+                                <p>ゆっくりと点滴治療を受けられる専用ベッド</p>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/endoscopy-prep-room.jpg" alt="内視鏡前処置室" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/colonoscopy-prep-room.jpg', '大腸カメラ前処置室', '大腸内視鏡検査前の準備とリラックスができる個室')">
+                            <img src="images/colonoscopy-prep-room.jpg" alt="大腸カメラ前処置室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
-                                <h4>内視鏡前処置室</h4>
-                                <p>内視鏡検査前の準備を行う専用室</p>
+                                <h4>大腸カメラ前処置室</h4>
+                                <p>大腸内視鏡検査前の準備とリラックスができる個室</p>
                             </div>
                         </div>
                     </div>
@@ -440,15 +427,15 @@
                 <div class="gallery-section">
                     <h3 class="gallery-category-title">内視鏡/レントゲン室</h3>
                     <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="images/endoscopy-room.jpg" alt="内視鏡室" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/endoscopy-room-new.jpg', '内視鏡室', '最新機器を完備した内視鏡検査室')">
+                            <img src="images/endoscopy-room-new.jpg" alt="内視鏡室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
                                 <h4>内視鏡室</h4>
                                 <p>最新機器を完備した内視鏡検査室</p>
                             </div>
                         </div>
-                        <div class="gallery-item">
-                            <img src="images/xray-room.jpg" alt="レントゲン室" class="gallery-thumbnail">
+                        <div class="gallery-item" onclick="openLightbox('images/xray-room-new.jpg', 'レントゲン室', 'デジタルレントゲン撮影を行う検査室')">
+                            <img src="images/xray-room-new.jpg" alt="レントゲン室" class="gallery-thumbnail">
                             <div class="gallery-overlay">
                                 <h4>レントゲン室</h4>
                                 <p>デジタルレントゲン撮影を行う検査室</p>
@@ -457,26 +444,6 @@
                     </div>
                 </div>
 
-                <!-- クリニック夜景 -->
-                <div class="gallery-section">
-                    <h3 class="gallery-category-title">クリニック夜景</h3>
-                    <div class="gallery-grid">
-                        <div class="gallery-item">
-                            <img src="images/clinic-night-1.jpg" alt="クリニック夜景" class="gallery-thumbnail">
-                            <div class="gallery-overlay">
-                                <h4>クリニック夜景</h4>
-                                <p>夜間のクリニック外観</p>
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/clinic-night-2.jpg" alt="クリニック夜景（看板）" class="gallery-thumbnail">
-                            <div class="gallery-overlay">
-                                <h4>クリニック夜景（看板）</h4>
-                                <p>夜間の看板とエントランス</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 

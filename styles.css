@@ -2634,6 +2634,23 @@ footer {
         font-size: 0.9rem;
     }
     
+    /* 診療時間表のモバイル対応 */
+    #hours .card.glass table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin: var(--space-md) 0;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    #hours .card.glass table thead,
+    #hours .card.glass table tbody,
+    #hours .card.glass table th,
+    #hours .card.glass table td {
+        white-space: nowrap;
+    }
+    
     .lightbox-close {
         top: var(--space-md);
         right: var(--space-md);

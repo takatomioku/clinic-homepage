@@ -104,7 +104,7 @@
                         <div>
                             <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); margin-bottom: var(--space-lg);">
                                 <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                                    <span style="font-size: 1.5rem;">🦠</span>主な対象疾患
+                                    <span style="font-size: 1.5rem;">📋</span>主な対象疾患
                                 </h4>
                                 <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
                                     <li style="margin-bottom: var(--space-xs);">• 高血圧症</li>
@@ -118,18 +118,21 @@
                                 </ul>
                             </div>
 
-                            <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
-                                <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                                    <span style="font-size: 1.5rem;">🩺</span>このような症状の方
-                                </h4>
-                                <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
-                                    <li style="margin-bottom: var(--space-xs);">• 発熱、咳、鼻水、のどの痛み</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 頭痛、めまい、動悸</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 息切れ、胸の痛み</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 疲れやすい、だるい</li>
-                                    <li style="margin-bottom: var(--space-xs);">• むくみ</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 健康診断で異常を指摘された</li>
-                                </ul>
+                            <div class="symptoms-card" style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); position: relative; overflow: hidden;">
+                                <div class="symptoms-background-image"></div>
+                                <div class="symptoms-content" style="position: relative; z-index: 2;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
+                                        <span style="font-size: 1.5rem;">🩺</span>このような症状の方
+                                    </h4>
+                                    <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
+                                        <li style="margin-bottom: var(--space-xs);">• 発熱、咳、鼻水、のどの痛み</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 頭痛、めまい、動悸</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 息切れ、胸の痛み</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 疲れやすい、だるい</li>
+                                        <li style="margin-bottom: var(--space-xs);">• むくみ</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 健康診断で異常を指摘された</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,7 +181,7 @@
                         <div>
                             <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); margin-bottom: var(--space-lg);">
                                 <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                                    <span style="font-size: 1.5rem;">🦠</span>主な対象疾患
+                                    <span style="font-size: 1.5rem;">📋</span>主な対象疾患
                                 </h4>
                                 <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
                                     <li style="margin-bottom: var(--space-xs);">• 逆流性食道炎</li>
@@ -192,19 +195,22 @@
                                 </ul>
                             </div>
 
-                            <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
-                                <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                                    <span style="font-size: 1.5rem;">🩺</span>このような症状の方
-                                </h4>
-                                <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
-                                    <li style="margin-bottom: var(--space-xs);">• 胃痛、腹痛</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 胸やけ、ゲップ</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 吐き気、嘔吐</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 下痢、便秘</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 血便、黒い便</li>
-                                    <li style="margin-bottom: var(--space-xs);">• 食欲不振、体重減少</li>
-                                    <li style="margin-bottom: var(--space-xs);">• お腹の張り、ガス</li>
-                                </ul>
+                            <div class="gastro-symptoms-card" style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); position: relative; overflow: hidden;">
+                                <div class="gastro-symptoms-background-image"></div>
+                                <div class="gastro-symptoms-content" style="position: relative; z-index: 2;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
+                                        <span style="font-size: 1.5rem;">🩺</span>このような症状の方
+                                    </h4>
+                                    <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
+                                        <li style="margin-bottom: var(--space-xs);">• 胃痛、腹痛</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 胸やけ、ゲップ</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 吐き気、嘔吐</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 下痢、便秘</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 血便、黒い便</li>
+                                        <li style="margin-bottom: var(--space-xs);">• 食欲不振、体重減少</li>
+                                        <li style="margin-bottom: var(--space-xs);">• お腹の張り、ガス</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

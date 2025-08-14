@@ -1239,16 +1239,18 @@ footer {
     background: white;
     border-bottom: 1px solid #e2e8f0;
     z-index: 1000;
-    padding: 10px 0;
+    padding: 15px 0;
     height: 60px;
 }
 
 .mobile-header-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 20px;
     max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .mobile-logo {
@@ -1280,7 +1282,7 @@ footer {
     background: #0f172a;
     border-bottom: 1px solid #1e293b;
     z-index: 999;
-    padding: 6px 0;
+    padding: 12px 0;
 }
 
 .mobile-top-nav ul {
@@ -1352,8 +1354,8 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    height: 50px;
+    gap: 3px;
+    height: 60px;
     justify-content: center;
 }
 
@@ -1481,6 +1483,64 @@ footer {
     display: block;
 }
 
+/* 内科症状カードの背景画像（デスクトップ版） */
+.symptoms-card {
+    position: relative;
+}
+
+.symptoms-background-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    background-image: url('images/internal-medicine-symptoms.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    opacity: 0.15;
+    z-index: 1;
+    
+    /* 左側への透明度グラデーション */
+    mask: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%);
+    -webkit-mask: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%);
+}
+
+.symptoms-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* 消化器内科症状カードの背景画像（デスクトップ版） */
+.gastro-symptoms-card {
+    position: relative;
+}
+
+.gastro-symptoms-background-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    background-image: url('images/gastroenterology-symptoms.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    opacity: 0.15;
+    z-index: 1;
+    
+    /* 左側への透明度グラデーション */
+    mask: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%);
+    -webkit-mask: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%);
+}
+
+.gastro-symptoms-content {
+    position: relative;
+    z-index: 2;
+}
+
 .health-check-table-mobile {
     display: none;
 }
@@ -1594,7 +1654,8 @@ footer {
     
     /* モバイル上部ヘッダーとナビを表示 */
     .mobile-top-header {
-        display: block;
+        display: flex;
+        align-items: center;
     }
     
     .mobile-top-nav {
@@ -2590,8 +2651,8 @@ footer {
     }
     
     .gallery-overlay {
-        padding: var(--space-sm) var(--space-md) var(--space-xs);
-        height: 70px;
+        padding: var(--space-sm) var(--space-md) var(--space-sm);
+        height: 85px;
     }
     
     .gallery-overlay h4 {
@@ -2634,20 +2695,63 @@ footer {
         font-size: 0.9rem;
     }
     
+    /* ページヘッダーのモバイル対応 */
+    .page-header {
+        padding: 2rem 1rem;
+        margin: 1rem 0 2rem;
+    }
+    
+    .page-header h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+        padding: 0 1rem;
+        line-height: 1.6;
+    }
+    
+    /* カードとコンテンツのモバイルマージン調整 */
+    .card {
+        margin: 0 1rem;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* セクションタイトルのモバイル調整 */
+    .section h2 {
+        padding: 0 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* テキストコンテンツのモバイル調整 */
+    .card p {
+        padding: 0 0.5rem;
+    }
+    
+    /* モバイル版で背景画像を非表示 */
+    .symptoms-background-image,
+    .gastro-symptoms-background-image {
+        display: none;
+    }
+    
     /* 診療時間表のモバイル対応 */
-    #hours .card.glass table {
-        display: block;
+    .schedule-table-container {
         overflow-x: auto;
-        white-space: nowrap;
-        margin: var(--space-md) 0;
-        width: 100%;
         -webkit-overflow-scrolling: touch;
     }
     
-    #hours .card.glass table thead,
-    #hours .card.glass table tbody,
-    #hours .card.glass table th,
-    #hours .card.glass table td {
+    .schedule-table-container table {
+        min-width: 600px;
+        white-space: nowrap;
+    }
+    
+    .schedule-table-container table th,
+    .schedule-table-container table td {
         white-space: nowrap;
     }
     
@@ -2672,8 +2776,8 @@ footer {
     }
     
     .gallery-overlay {
-        height: 60px;
-        padding: var(--space-xs) var(--space-sm) var(--space-xs);
+        height: 75px;
+        padding: var(--space-sm) var(--space-sm) var(--space-sm);
     }
     
     .gallery-overlay h4 {

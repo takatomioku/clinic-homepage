@@ -40,6 +40,7 @@
                             <li><a href="medical-services.html#internal">内科</a></li>
                             <li><a href="medical-services.html#gastroenterology">消化器内科</a></li>
                             <li><a href="medical-services.html#endoscopy">内視鏡内科</a></li>
+                            <li><a href="clinical-result.html">診療実績</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -171,64 +172,75 @@
                 <h2>各項目について</h2>
                 
                 <!-- 腹囲について -->
-                <div class="card glass" style="margin-bottom: var(--space-xl);">
-                    <div class="grid grid-2" style="gap: var(--space-xl); align-items: center;">
-                        <div>
-                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                                <span style="font-size: 1.5rem;">📏</span>腹囲について
-                            </h3>
-                            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                                メタボリック症候群では内臓脂肪が一定以上あることが診断には必須になります。CT検査などを行わないと正確には内臓脂肪のつき具合はわかりませんが、腹囲を測ることで、より簡便に内臓脂肪型肥満の程度を把握します。
-                            </p>
-                            <div style="background: var(--bg-glass-light); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--glass-border-light);">
-                                <p style="color: var(--accent-cyan); font-weight: 600; margin: 0; font-size: 0.95rem;">
-                                    測定方法：立位で軽く息を吐いた状態で、へその位置で水平に測定します
-                                </p>
-                            </div>
-                        </div>
-                        <div style="text-align: center;">
-                            <img src="images/abdominal-measurement.jpg" alt="腹囲測定の様子" style="width: 100%; max-width: 300px; border-radius: var(--radius-lg); box-shadow: var(--shadow-glass);">
-                        </div>
+                <div class="card glass" style="margin-bottom: var(--space-xl); position: relative; overflow: hidden;">
+                    <div class="abdominal-measurement-image" style="position: absolute; top: 50%; right: var(--space-lg); transform: translateY(-50%); width: 280px; height: 280px; opacity: 0.15; z-index: 1;">
+                        <img src="images/abdominal-measurement.jpg" alt="腹囲測定の様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                    </div>
+                    <div style="position: relative; z-index: 2;">
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">📏</span>腹囲について
+                        </h3>
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                            メタボリック症候群では内臓脂肪が一定以上あることが診断には必須になります。CT検査などを行わないと正確には内臓脂肪のつき具合はわかりませんが、腹囲を測ることで、より簡便に内臓脂肪型肥満の程度を把握します。
+                        </p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            測定方法は立位で軽く息を吐いた状態で、へその位置で水平に測定します。
+                        </p>
                     </div>
                 </div>
 
                 <!-- 高血圧について -->
-                <div class="card glass" style="margin-bottom: var(--space-xl);">
-                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                        <span style="font-size: 1.5rem;">💓</span>高血圧について
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        血圧が高いと、血管に負担がかかり、血管の柔軟性がなくなったり、血管壁がもろくなったり、厚くなるなどといった、いわゆる動脈硬化が生じやすくなります。さらに狭心症・心筋梗塞といった心臓病、脳梗塞・脳出血といった脳卒中、腎臓病の危険性が高くなります。
-                    </p>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        禁煙や減塩食、運動などの生活習慣の見直しや薬物療法が必要となります。また白衣高血圧といって病院では血圧が高くなる方がいるため、家庭での測定をお勧めしております。
-                    </p>
+                <div class="card glass" style="margin-bottom: var(--space-xl); position: relative; overflow: hidden;">
+                    <div class="blood-pressure-image" style="position: absolute; top: 50%; right: var(--space-lg); transform: translateY(-50%); width: 280px; height: 280px; opacity: 0.15; z-index: 1;">
+                        <img src="images/bp-measurement.jpg" alt="血圧測定の様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                    </div>
+                    <div style="position: relative; z-index: 2;">
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">💓</span>高血圧について
+                        </h3>
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                            血圧が高いと、血管に負担がかかり、血管の柔軟性がなくなったり、血管壁がもろくなったり、厚くなるなどといった、いわゆる動脈硬化が生じやすくなります。さらに狭心症・心筋梗塞といった心臓病、脳梗塞・脳出血といった脳卒中、腎臓病の危険性が高くなります。
+                        </p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            禁煙や減塩食、運動などの生活習慣の見直しや薬物療法が必要となります。また白衣高血圧といって病院では血圧が高くなる方がいるため、家庭での測定をお勧めしております。
+                        </p>
+                    </div>
                 </div>
 
                 <!-- 高血糖について -->
-                <div class="card glass" style="margin-bottom: var(--space-xl);">
-                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                        <span style="font-size: 1.5rem;">🍭</span>高血糖について
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        内臓脂肪が蓄積すると、血糖値を下げるホルモンであるインスリンの効き目が体内で低下することがわかっております（インスリン抵抗性といいます）。インスリン抵抗性が強くなると、糖尿病へと進展しやすくなります。
-                    </p>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        糖尿病は動脈硬化を引き起こし、神経障害、網膜症、腎症といった合併症を引き起こします。それらが進行しますと、足の壊死や失明、腎不全で透析が必要となるなど重篤な状態となります。食事・運動療法、薬物療法にて早めの対応が必要です。
-                    </p>
+                <div class="card glass" style="margin-bottom: var(--space-xl); position: relative; overflow: hidden;">
+                    <div class="high-blood-sugar-image" style="position: absolute; top: 50%; right: var(--space-lg); transform: translateY(-50%); width: 280px; height: 280px; opacity: 0.15; z-index: 1;">
+                        <img src="images/cake-eating.jpg" alt="ケーキを食べている様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                    </div>
+                    <div style="position: relative; z-index: 2;">
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">🍭</span>高血糖について
+                        </h3>
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                            内臓脂肪が蓄積すると、血糖値を下げるホルモンであるインスリンの効き目が体内で低下することがわかっております（インスリン抵抗性といいます）。インスリン抵抗性が強くなると、糖尿病へと進展しやすくなります。
+                        </p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            糖尿病は動脈硬化を引き起こし、神経障害、網膜症、腎症といった合併症を引き起こします。それらが進行しますと、足の壊死や失明、腎不全で透析が必要となるなど重篤な状態となります。食事・運動療法、薬物療法にて早めの対応が必要です。
+                        </p>
+                    </div>
                 </div>
 
                 <!-- 脂質異常症について -->
-                <div class="card glass">
-                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                        <span style="font-size: 1.5rem;">🧪</span>脂質異常症について
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        脂質異常症とは中性脂肪が高い、HDLコレステロールが低い、また表の基準にはありませんが、LDLコレステロールが高い状態をいいます。中性脂肪は一般的に高カロリーの食事をとることにより上昇し、高値が続くことにより動脈硬化を招くとされております。
-                    </p>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        HDLコレステロールは善玉コレステロールと呼ばれ、血管壁のコレステロールを取り除き肝臓へ運ぶ働きをしています。反対にLDLコレステロールは悪玉コレステロールと呼ばれ、増加すると動脈硬化、心筋梗塞、脳梗塞の危険が高まります。治療の基本は食事、運動療法ですが、それでも改善しない場合には薬物療法が必要となります。
-                    </p>
+                <div class="card glass" style="position: relative; overflow: hidden;">
+                    <div class="lipid-disorder-image" style="position: absolute; top: 50%; right: var(--space-lg); transform: translateY(-50%); width: 280px; height: 280px; opacity: 0.15; z-index: 1;">
+                        <img src="images/steak-cutting.jpg" alt="ステーキを切っている様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                    </div>
+                    <div style="position: relative; z-index: 2;">
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">🧪</span>脂質異常症について
+                        </h3>
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                            脂質異常症とは中性脂肪が高い、HDLコレステロールが低い、また表の基準にはありませんが、LDLコレステロールが高い状態をいいます。中性脂肪は一般的に高カロリーの食事をとることにより上昇し、高値が続くことにより動脈硬化を招くとされております。
+                        </p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            HDLコレステロールは善玉コレステロールと呼ばれ、血管壁のコレステロールを取り除き肝臓へ運ぶ働きをしています。反対にLDLコレステロールは悪玉コレステロールと呼ばれ、増加すると動脈硬化、心筋梗塞、脳梗塞の危険が高まります。治療の基本は食事、運動療法ですが、それでも改善しない場合には薬物療法が必要となります。
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -371,6 +383,7 @@
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="clinic-introduction.html">クリニック紹介</a></li>
                 <li><a href="medical-services.html">診療案内</a></li>
+                <li><a href="clinical-result.html">診療実績</a></li>
                 <li><a href="faq.html">よくある質問</a></li>
                 <li><a href="index.html#access">アクセス</a></li>
             </ul>

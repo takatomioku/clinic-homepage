@@ -40,6 +40,7 @@
                             <li><a href="medical-services.html#internal">内科</a></li>
                             <li><a href="medical-services.html#gastroenterology">消化器内科</a></li>
                             <li><a href="medical-services.html#endoscopy">内視鏡内科</a></li>
+                            <li><a href="clinical-result.html">診療実績</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -94,16 +95,21 @@
                         近年、高血圧や脂質異常症、糖尿病といった生活習慣病と関わりがあることが明らかとなりました。当院では睡眠時無呼吸症候群の検査を実施しております。ひどいいびきや日中に眠気の強い方、高血圧がなかなか改善しない方は是非一度簡易検査を受けてみてください。
                     </p>
                             
-                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
-                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                            <span style="font-size: 1.5rem;">📊</span>診断基準
-                        </h3>
-                        <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
-                            <li style="margin-bottom: var(--space-xs);">• 無呼吸：10秒以上の呼吸停止</li>
-                            <li style="margin-bottom: var(--space-xs);">• 一晩に30回以上、または1時間に5回以上</li>
-                            <li style="margin-bottom: var(--space-xs);">• 日本では300〜400万人の患者数と推定</li>
-                            <li style="margin-bottom: var(--space-xs);">• AHI（無呼吸低呼吸指数）5以上で診断</li>
-                        </ul>
+                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); position: relative; overflow: hidden; min-height: 320px;">
+                        <div class="sleep-apnea-image" style="position: absolute; top: var(--space-md); right: calc(var(--space-lg) + var(--space-md)); width: 260px; height: 260px; opacity: 0.15; z-index: 1; display: none; margin-bottom: var(--space-md);">
+                            <img src="images/sleep-tired-business.jpg" alt="仕事中に眠気に悩む様子" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                        </div>
+                        <div style="position: relative; z-index: 2;">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
+                                <span style="font-size: 1.5rem;">📊</span>診断基準
+                            </h3>
+                            <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--space-xs);">• 無呼吸：10秒以上の呼吸停止</li>
+                                <li style="margin-bottom: var(--space-xs);">• 一晩に30回以上、または1時間に5回以上</li>
+                                <li style="margin-bottom: var(--space-xs);">• 日本では300〜400万人の患者数と推定</li>
+                                <li style="margin-bottom: var(--space-xs);">• AHI（無呼吸低呼吸指数）5以上で診断</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -490,6 +496,7 @@
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="clinic-introduction.html">クリニック紹介</a></li>
                 <li><a href="medical-services.html">診療案内</a></li>
+                <li><a href="clinical-result.html">診療実績</a></li>
                 <li><a href="faq.html">よくある質問</a></li>
                 <li><a href="index.html#access">アクセス</a></li>
             </ul>
@@ -554,6 +561,14 @@
         </div>
     </footer>
 
+    <style>
+        /* デスクトップ版で睡眠時無呼吸症候群の背景画像を表示 */
+        @media (min-width: 768px) {
+            .sleep-apnea-image {
+                display: block !important;
+            }
+        }
+    </style>
     <script src="script.js"></script>
     <script>
         // モバイルメニューの制御

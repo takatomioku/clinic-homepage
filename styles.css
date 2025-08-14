@@ -997,7 +997,7 @@ header {
 }
 
 .faq-answer p {
-    padding: var(--space-lg);
+    padding: var(--space-lg) var(--space-xl);
     color: var(--text-secondary);
     line-height: 1.8;
     margin: 0;
@@ -1032,7 +1032,7 @@ header {
     }
     
     .faq-answer p {
-        padding: var(--space-md);
+        padding: var(--space-lg) var(--space-md);
     }
     
     .faq-section h2 {
@@ -1615,6 +1615,32 @@ footer {
         display: block;
     }
     
+    /* モバイル版健診カードの幅を最大限活用 */
+    .health-check-course-card {
+        margin: 0 auto var(--space-lg) auto;
+        max-width: none;
+        width: 100%;
+    }
+    
+    /* モバイル版でのコンテナ幅を調整 */
+    .container {
+        padding: 0 var(--space-xs);
+    }
+    
+    /* 健診ページの背景セクションパディングも調整 */
+    .section[style*="background"] {
+        padding: var(--space-xl) var(--space-xs) !important;
+    }
+    
+    /* モバイル版で腹囲測定画像・血圧測定画像・高血糖画像・脂質異常症画像・ピロリ菌画像を非表示 */
+    .abdominal-measurement-image,
+    .blood-pressure-image,
+    .high-blood-sugar-image,
+    .lipid-disorder-image,
+    .helicobacter-pylori-image {
+        display: none;
+    }
+    
     
     /* メインコンテンツの上部マージンを追加（ヘッダー分） */
     body {
@@ -1689,7 +1715,7 @@ footer {
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 15px;
+        padding: 0 8px;
     }
     
     .hero {
@@ -1862,9 +1888,9 @@ footer {
 }
 
 .faq-answer p {
-    padding: 0.3rem 1rem;
+    padding: var(--space-lg) var(--space-xl);
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.8;
     margin: 0;
     font-size: 1rem;
 }
@@ -1904,7 +1930,7 @@ footer {
     }
     
     .faq-answer p {
-        padding: var(--space-md);
+        padding: var(--space-lg) var(--space-md);
     }
 }
 }

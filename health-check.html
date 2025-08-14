@@ -39,6 +39,7 @@
                             <li><a href="medical-services.html#internal">内科</a></li>
                             <li><a href="medical-services.html#gastroenterology">消化器内科</a></li>
                             <li><a href="medical-services.html#endoscopy">内視鏡内科</a></li>
+                            <li><a href="clinical-result.html">診療実績</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -81,11 +82,134 @@
             </div>
         </section>
 
-        <!-- WEBネット予約案内 -->
-        <section class="section" style="background: var(--bg-glass-light); margin: var(--space-2xl) 0; border-radius: var(--radius-2xl); padding: var(--space-2xl);">
+        <!-- 健診の種類案内 -->
+        <section class="section">
             <div class="container">
-                <h2 style="margin-bottom: var(--space-lg);">健診WEB予約</h2>
-                <div class="card glass" style="text-align: center; margin-bottom: var(--space-xl);">
+                <h2>健診の種類</h2>
+                <div class="section-intro">
+                    <p>当院では公的健診とクリニック独自健診の両方を実施しています。目的に応じてお選びください。</p>
+                </div>
+                
+                <div class="grid grid-2" style="gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+                    <div class="card glass" style="text-align: center; padding: var(--space-2xl);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);">🏛️</div>
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">公的健診</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+                            帯広市・音更町・協会けんぽの特定健診、各種がん検診など。
+                            <strong style="color: var(--accent-cyan);">予約不要</strong>で受診可能です。
+                        </p>
+                        <a href="#public-health-check" class="btn btn-outline">詳細を見る</a>
+                    </div>
+                    
+                    <div class="card glass" style="text-align: center; padding: var(--space-2xl);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);">🏥</div>
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">クリニック独自健診</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+                            進学・就職用健診、企業健診、人間ドックなど。
+                            <strong style="color: var(--accent-cyan);">予約制</strong>となっております。
+                        </p>
+                        <a href="#clinic-health-check" class="btn btn-outline">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 公的健診セクション -->
+        <section id="public-health-check" class="section" style="background: var(--bg-glass-light); border-radius: var(--radius-2xl); margin: var(--space-2xl) 0; padding: var(--space-2xl);">
+            <div class="container">
+                <h2>公的健診（予約不要）</h2>
+                <div class="section-intro">
+                    <p>帯広市・音更町・協会けんぽから送付される受診券をお持ちの方が対象です。予約不要でお越しいただけます。</p>
+                </div>
+
+                <!-- 特定健診 -->
+                <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                        <span style="font-size: 1.5rem;">🩺</span>特定健診（市民・後期高齢者健康診査）
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        メタボリック症候群の予防・早期発見を目的に2008年より実施されています。帯広市、音更町、協会けんぽから受診券が送られてきます。
+                        <strong style="color: var(--accent-cyan);">予約不要</strong>でお気軽にお越しください。
+                        <strong style="color: var(--accent-gold);">10時間以上の絶食が必要</strong>です。
+                    </p>
+                    
+                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                        <h4 style="color: var(--text-primary); margin-bottom: var(--space-md);">検査項目</h4>
+                        <div class="grid grid-2" style="gap: var(--space-lg);">
+                            <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--space-xs);">• 既往歴の調査（服薬歴・喫煙習慣調査含む）</li>
+                                <li style="margin-bottom: var(--space-xs);">• 自覚症状及び他覚症状の検査</li>
+                                <li style="margin-bottom: var(--space-xs);">• 身長、体重及び腹囲の測定</li>
+                                <li style="margin-bottom: var(--space-xs);">• BMI測定</li>
+                                <li style="margin-bottom: var(--space-xs);">• 血圧測定</li>
+                            </ul>
+                            <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--space-xs);">• 肝機能検査（GOT、GPT、γ-GTP）</li>
+                                <li style="margin-bottom: var(--space-xs);">• 血中脂質検査（中性脂肪、HDL・LDLコレステロール）</li>
+                                <li style="margin-bottom: var(--space-xs);">• 血糖検査</li>
+                                <li style="margin-bottom: var(--space-xs);">• 尿検査（糖及び蛋白）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-lg); text-align: center;">
+                        <a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/kenshin/index.html" target="_blank" class="btn btn-outline" style="margin-right: var(--space-md);">
+                            帯広市公式サイト
+                        </a>
+                    </div>
+                </div>
+
+                <!-- がん検診 -->
+                <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
+                        <span style="font-size: 1.5rem;">🔬</span>がん検診・肝炎ウイルス検診
+                    </h3>
+                    
+                    <div class="grid grid-3" style="gap: var(--space-lg);">
+                        <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-md);">大腸がん検診</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">便潜血反応検査により大腸がんの早期発見を行います。</p>
+                            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                <li>• 便2回分の提出が必要</li>
+                                <li>• 予約不要</li>
+                                <li>• 検査容器をお渡しします</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-md);">前立腺がん検診</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">血液検査（PSA値測定）により前立腺がんの検査を行います。</p>
+                            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                <li>• 血液検査のみ</li>
+                                <li>• 予約不要</li>
+                                <li>• 受付でお申し出ください</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                            <h4 style="color: var(--text-primary); margin-bottom: var(--space-md);">肝炎ウイルス検診</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">血液検査によりB型・C型肝炎の感染を調べます。</p>
+                            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                <li>• B型・C型肝炎検査</li>
+                                <li>• 予約不要</li>
+                                <li>• 血液検査により判定</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- クリニック独自健診セクション -->
+        <section id="clinic-health-check" class="section" style="background: var(--bg-glass-light); border-radius: var(--radius-2xl); margin: var(--space-2xl) 0; padding: var(--space-2xl);">
+            <div class="container">
+                <h2>クリニック独自健診（予約制）</h2>
+                <div class="section-intro">
+                    <p>進学・就職用健診、企業健診、人間ドックなど、様々な目的に対応した健診メニューをご用意しています。</p>
+                </div>
+
+                <!-- WEB予約案内 -->
+                <div class="card glass" style="text-align: center; margin-bottom: var(--space-2xl); background: var(--bg-glass-light);">
                     <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">便利なWEB予約システム</h3>
                     <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">個人のお客様専用の健診WEB予約を承っております。<br>進学、就職用をはじめ、様々なメニューをご用意しています。</p>
                     
@@ -100,20 +224,9 @@
                             <li>健診結果の作成には1週間程度かかる場合があります</li>
                             <li>1か月先までの予約が可能です</li>
                             <li>企業・団体様はお電話（0155-66-6170）でお受けいたします</li>
-                            <li>帯広市、音更町、協会けんぽの特定健診は予約不要です</li>
                             <li>変更・キャンセルは電話にて承ります</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 健康診断メニュー -->
-        <section id="health-check" class="section">
-            <div class="container">
-                <h2>健康診断メニュー</h2>
-                <div class="section-intro">
-                    <p>定期的な健康チェックで健康管理をサポートします。豊富な検査メニューからお選びいただけます。</p>
                 </div>
 
                 <!-- 健診コース一覧表 -->
@@ -136,67 +249,67 @@
                         <tbody>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">医師診察</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">身体測定（身長・体重・BMI・腹囲）</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">血圧測定</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">視力検査（裸眼・矯正視力）</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">聴力検査（1000Hz・4000Hz）</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">尿検査（蛋白・糖・潜血）</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">胸部レントゲン</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">心電図</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr style="background: var(--bg-glass-light);">
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);" colspan="6">血液検査</td>
@@ -206,40 +319,40 @@
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">脂質（総・LDL・HDLコレステロール、中性脂肪）</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">糖尿病（空腹時血糖・HbA1c）</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary); border-bottom: 1px solid var(--glass-border);">腎機能（尿酸・クレアチニン）</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
                                 <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border);">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                             <tr>
                                 <td style="padding: var(--space-sm) var(--space-md); color: var(--text-secondary);">一般血液（白血球、赤血球、ヘモグロビン・ヘマトクリット・血小板）</td>
                                 <td style="padding: var(--space-sm); text-align: center;">-</td>
                                 <td style="padding: var(--space-sm); text-align: center;">-</td>
                                 <td style="padding: var(--space-sm); text-align: center;">-</td>
-                                <td style="padding: var(--space-sm); text-align: center; color: var(--accent-emerald);">✓</td>
-                                <td style="padding: var(--space-sm); text-align: center; color: var(--accent-emerald);">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
+                                <td style="padding: var(--space-sm); text-align: center; color: var(--accent-emerald); font-weight: 900; font-size: 1.2rem;">✓</td>
                             </tr>
                         </tbody>
                     </table>
@@ -256,12 +369,12 @@
                                 <p class="course-price">2,000円（税込）</p>
                             </div>
                             <ul class="course-items">
-                                <li><span class="item-name">医師診察</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">身体測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">血圧測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">視力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">聴力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">尿検査</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">医師診察</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">身体測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">血圧測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">視力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">聴力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">尿検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                                 <li><span class="item-name">胸部レントゲン</span><span class="item-not-included">−</span></li>
                                 <li><span class="item-name">心電図</span><span class="item-not-included">−</span></li>
                                 <li><span class="item-name">血液検査</span><span class="item-not-included">−</span></li>
@@ -275,13 +388,13 @@
                                 <p class="course-price">3,500円（税込）</p>
                             </div>
                             <ul class="course-items">
-                                <li><span class="item-name">医師診察</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">身体測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">血圧測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">視力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">聴力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">尿検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">胸部レントゲン</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">医師診察</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">身体測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">血圧測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">視力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">聴力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">尿検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">胸部レントゲン</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                                 <li><span class="item-name">心電図</span><span class="item-not-included">−</span></li>
                                 <li><span class="item-name">血液検査</span><span class="item-not-included">−</span></li>
                             </ul>
@@ -294,14 +407,14 @@
                                 <p class="course-price">5,000円（税込）</p>
                             </div>
                             <ul class="course-items">
-                                <li><span class="item-name">医師診察</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">身体測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">血圧測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">視力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">聴力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">尿検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">胸部レントゲン</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">心電図</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">医師診察</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">身体測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">血圧測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">視力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">聴力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">尿検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">胸部レントゲン</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">心電図</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                                 <li><span class="item-name">血液検査</span><span class="item-not-included">−</span></li>
                             </ul>
                         </div>
@@ -313,19 +426,19 @@
                                 <p class="course-price">6,500円（税込）</p>
                             </div>
                             <ul class="course-items">
-                                <li><span class="item-name">医師診察</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">身体測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">血圧測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">視力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">聴力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">尿検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">胸部レントゲン</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">医師診察</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">身体測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">血圧測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">視力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">聴力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">尿検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">胸部レントゲン</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                                 <li><span class="item-name">心電図</span><span class="item-not-included">−</span></li>
-                                <li><span class="item-name">肝機能検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">脂質検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">糖尿病検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">腎機能検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">一般血液検査</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">肝機能検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">脂質検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">糖尿病検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">腎機能検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">一般血液検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                             </ul>
                         </div>
                         
@@ -336,19 +449,19 @@
                                 <p class="course-price">8,000円（税込）</p>
                             </div>
                             <ul class="course-items">
-                                <li><span class="item-name">医師診察</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">身体測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">血圧測定</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">視力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">聴力検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">尿検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">胸部レントゲン</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">心電図</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">肝機能検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">脂質検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">糖尿病検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">腎機能検査</span><span class="item-included">✓</span></li>
-                                <li><span class="item-name">一般血液検査</span><span class="item-included">✓</span></li>
+                                <li><span class="item-name">医師診察</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">身体測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">血圧測定</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">視力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">聴力検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">尿検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">胸部レントゲン</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">心電図</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">肝機能検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">脂質検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">糖尿病検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">腎機能検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
+                                <li><span class="item-name">一般血液検査</span><span class="item-included" style="font-weight: 900; font-size: 1.2rem;">✓</span></li>
                             </ul>
                         </div>
                         
@@ -486,6 +599,7 @@
                 <li><a href="medical-services.html">診療案内</a></li>
                 <li><a href="health-check.html">健康診断</a></li>
                 <li><a href="vaccination.html">予防接種</a></li>
+                <li><a href="clinical-result.html">診療実績</a></li>
                 <li><a href="faq.html">よくある質問</a></li>
                 <li><a href="index.html#access">アクセス</a></li>
             </ul>

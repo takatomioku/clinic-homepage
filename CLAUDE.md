@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with 15 specialized pages covering comprehensive medical services, facilities, and patient information.
+This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with 16 specialized pages covering comprehensive medical services, facilities, and patient information.
 
 ## Architecture
 
 ### Site Architecture Overview
-The website uses a **hierarchical medical practice structure** with 15 HTML pages organized into distinct content categories:
+The website uses a **hierarchical medical practice structure** with 16 HTML pages organized into distinct content categories:
 
 **Primary Navigation Pages:**
 - `index.html` - Homepage with hero section, services overview, and clinic introduction
@@ -28,6 +28,7 @@ The website uses a **hierarchical medical practice structure** with 15 HTML page
 **Preventive Services:**
 - `vaccination.html`, `health-check.html` - Individual service pages
 - `vaccination-health-check.html` - Combined legacy page
+- `vaccine.html` - Detailed vaccine information page
 
 **Core Assets:**
 - `styles.css` - 61KB comprehensive design system with CSS custom properties
@@ -94,15 +95,23 @@ npx serve .
 
 ### Common Development Tasks
 **Testing Changes Across Site:**
-- Always test modifications on all 15 pages, especially navigation and styling changes
+- Always test modifications on all 16 pages, especially navigation and styling changes
 - Pay special attention to mobile responsiveness across medical specialty pages
 - Verify glass-morphism effects render properly on different devices
+- Check navigation consistency - some pages have different navigation structures that need alignment
 
 **Adding New Medical Content:**
 1. Follow existing HTML structure patterns from similar pages
 2. Use consistent CSS classes: `.card.glass`, `.container`, `.section`
 3. Maintain professional medical terminology and accuracy
 4. Include proper meta tags and structured data if needed
+5. For symptom cards with background images, use the `.symptoms-card` pattern with appropriate background image elements
+
+**Navigation Structure Maintenance:**
+- Maintain consistent dropdown menu structure across all pages
+- Ensure mobile navigation menus have identical items
+- Use the standard dropdown pattern: "予防接種・健診" → "予防接種", "健康診断" submenus
+- Always include `clinical-result.html` in the medical services dropdown
 
 ### Content Updates
 When updating medical information or clinic details:
@@ -115,8 +124,14 @@ When updating medical information or clinic details:
 The design system is centralized in `:root` CSS custom properties. To modify colors, spacing, or effects:
 1. Update CSS custom properties at the top of `styles.css`
 2. Changes will cascade throughout all components
-3. Test all 15 pages to ensure consistency across specialized medical pages
+3. Test all 16 pages to ensure consistency across specialized medical pages
 4. Maintain accessibility contrast ratios and professional medical appearance
+
+**Background Image System for Medical Cards:**
+- Use `.symptoms-background-image` and `.gastro-symptoms-background-image` for medical symptom cards
+- Images should be grayscale with 15% opacity and gradient mask effects
+- Mobile versions automatically hide background images via CSS media queries
+- Image files: `internal-medicine-symptoms.jpg` and `gastroenterology-symptoms.jpg`
 
 ### Image Management
 Medical equipment and facility images are stored in `images/` directory with **66 organized assets**:
@@ -162,10 +177,11 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 - **Patient Resources:** FAQ system and preventive care information
 
 ### HTML Structure Patterns
-- **Consistent Header Navigation:** Identical dropdown structure across all 15 pages
+- **Consistent Header Navigation:** Identical dropdown structure across all 16 pages (with noted inconsistencies to fix)
 - **Uniform Meta Tag Implementation:** Page-specific descriptions with medical keywords
 - **Semantic Section Organization:** Proper landmark roles and heading hierarchy
 - **Professional Medical Content:** Accurate terminology and structured information presentation
+- **Mobile Navigation:** All pages include `mobile-top-header` and `mobile-fullscreen-menu` components
 
 ### SEO and Accessibility
 - Structured data (JSON-LD) for medical organization
@@ -189,3 +205,24 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 - Mobile-first responsive design
 - Optimized for medical professional viewing (clean, sophisticated aesthetic)
 - Fast loading times for patient information access
+
+## Known Issues and Maintenance Notes
+
+### Navigation Inconsistencies (High Priority)
+- `vaccine.html` uses flat navigation structure instead of dropdown
+- Mobile menu items vary between pages
+- Some pages may have missing `script.js` includes (check `norovirus.html` and `pyroli.html`)
+
+### File Management
+- Multiple vaccination-related files exist (`vaccination.html`, `vaccine.html`, `vaccination-health-check.html`)
+- Consider consolidating or clearly documenting the purpose of each
+
+### CSS Architecture
+- 20 media queries across the codebase with efficient responsive breakpoints
+- Background image system for medical symptom cards with mobile-friendly fallbacks
+- Schedule table containers with horizontal scrolling for mobile devices
+
+### Mobile Optimizations
+- All tables should use `.schedule-table-container` wrapper for horizontal scrolling
+- Background images automatically hidden on mobile devices
+- Touch-optimized navigation and interactions implemented

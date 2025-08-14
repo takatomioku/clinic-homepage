@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予防接種 - おく内科消化器クリニック | 各種ワクチン接種のご案内</title>
-    <meta name="description" content="おく内科消化器クリニックの予防接種のご案内。インフルエンザ、肺炎球菌、帯状疱疹ワクチンなど各種ワクチン接種を実施。">
-    <meta name="keywords" content="おく内科消化器クリニック,予防接種,ワクチン,インフルエンザ,肺炎球菌,帯状疱疹,帯広市">
-    <meta property="og:title" content="予防接種 - おく内科消化器クリニック">
-    <meta property="og:description" content="各種ワクチン接種のご案内。詳細情報をモーダルで確認できます。">
+    <title>予防接種・ワクチン詳細情報 - おく内科消化器クリニック | インフルエンザ・肺炎球菌・帯状疱疹ワクチン接種</title>
+    <meta name="description" content="おく内科消化器クリニックの予防接種・ワクチン詳細情報。インフルエンザ、肺炎球菌、帯状疱疹ワクチンの効果・料金・接種方法を詳しくご案内。">
+    <meta name="keywords" content="おく内科消化器クリニック,予防接種,ワクチン,インフルエンザ,肺炎球菌,帯状疱疹,ワクチン詳細,料金,帯広市">
+    <meta property="og:title" content="予防接種・ワクチン詳細情報 - おく内科消化器クリニック">
+    <meta property="og:description" content="各種ワクチン接種の詳細情報。効果・料金・接種方法について詳しくご案内します。">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/logo-desktop.png">
     <link rel="canonical" href="https://www.oku-clinic.com/vaccination.html">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* スクロール位置調整 - JavaScriptで制御するためコメントアウト */
+        /* html {
+            scroll-behavior: smooth;
+        } */
+        
+        /* アンカーリンク先のオフセット調整 - JavaScriptで制御するためコメントアウト */
+        /* #influenza-detail, #pneumonia-detail, #herpes-zoster-detail {
+            scroll-margin-top: 120px;
+        } */
+        
+        /* カードにホバー効果を追加 */
+        .vaccine-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .vaccine-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-deep);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -91,7 +112,7 @@
                 
                 <div class="vaccination-grid">
                     <!-- インフルエンザワクチン -->
-                    <div class="card glass vaccine-card" data-vaccine="influenza" style="cursor: pointer; transition: all var(--transition-smooth);">
+                    <div class="card glass vaccine-card">
                         <h3 style="color: var(--text-primary); margin-bottom: var(--space-md);">インフルエンザワクチン</h3>
                         <div style="margin-bottom: var(--space-md);">
                             <p><strong style="color: var(--accent-cyan);">接種期間:</strong> 10月〜12月</p>
@@ -99,11 +120,13 @@
                             <p><strong style="color: var(--accent-cyan);">対象:</strong> 中学3年生以上</p>
                         </div>
                         <p>毎年流行するインフルエンザの予防に有効です。特に高齢者や基礎疾患をお持ちの方におすすめします。</p>
-                        <div style="margin-top: var(--space-lg); text-align: right; color: var(--accent-cyan); font-weight: 600;">詳細を見る →</div>
+                        <div style="margin-top: var(--space-lg); text-align: right;">
+                            <a href="#influenza-detail" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none;">詳細を見る →</a>
+                        </div>
                     </div>
 
                     <!-- 肺炎球菌ワクチン -->
-                    <div class="card glass vaccine-card" data-vaccine="pneumonia" style="cursor: pointer; transition: all var(--transition-smooth);">
+                    <div class="card glass vaccine-card">
                         <h3 style="color: var(--text-primary); margin-bottom: var(--space-md);">肺炎球菌ワクチン</h3>
                         <div style="margin-bottom: var(--space-md);">
                             <p><strong style="color: var(--accent-cyan);">料金:</strong> 自己負担2,900円</p>
@@ -111,11 +134,13 @@
                             <p><strong style="color: var(--accent-cyan);">効果:</strong> 約5年間</p>
                         </div>
                         <p>肺炎の原因となる肺炎球菌による感染症を予防します。65歳以上の方や慢性疾患をお持ちの方に特におすすめします。</p>
-                        <div style="margin-top: var(--space-lg); text-align: right; color: var(--accent-cyan); font-weight: 600;">詳細を見る →</div>
+                        <div style="margin-top: var(--space-lg); text-align: right;">
+                            <a href="#pneumonia-detail" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none;">詳細を見る →</a>
+                        </div>
                     </div>
 
                     <!-- 帯状疱疹ワクチン -->
-                    <div class="card glass vaccine-card" data-vaccine="herpes-zoster" style="cursor: pointer; transition: all var(--transition-smooth);">
+                    <div class="card glass vaccine-card">
                         <h3 style="color: var(--text-primary); margin-bottom: var(--space-md);">帯状疱疹ワクチン</h3>
                         <div style="margin-bottom: var(--space-md);">
                             <p><strong style="color: var(--accent-cyan);">料金:</strong> 6,000円〜40,000円</p>
@@ -123,7 +148,9 @@
                             <p><strong style="color: var(--accent-cyan);">接種回数:</strong> 1回または2回</p>
                         </div>
                         <p>加齢により免疫力が低下することで発症しやすくなる帯状疱疹を予防します。50歳を過ぎたら接種をご検討ください。</p>
-                        <div style="margin-top: var(--space-lg); text-align: right; color: var(--accent-cyan); font-weight: 600;">詳細を見る →</div>
+                        <div style="margin-top: var(--space-lg); text-align: right;">
+                            <a href="#herpes-zoster-detail" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none;">詳細を見る →</a>
+                        </div>
                     </div>
 
                     <!-- B型肝炎ワクチン -->
@@ -169,6 +196,190 @@
                         <li>接種後30分は院内で経過観察をお願いいたします</li>
                     </ul>
                 </div>
+
+                <!-- 詳細情報セクション -->
+                <!-- インフルエンザワクチン詳細 -->
+                <section id="influenza-detail" class="section" style="margin-top: var(--space-3xl);">
+                    <div class="container">
+                        <h2>インフルエンザワクチン</h2>
+                        
+                        <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">インフルエンザワクチンについて</h3>
+                            <div class="grid grid-2">
+                                <div>
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">実施期間</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">毎年10月〜12月（年度により変更あり）</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">対象年齢</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">中学3年生以上<br>※当院に受診歴のある方のみとさせていただきます</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">接種回数</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">1回（毎年）</p>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">料金</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">3,500円</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">予防効果</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">発症を50〜60％程度減少させ、重症化を大幅に予防</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">効果持続期間</h4>
+                                    <p style="color: var(--text-secondary);">約5ヶ月間（接種後2週間で免疫獲得）</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card glass">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">帯広市からの補助について</h3>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">対象</th>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">補助額</th>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">自己負担額</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">中学3年生・高校3年生</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">1,500円</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-cyan); font-weight: 600;">2,000円</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">65歳以上</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald);">2,400円</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-cyan); font-weight: 600;">1,100円</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--text-secondary);">60-64歳<br>（心臓・腎臓・呼吸器・免疫機能の障害がある方）</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-emerald);">2,400円</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">1,100円</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p style="color: var(--text-muted); margin-top: var(--space-md);">詳しくは<a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/1004873.html" style="color: var(--accent-cyan); text-decoration: underline;">帯広市のホームページ</a>をご覧ください。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 肺炎球菌ワクチン詳細 -->
+                <section id="pneumonia-detail" class="section" style="margin-top: var(--space-3xl);">
+                    <div class="container">
+                        <h2>肺炎球菌ワクチン</h2>
+                        
+                        <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">肺炎球菌ワクチンについて</h3>
+                            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary); line-height: 1.8;">大人がかかる肺炎のうち、肺炎球菌によるものは全体の25～40％を占め、特に高齢者の重症化が問題となっています。平成26年10月1日より肺炎球菌ワクチンが定期予防接種となりました。</p>
+                            
+                            <div class="grid grid-2">
+                                <div>
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">対象者</h4>
+                                    <ul style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                                        <li>帯広市に住民登録がある方</li>
+                                        <li>過去に肺炎球菌ワクチンの接種を受けたことがない方</li>
+                                        <li>接種日時点の年齢が65歳の方</li>
+                                        <li>接種日時点の年齢が60歳以上65歳未満で、心臓・腎臓・呼吸器・免疫機能に障害を有する方（障害等級1級またはそれに準じる方）</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">料金</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--accent-cyan); font-weight: 600; font-size: 1.1rem;">自己負担額：2,900円</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">予防効果</h4>
+                                    <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">肺炎球菌による肺炎の発症を約70％予防</p>
+                                    
+                                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">効果持続期間</h4>
+                                    <p style="color: var(--text-secondary);">約5年間</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="notice-card" style="padding: var(--space-xl); background: var(--bg-glass-light); border-radius: var(--radius-xl); border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);">
+                            <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">📋 重要なお知らせ</h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                                <li><strong style="color: var(--accent-emerald);">予約は不要です</strong>。直接ご来院ください。</li>
+                                <li>上記対象以外の方でも接種は可能です。料金が異なりますのでお問い合わせください。</li>
+                                <li>詳しくは<a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/1004874.html" style="color: var(--accent-cyan); text-decoration: underline;">帯広市のホームページ</a>をご覧ください。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 帯状疱疹ワクチン詳細 -->
+                <section id="herpes-zoster-detail" class="section" style="margin-top: var(--space-3xl);">
+                    <div class="container">
+                        <h2>帯状疱疹ワクチン</h2>
+                        
+                        <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">帯状疱疹とは</h3>
+                            <p style="margin-bottom: var(--space-md); color: var(--text-secondary); line-height: 1.8;">帯状疱疹は多くの人が子供の頃に感染する水ぼうそうのウイルス（水痘帯状疱疹ウイルス）が原因で起こります。水ぼうそうが治った後もウイルスは体内に潜伏します。日本人成人の90％以上にこのウイルスが潜伏していると考えられています。</p>
+                            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary); line-height: 1.8;"><strong style="color: var(--accent-red);">50歳を過ぎると発症率が高くなり、80歳までに約3人に1人が発症</strong>するとされています。</p>
+                            
+                            <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">帯状疱疹の症状</h4>
+                            <p style="margin-bottom: var(--space-md); color: var(--text-secondary); line-height: 1.8;">症状としては体の片側の一部にピリピリとした痛みが現れ、その部分に赤い発疹が出てきます。痛みは徐々に増していき、夜も眠れないほど激しくなる場合もあります。</p>
+                            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary); line-height: 1.8;">皮膚の症状が治った後も痛みが残る場合があり、3か月以上痛みが続くものは<strong style="color: var(--accent-red);">帯状疱疹後神経痛（PHN）</strong>と呼ばれます。刺すような痛みや焼けるような痛みが数年にわたって改善されないこともあります。</p>
+                            
+                            <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">発症要因</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.8;">発症要因は加齢などによる免疫力の低下です。疲労やストレスなどもきっかけとなります。糖尿病やがんなどの免疫力の低下する病気が原因となることもあります。</p>
+                        </div>
+
+                        <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">帯状疱疹ワクチンの種類と比較</h3>
+                            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary); line-height: 1.8;">効果と費用に違いがありますので、下記表を参考にお選びください。<strong style="color: var(--accent-cyan);">ご希望の方はお電話にてご予約ください。</strong></p>
+                            
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">種類</th>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">水痘生ワクチン</th>
+                                            <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">シングリックス<br>（組換えワクチン）</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-primary); font-weight: 600;">接種年齢</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">50歳以上</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">50歳以上</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-primary); font-weight: 600;">接種回数</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">1回（皮下注射）</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">2回（筋肉注射）<br>2か月後に2回目</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-primary); font-weight: 600;">予防効果</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                                                50〜59歳：69.8％<br>
+                                                60〜69歳：64.0％<br>
+                                                70〜79歳：41.0％<br>
+                                                80歳以上：18.0％
+                                            </td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 600;">
+                                                50〜59歳：96.6％<br>
+                                                60〜69歳：97.4％<br>
+                                                70〜79歳：91.3％<br>
+                                                80歳以上：91.4％
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-primary); font-weight: 600;">持続期間</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">5〜7年程度</td>
+                                            <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--accent-emerald); font-weight: 600;">10年以上</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--text-primary); font-weight: 600;">料金</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">6,000円（税込）</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">20,000円（税込）<br>（2回で40,000円）</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- 予約・お問い合わせ -->
                 <div class="card glass" style="text-align: center; padding: var(--space-2xl); margin-top: var(--space-2xl);">
@@ -248,215 +459,6 @@
         </div>
     </footer>
 
-    <!-- モーダルウィンドウ -->
-    <!-- インフルエンザワクチンモーダル -->
-    <div class="modal-overlay" id="influenza-modal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">インフルエンザワクチン</h2>
-                <button class="modal-close" type="button">&times;</button>
-            </div>
-            <div class="modal-content">
-                <div class="modal-section">
-                    <h3>インフルエンザワクチンについて</h3>
-                    <p>インフルエンザワクチンは、毎年流行するインフルエンザの予防に有効です。発症を50〜60％程度減少させ、重症化を大幅に予防する効果があります。</p>
-                    
-                    <h4>実施期間</h4>
-                    <p>毎年10月〜12月（年度により変更あり）</p>
-                    
-                    <h4>対象年齢</h4>
-                    <p>中学3年生以上<br>※当院に受診歴のある方のみとさせていただきます</p>
-                    
-                    <h4>接種回数・効果</h4>
-                    <p><span class="modal-highlight">接種回数:</span> 1回（毎年）<br>
-                    <span class="modal-highlight">効果持続期間:</span> 約5ヶ月間（接種後2週間で免疫獲得）</p>
-                    
-                    <h4>料金</h4>
-                    <p class="modal-highlight">3,500円</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>帯広市からの補助について</h3>
-                    <table class="modal-table">
-                        <thead>
-                            <tr>
-                                <th>対象</th>
-                                <th>補助額</th>
-                                <th>自己負担額</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>中学3年生・高校3年生</td>
-                                <td>1,500円</td>
-                                <td class="modal-highlight">2,000円</td>
-                            </tr>
-                            <tr>
-                                <td>65歳以上</td>
-                                <td>2,400円</td>
-                                <td class="modal-highlight">1,100円</td>
-                            </tr>
-                            <tr>
-                                <td>60-64歳<br>（心臓・腎臓・呼吸器・免疫機能の障害がある方）</td>
-                                <td>2,400円</td>
-                                <td class="modal-highlight">1,100円</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p style="color: var(--text-muted);">詳しくは<a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/1004873.html" style="color: var(--accent-cyan);">帯広市のホームページ</a>をご覧ください。</p>
-                </div>
-                
-                <div class="modal-warning">
-                    <h4>⚠️ 接種時の注意事項</h4>
-                    <ul>
-                        <li>体調不良の際は接種を延期させていただきます</li>
-                        <li>アレルギー歴のある方は必ずお申し出ください</li>
-                        <li>接種後30分は院内で経過観察をお願いいたします</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 肺炎球菌ワクチンモーダル -->
-    <div class="modal-overlay" id="pneumonia-modal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">肺炎球菌ワクチン</h2>
-                <button class="modal-close" type="button">&times;</button>
-            </div>
-            <div class="modal-content">
-                <div class="modal-section">
-                    <h3>肺炎球菌ワクチンについて</h3>
-                    <p>大人がかかる肺炎のうち、肺炎球菌によるものは全体の25～40％を占め、特に高齢者の重症化が問題となっています。平成26年10月1日より肺炎球菌ワクチンが定期予防接種となりました。</p>
-                    
-                    <h4>対象者</h4>
-                    <ul>
-                        <li>帯広市に住民登録がある方</li>
-                        <li>過去に肺炎球菌ワクチンの接種を受けたことがない方</li>
-                        <li>接種日時点の年齢が65歳の方</li>
-                        <li>接種日時点の年齢が60歳以上65歳未満で、心臓・腎臓・呼吸器・免疫機能に障害を有する方（障害等級1級またはそれに準じる方）</li>
-                    </ul>
-                    
-                    <h4>料金</h4>
-                    <p class="modal-highlight">自己負担額：2,900円</p>
-                    
-                    <h4>予防効果・持続期間</h4>
-                    <p><span class="modal-highlight">予防効果:</span> 肺炎球菌による肺炎の発症を約70％予防<br>
-                    <span class="modal-highlight">効果持続期間:</span> 約5年間</p>
-                </div>
-                
-                <div class="modal-warning">
-                    <h4>📋 重要なお知らせ</h4>
-                    <ul>
-                        <li><strong>予約は不要です</strong>。直接ご来院ください。</li>
-                        <li>上記対象以外の方でも接種は可能です。料金が異なりますのでお問い合わせください。</li>
-                        <li>詳しくは<a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/1004874.html" style="color: var(--accent-cyan);">帯広市のホームページ</a>をご覧ください。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 帯状疱疹ワクチンモーダル -->
-    <div class="modal-overlay" id="herpes-zoster-modal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">帯状疱疹ワクチン</h2>
-                <button class="modal-close" type="button">&times;</button>
-            </div>
-            <div class="modal-content">
-                <div class="modal-section">
-                    <h3>帯状疱疹とは</h3>
-                    <p>帯状疱疹は多くの人が子供の頃に感染する水ぼうそうのウイルス（水痘帯状疱疹ウイルス）が原因で起こります。水ぼうそうが治った後もウイルスは体内に潜伏します。日本人成人の90％以上にこのウイルスが潜伏していると考えられています。</p>
-                    <p><strong style="color: var(--accent-gold);">50歳を過ぎると発症率が高くなり、80歳までに約3人に1人が発症</strong>するとされています。</p>
-                    
-                    <h4>症状と合併症</h4>
-                    <p>体の片側の一部にピリピリとした痛みが現れ、その部分に赤い発疹が出てきます。痛みは徐々に増していき、夜も眠れないほど激しくなる場合もあります。</p>
-                    <p>皮膚の症状が治った後も痛みが残る場合があり、3か月以上痛みが続くものは<strong style="color: var(--accent-gold);">帯状疱疹後神経痛（PHN）</strong>と呼ばれます。</p>
-                    
-                    <h4>発症要因</h4>
-                    <p>加齢などによる免疫力の低下、疲労やストレス、糖尿病やがんなどの免疫力の低下する病気が原因となります。</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>ワクチンの種類と比較</h3>
-                    <p>効果と費用に違いがありますので、下記表を参考にお選びください。<span class="modal-highlight">ご希望の方はお電話にてご予約ください。</span></p>
-                    
-                    <table class="modal-table">
-                        <thead>
-                            <tr>
-                                <th>種類</th>
-                                <th>水痘生ワクチン</th>
-                                <th>シングリックス<br>（組換えワクチン）</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>接種年齢</strong></td>
-                                <td>50歳以上</td>
-                                <td>50歳以上</td>
-                            </tr>
-                            <tr>
-                                <td><strong>接種回数</strong></td>
-                                <td>1回（皮下注射）</td>
-                                <td>2回（筋肉注射）<br>2か月後に2回目</td>
-                            </tr>
-                            <tr>
-                                <td><strong>予防効果</strong></td>
-                                <td>50〜59歳：69.8％<br>60〜69歳：64.0％<br>70〜79歳：41.0％<br>80歳以上：18.0％</td>
-                                <td class="modal-highlight">50〜59歳：96.6％<br>60〜69歳：97.4％<br>70〜79歳：91.3％<br>80歳以上：91.4％</td>
-                            </tr>
-                            <tr>
-                                <td><strong>持続期間</strong></td>
-                                <td>5〜7年程度</td>
-                                <td class="modal-highlight">10年以上</td>
-                            </tr>
-                            <tr>
-                                <td><strong>料金</strong></td>
-                                <td class="modal-highlight">6,000円（税込）</td>
-                                <td class="modal-highlight">20,000円（税込）<br>（2回で40,000円）</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>帯広市からの補助について（令和7年度より）</h3>
-                    <h4>対象者</h4>
-                    <ul>
-                        <li>帯広市に住民登録がある方</li>
-                        <li>過去に帯状疱疹のワクチンの接種を受けたことがない方</li>
-                        <li>令和8年3月31日の時点で、65歳、70歳、75歳、80歳、85歳、90歳、95歳、100歳以上の方</li>
-                    </ul>
-                    
-                    <h4>接種期間</h4>
-                    <p>令和7年4月1日から令和8年3月31日まで</p>
-                    
-                    <h4>補助後の自己負担料金</h4>
-                    <table class="modal-table">
-                        <thead>
-                            <tr>
-                                <th>種類</th>
-                                <th>自己負担額</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>水痘生ワクチン（1回）</td>
-                                <td class="modal-highlight">4,400円（税込）</td>
-                            </tr>
-                            <tr>
-                                <td>シングリックス（2回）</td>
-                                <td class="modal-highlight">22,000円（税込）</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p style="color: var(--text-muted);">詳しくは<a href="https://www.city.obihiro.hokkaido.jp/kenko/kenko/1007357/1019224.html" style="color: var(--accent-cyan);">帯広市のホームページ</a>をご覧ください。</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- モバイル上部固定ヘッダー -->
     <header class="mobile-top-header">
@@ -560,54 +562,70 @@
                 });
             });
         });
-    </script>
-    <script>
-        // モーダルウィンドウの機能
-        document.addEventListener('DOMContentLoaded', function() {
-            // ワクチンカードのクリックイベント
-            const vaccineCards = document.querySelectorAll('.vaccine-card');
-            const modals = document.querySelectorAll('.modal-overlay');
-            const closeButtons = document.querySelectorAll('.modal-close');
-
-            // カードクリックでモーダル開く
-            vaccineCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const vaccineType = this.dataset.vaccine;
-                    const modal = document.getElementById(`${vaccineType}-modal`);
-                    if (modal) {
-                        modal.classList.add('active');
-                        document.body.style.overflow = 'hidden'; // スクロール無効化
-                    }
-                });
-            });
-
-            // ×ボタンでモーダル閉じる
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const modal = this.closest('.modal-overlay');
-                    modal.classList.remove('active');
-                    document.body.style.overflow = ''; // スクロール復活
-                });
-            });
-
-            // オーバーレイクリックでモーダル閉じる
-            modals.forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                        document.body.style.overflow = ''; // スクロール復活
-                    }
-                });
-            });
-
-            // ESCキーでモーダル閉じる
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const activeModal = document.querySelector('.modal-overlay.active');
-                    if (activeModal) {
-                        activeModal.classList.remove('active');
-                        document.body.style.overflow = ''; // スクロール復活
-                    }
+        
+        // 詳細セクションへのスムーズスクロール制御（より精密な位置調整）
+        function scrollToDetailSection(targetId) {
+            console.log('scrollToDetailSection 呼び出し:', targetId); // デバッグ用
+            const target = document.querySelector(targetId);
+            if (target) {
+                const h2Element = target.querySelector('h2');
+                if (h2Element) {
+                    // ヘッダー高さを考慮してナビゲーション下に配置
+                    const headerHeight = 120; // ナビゲーション高さ + 余白
+                    const elementPosition = h2Element.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerHeight;
+                    
+                    console.log('スクロール実行:', {targetId, elementPosition, offsetPosition}); // デバッグ用
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    console.log('h2要素が見つかりません:', targetId);
+                }
+            } else {
+                console.log('ターゲット要素が見つかりません:', targetId);
+            }
+        }
+        
+        // アンカーリンククリック時（「詳細を見る」リンクも含む）- すべてのイベントをオーバーライド
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // 既存のイベントを削除
+            anchor.removeAttribute('onclick');
+            
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetId = this.getAttribute('href');
+                console.log('アンカーリンククリック:', targetId); // デバッグ用
+                scrollToDetailSection(targetId);
+            }, true); // キャプチャフェーズで実行
+        });
+        
+        // カード全体をクリック可能にする
+        document.querySelectorAll('.vaccine-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                // "詳細を見る"リンク内のクリックは除外（リンクは別途処理）
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    console.log('アンカーリンククリックを検出、カード処理をスキップ');
+                    return;
+                }
+                
+                // カードに対応する詳細セクションIDを取得
+                let targetId;
+                if (this.innerHTML.includes('インフルエンザワクチン')) {
+                    targetId = '#influenza-detail';
+                } else if (this.innerHTML.includes('肺炎球菌ワクチン')) {
+                    targetId = '#pneumonia-detail';
+                } else if (this.innerHTML.includes('帯状疱疹ワクチン')) {
+                    targetId = '#herpes-zoster-detail';
+                }
+                
+                if (targetId) {
+                    console.log('カードクリック:', targetId); // デバッグ用
+                    scrollToDetailSection(targetId);
                 }
             });
         });

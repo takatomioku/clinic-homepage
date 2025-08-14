@@ -4,19 +4,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with five main pages showcasing the clinic's services, facilities, and information.
+This is a static medical clinic website for おく内科消化器クリニック (Oku Internal Medicine and Gastroenterology Clinic) in Obihiro, Hokkaido. The site features a sophisticated navy blue glass-morphism design theme with 15 specialized pages covering comprehensive medical services, facilities, and patient information.
 
 ## Architecture
 
-### Core Files Structure
-- `index.html` - Main homepage with hero section, service overview, clinic features, and doctor introduction
-- `clinic-introduction.html` - Detailed clinic information including doctor profile, hours, facilities, and gallery
-- `medical-services.html` - Comprehensive medical services breakdown (Internal Medicine, Gastroenterology, Endoscopy)
-- `faq.html` - Frequently asked questions page with common patient inquiries
-- `vaccination-health-check.html` - Vaccination and health check services information
-- `styles.css` - Unified CSS with glass-morphism design system using CSS custom properties
-- `script.js` - Interactive JavaScript for navigation, animations, and UX enhancements
-- `images/` - Medical equipment photos, clinic exterior/interior images, and specialty icons
+### Site Architecture Overview
+The website uses a **hierarchical medical practice structure** with 15 HTML pages organized into distinct content categories:
+
+**Primary Navigation Pages:**
+- `index.html` - Homepage with hero section, services overview, and clinic introduction
+- `clinic-introduction.html` - Detailed clinic information, doctor profile, facilities, and gallery
+- `medical-services.html` - Medical services breakdown (Internal Medicine, Gastroenterology, Endoscopy)
+- `faq.html` - Frequently asked questions page with patient inquiries
+
+**Specialized Medical Condition Pages:**
+- `gastric-endoscopy.html`, `colonoscopy.html` - Endoscopy procedures
+- `liver.html` - Liver disease specialization
+- `sleep-apnea-syndrome.html` - Sleep apnea treatment
+- `metabolic-syndrome.html` - Metabolic syndrome care
+- `norovirus.html` - Norovirus information
+- `pyroli.html` - H. pylori treatment
+
+**Preventive Services:**
+- `vaccination.html`, `health-check.html` - Individual service pages
+- `vaccination-health-check.html` - Combined legacy page
+
+**Core Assets:**
+- `styles.css` - 61KB comprehensive design system with CSS custom properties
+- `script.js` - 10KB interactive JavaScript with advanced animation system
+- `images/` - 66 organized medical equipment, facility photos, and specialty icons
 
 ### Design System
 
@@ -48,15 +64,45 @@ All content cards use the `.card.glass` pattern with:
 - Consistent border radius using `--radius-xl` (28px)
 
 **Navigation Structure:**
-- Fixed header with backdrop blur
-- Dropdown menus with glass effects
-- Mobile-responsive hamburger menu
-- Smooth scroll navigation between sections
+- Fixed header with backdrop blur across all pages
+- Consistent dropdown menu structure with medical specialties
+- Mobile-responsive hamburger menu with JavaScript animations
+- Smooth scroll navigation with header offset compensation
+
+**JavaScript Architecture:**
+- **Intersection Observer API** for scroll-triggered animations with staggered timing
+- **3D parallax effects** using transform3d and mouse tracking on card elements
+- **RequestAnimationFrame throttling** for performance optimization
+- **Event delegation patterns** for efficient DOM interaction
+- **Progressive enhancement** with accessibility considerations (reduced motion support)
 
 ## Development Workflow
 
-### Local Development
-This is a static site - simply open `index.html` in a browser for local development. No build process required.
+### Local Development Commands
+This is a static site with no build process required:
+```bash
+# Open homepage for development
+start index.html
+# or
+open index.html
+
+# For live development, use any simple HTTP server
+python -m http.server 8000
+# or
+npx serve .
+```
+
+### Common Development Tasks
+**Testing Changes Across Site:**
+- Always test modifications on all 15 pages, especially navigation and styling changes
+- Pay special attention to mobile responsiveness across medical specialty pages
+- Verify glass-morphism effects render properly on different devices
+
+**Adding New Medical Content:**
+1. Follow existing HTML structure patterns from similar pages
+2. Use consistent CSS classes: `.card.glass`, `.container`, `.section`
+3. Maintain professional medical terminology and accuracy
+4. Include proper meta tags and structured data if needed
 
 ### Content Updates
 When updating medical information or clinic details:
@@ -69,17 +115,23 @@ When updating medical information or clinic details:
 The design system is centralized in `:root` CSS custom properties. To modify colors, spacing, or effects:
 1. Update CSS custom properties at the top of `styles.css`
 2. Changes will cascade throughout all components
-3. Test all three pages to ensure consistency
-4. Maintain accessibility contrast ratios
+3. Test all 15 pages to ensure consistency across specialized medical pages
+4. Maintain accessibility contrast ratios and professional medical appearance
 
 ### Image Management
-Medical equipment and facility images are stored in `images/` directory:
-- Use descriptive file names for medical equipment
-- Optimize images for web (recommended: 300-400px width for equipment photos)
-- Include comprehensive alt text for accessibility
-- Follow existing naming conventions (e.g., `fujifilm-endoscopy-processor-ep8000.jpg`)
-- Specialty icons: Use PNG format for medical specialty icons (e.g., `internal-medicine-icon.png`, `gastroenterology-icon.png`, `endoscopy-icon.png`)
-- Icon sizing: Medical specialty icons are displayed as 100x100px circular images with `border-radius: 50%`
+Medical equipment and facility images are stored in `images/` directory with **66 organized assets**:
+
+**Naming Conventions:**
+- **Medical Equipment:** Descriptive technical names (e.g., `fujifilm-endoscopy-processor-ep8000.jpg`, `hitachi-digital-xray-machine.jpg`)
+- **Facility Photography:** Room-based naming (`endoscopy-room-new.jpg`, `consultation-room.jpg`, `waiting-room-1.jpg`)
+- **Clinic Exterior:** Numbered sequence (`clinic-exterior-1.jpg` through `clinic-exterior-4.jpg`)
+- **Specialty Icons:** Service-based naming (`internal-medicine-icon.png`, `gastroenterology-icon.png`)
+
+**Technical Requirements:**
+- **Responsive Logo System:** `logo-desktop.png` and `logo-mobile.png` for different screen sizes
+- **Multiple Format Support:** PNG for icons/logos, JPG for photography, SVG for scalable graphics
+- **Icon Sizing:** Medical specialty icons displayed as 100x100px circular images with `border-radius: 50%`
+- **Optimization:** Recommended 300-400px width for equipment photos, comprehensive alt text for accessibility
 
 ## Deployment
 
@@ -101,11 +153,19 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 
 ## Key Features
 
-### Medical Content Structure
-- Three primary medical specialties: Internal Medicine, Gastroenterology, Endoscopy
-- Detailed equipment descriptions with technical specifications
-- Clinic facility showcase with professional photography
-- Doctor credentials and qualifications prominently displayed
+### Medical Content Architecture
+- **Three Primary Medical Specialties:** Internal Medicine, Gastroenterology, Endoscopy with dedicated pages
+- **Specialized Disease Pages:** Individual pages for conditions like sleep apnea, metabolic syndrome, liver disease
+- **Technical Equipment Documentation:** Detailed specifications with professional photography
+- **Facility Showcase:** Multi-room photography with professional lighting
+- **Doctor Credentials:** Comprehensive qualifications and professional background
+- **Patient Resources:** FAQ system and preventive care information
+
+### HTML Structure Patterns
+- **Consistent Header Navigation:** Identical dropdown structure across all 15 pages
+- **Uniform Meta Tag Implementation:** Page-specific descriptions with medical keywords
+- **Semantic Section Organization:** Proper landmark roles and heading hierarchy
+- **Professional Medical Content:** Accurate terminology and structured information presentation
 
 ### SEO and Accessibility
 - Structured data (JSON-LD) for medical organization
@@ -114,12 +174,13 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 - Accessible navigation with proper ARIA labels
 - Responsive design for mobile medical information access
 
-### Interactive Elements
-- Smooth scroll navigation between sections
-- Parallax and mouse-tracking effects on cards
-- Intersection Observer animations
-- Mobile-optimized dropdown menus
-- Scroll-to-top functionality
+### Advanced Interactive Features
+- **Smooth Scroll Navigation:** Header offset compensation for accurate section targeting
+- **3D Parallax Effects:** Mouse-following card transforms with perspective calculations
+- **Intersection Observer Animations:** Staggered timing for professional content reveal
+- **Mobile-Optimized Interactions:** Touch-friendly dropdown menus with JavaScript animations
+- **Performance Optimizations:** RequestAnimationFrame throttling and efficient event delegation
+- **Accessibility Support:** Reduced motion detection and proper ARIA implementation
 
 ## Technical Constraints
 

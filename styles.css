@@ -1298,7 +1298,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 12px;
 }
 
 .mobile-top-nav a {
@@ -1323,7 +1323,7 @@ footer {
 /* フォントベースのアイコンスタイル */
 .mobile-top-nav .nav-icon {
     font-size: 1.3rem;
-    margin-bottom: 1px;
+    margin-bottom: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1354,7 +1354,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 12px;
     height: 60px;
     justify-content: center;
 }
@@ -1362,7 +1362,7 @@ footer {
 .mobile-top-nav span {
     font-size: 0.75rem;
     line-height: 1;
-    margin-top: 2px;
+    margin-top: 8px;
     color: white;
 }
 
@@ -2699,6 +2699,17 @@ footer {
     .page-header {
         padding: 2rem 1rem;
         margin: 1rem 0 2rem;
+    }
+    
+    /* モバイル版でmain要素に上部パディング追加 */
+    main {
+        padding-top: 80px; /* モバイル固定ナビゲーション分 + 余白 */
+    }
+    
+    /* index.htmlのheroセクションでは上部パディングを無効化 */
+    .hero-fullscreen {
+        margin-top: -80px;
+        padding-top: 0;
     }
     
     .page-header h1 {

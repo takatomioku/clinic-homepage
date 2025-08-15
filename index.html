@@ -538,6 +538,17 @@
             .schedule-table-container table {
                 min-width: 600px; /* モバイルで最小幅を設定 */
             }
+            
+            /* index.html専用: heroセクション用のbody調整 */
+            body {
+                padding-top: 120px !important; /* モバイルヘッダー60px + モバイルナビ60px */
+            }
+            
+            /* heroセクションの調整 */
+            .hero {
+                margin-top: -60px !important; /* 上に移動してナビゲーションとの隙間を縮める */
+                padding-top: 80px !important; /* コンテンツがナビゲーションに重ならないよう調整 */
+            }
         }
     </style>
     <script src="script.js"></script>

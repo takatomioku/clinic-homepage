@@ -278,16 +278,21 @@
                     
                     <div class="grid grid-2">
                         <div>
-                            <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
-                                <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                                    <span style="font-size: 1.5rem;">🏠</span>簡易PSG検査（当院で実施可能）
-                                </h3>
+                            <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); position: relative; overflow: hidden; min-height: 320px;">
+                                <div class="psg-device-image" style="position: absolute; top: 50%; transform: translateY(-50%); right: var(--space-md); width: 240px; height: 240px; opacity: 0.15; z-index: 1; display: none;">
+                                    <img src="images/psg-device.jpg" alt="簡易PSG検査機器" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                                </div>
+                                <div style="position: relative; z-index: 2;">
+                                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
+                                        <span style="font-size: 1.5rem;">🏠</span>簡易PSG検査（当院で実施可能）
+                                    </h3>
                                 <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
                                     <li style="margin-bottom: var(--space-xs);">• 自宅で実施</li>
                                     <li style="margin-bottom: var(--space-xs);">• 鼻下と指先にセンサー装着</li>
                                     <li style="margin-bottom: var(--space-xs);">• 呼吸状態と血中酸素濃度測定</li>
                                     <li style="margin-bottom: var(--space-xs);">• AHI測定でスクリーニング</li>
                                 </ul>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -298,7 +303,7 @@
                                 <ul style="color: var(--text-secondary); line-height: 1.8; list-style: none; padding: 0;">
                                     <li style="margin-bottom: var(--space-xs);">• 入院検査</li>
                                     <li style="margin-bottom: var(--space-xs);">• より精度の高い検査</li>
-                                    <li style="margin-bottom: var(--space-xs);">• AHI 40未満の場合に実施</li>
+                                    <li style="margin-bottom: var(--space-xs);">• AHI 20以上40未満の場合に実施</li>
                                     <li style="margin-bottom: var(--space-xs);">• 適切な医療機関をご紹介</li>
                                 </ul>
                             </div>
@@ -362,10 +367,14 @@
                         </div>
                     </div>
 
-                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); margin-top: var(--space-lg);">
-                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
-                            <span style="font-size: 1.5rem;">😷</span>CPAP治療（当院で実施可能）
-                        </h3>
+                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); margin-top: var(--space-lg); position: relative; overflow: hidden; min-height: 320px;">
+                        <div class="cpap-treatment-image" style="position: absolute; top: 50%; transform: translateY(-50%); right: calc(var(--space-lg) + var(--space-md)); width: 320px; height: 320px; opacity: 0.15; z-index: 1; display: none;">
+                            <img src="images/cpap-treatment.jpg" alt="CPAP治療を受ける患者" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); filter: grayscale(100%) blur(0.5px); mask: radial-gradient(ellipse at center, black 60%, transparent 100%); -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 100%);">
+                        </div>
+                        <div style="position: relative; z-index: 2;">
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm);">
+                                <span style="font-size: 1.5rem;">😷</span>CPAP治療（当院で実施可能）
+                            </h3>
                         <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-md);">
                             CPAPとは、寝るときに鼻マスクをつけ、空気を送りこむことによって、ある一定の圧力を気道にかけて気道の塞がりを防ぐ治療法です。睡眠時無呼吸症候群のもっとも重要な治療法となっています。
                         </p>
@@ -389,6 +398,7 @@
                                     <li style="margin-bottom: var(--space-xs);">• 心不全の予防</li>
                                 </ul>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -566,7 +576,9 @@
     <style>
         /* デスクトップ版で睡眠時無呼吸症候群の背景画像を表示 */
         @media (min-width: 768px) {
-            .sleep-apnea-image {
+            .sleep-apnea-image,
+            .cpap-treatment-image,
+            .psg-device-image {
                 display: block !important;
             }
         }

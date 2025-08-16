@@ -203,7 +203,7 @@
                         <h2>インフルエンザワクチン</h2>
                         
                         <div class="card glass" style="margin-bottom: var(--space-2xl);">
-                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">インフルエンザワクチンについて</h3>
+                            <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);" class="influenza-title">インフルエンザワクチン<span class="mobile-break">について</span></h3>
                             <div class="grid grid-2">
                                 <div>
                                     <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">実施期間</h4>
@@ -274,7 +274,7 @@
                     <div class="container">
                         <h2>肺炎球菌ワクチン</h2>
                         
-                        <div class="card glass" style="margin-bottom: var(--space-2xl);">
+                        <div class="card glass pneumonia-detail-card" style="margin-bottom: var(--space-2xl);">
                             <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">肺炎球菌ワクチンについて</h3>
                             <div class="grid grid-2">
                                 <div>
@@ -337,8 +337,8 @@
                             <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">帯状疱疹ワクチンの種類と比較</h3>
                             <p style="margin-bottom: var(--space-lg); color: var(--text-secondary); line-height: 1.8;">効果と費用に違いがありますので、下記表を参考にお選びください。<strong style="color: var(--accent-cyan);">ご希望の方はお電話にてご予約ください。</strong></p>
                             
-                            <div style="overflow-x: auto;">
-                                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
+                            <div class="herpes-zoster-table-container" style="overflow-x: auto;">
+                                <table class="herpes-zoster-comparison-table" style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
                                     <thead>
                                         <tr>
                                             <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">種類</th>
@@ -400,8 +400,8 @@
                                         </tr>
                                         <tr>
                                             <td style="padding: 0.75rem; text-align: center; color: var(--text-primary); font-weight: 600;">料金</td>
-                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">6,000円（税込）</td>
-                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">20,000円（税込）<br>（2回で40,000円）</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">6,000円</td>
+                                            <td style="padding: 0.75rem; text-align: center; color: var(--accent-cyan); font-weight: 600;">20,000円<br>（2回で40,000円）</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -428,8 +428,8 @@
 
                             <div style="margin-bottom: var(--space-lg);">
                                 <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">補助後の料金</h4>
-                                <div style="overflow-x: auto;">
-                                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
+                                <div class="herpes-zoster-subsidy-table-container" style="overflow-x: auto;">
+                                    <table class="herpes-zoster-subsidy-table" style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--bg-glass); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--glass-border);">
                                         <thead>
                                             <tr>
                                                 <th style="padding: 0.75rem; text-align: center; background: var(--bg-glass-strong); color: var(--text-primary); font-weight: 600; border-bottom: 1px solid var(--glass-border);">種類</th>
@@ -444,9 +444,9 @@
                                                 <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">2回<br>（2か月後に2回目）</td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 0.75rem; text-align: center; color: var(--text-primary); font-weight: 600;">自己負担料金</td>
-                                                <td style="padding: 0.75rem; text-align: center; color: var(--accent-emerald); font-weight: 600;">4,400円（税込）</td>
-                                                <td style="padding: 0.75rem; text-align: center; color: var(--accent-emerald); font-weight: 600;">11,000円（税込）<br>（2回で22,000円）</td>
+                                                <td style="padding: 0.75rem; text-align: center; color: var(--text-primary); font-weight: 600;">自己負担</td>
+                                                <td style="padding: 0.75rem; text-align: center; color: var(--accent-emerald); font-weight: 600;">4,400円</td>
+                                                <td style="padding: 0.75rem; text-align: center; color: var(--accent-emerald); font-weight: 600;">11,000円<br>（2回で22,000円）</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -769,6 +769,97 @@
         /* vaccination.html専用：すべてのカードタイトルを中央揃えに */
         .card h3 {
             text-align: center !important;
+        }
+        
+        /* モバイル版のみ：インフルエンザワクチンタイトルを改行 */
+        @media (max-width: 768px) {
+            .influenza-title .mobile-break::before {
+                content: "\A"; /* 改行文字 */
+                white-space: pre; /* 改行を有効にする */
+            }
+            
+            /* 肺炎球菌ワクチン詳細カードのモバイル修正 */
+            .pneumonia-detail-card {
+                padding: var(--space-sm) !important; /* パディングをさらに小さく */
+                margin: 0 var(--space-xs) var(--space-2xl) var(--space-xs) !important; /* 左右にマージン追加 */
+                max-width: calc(100vw - 2rem) !important; /* ビューポート幅から余白を引いた最大幅 */
+                box-sizing: border-box !important; /* ボーダーとパディングを含める */
+            }
+            
+            /* グリッドレイアウトをモバイルで無効化 */
+            .pneumonia-detail-card .grid.grid-2 {
+                display: block !important; /* グリッドを解除 */
+                gap: 0 !important;
+            }
+            
+            .pneumonia-detail-card .grid.grid-2 > div {
+                width: 100% !important;
+                margin-bottom: var(--space-lg);
+            }
+            
+            .pneumonia-detail-card p,
+            .pneumonia-detail-card li {
+                word-wrap: break-word !important; /* 長い文字列を折り返し */
+                overflow-wrap: break-word !important; /* より確実な折り返し */
+                hyphens: auto !important; /* 可能な場合はハイフネーション */
+                max-width: 100% !important;
+                font-size: 0.9rem !important; /* フォントサイズを少し小さく */
+                line-height: 1.6 !important;
+            }
+            
+            .pneumonia-detail-card ul {
+                padding-left: var(--space-sm) !important; /* リストのインデント調整 */
+                margin-left: 0 !important;
+            }
+            
+            .pneumonia-detail-card li {
+                margin-bottom: var(--space-xs) !important;
+                padding-right: var(--space-xs) !important; /* 右側に余白 */
+            }
+            
+            /* 帯状疱疹ワクチンの表をモバイル版で画面に合わせて縮小 */
+            .herpes-zoster-table-container,
+            .herpes-zoster-subsidy-table-container {
+                overflow-x: visible !important; /* スクロールバーを無効化 */
+                margin: 0 !important;
+            }
+            
+            .herpes-zoster-comparison-table,
+            .herpes-zoster-subsidy-table {
+                width: 100% !important;
+                table-layout: fixed !important; /* 固定レイアウトで均等配分 */
+                font-size: 0.8rem !important; /* フォントサイズを小さく */
+            }
+            
+            .herpes-zoster-comparison-table th,
+            .herpes-zoster-comparison-table td,
+            .herpes-zoster-subsidy-table th,
+            .herpes-zoster-subsidy-table td {
+                padding: 0.4rem 0.2rem !important; /* パディングを縮小 */
+                font-size: 0.8rem !important;
+                line-height: 1.3 !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+            
+            /* 帯状疱疹比較表の列幅調整 */
+            .herpes-zoster-comparison-table th:first-child,
+            .herpes-zoster-comparison-table td:first-child {
+                width: 25% !important; /* 項目名列 */
+            }
+            
+            .herpes-zoster-comparison-table th:nth-child(2),
+            .herpes-zoster-comparison-table td:nth-child(2),
+            .herpes-zoster-comparison-table th:nth-child(3),
+            .herpes-zoster-comparison-table td:nth-child(3) {
+                width: 37.5% !important; /* ワクチン列 */
+            }
+            
+            /* 補助金表の列幅調整 */
+            .herpes-zoster-subsidy-table th,
+            .herpes-zoster-subsidy-table td {
+                width: 33.33% !important; /* 3列均等 */
+            }
         }
         
         /* モバイルメニューの表示設定を正しく調整 */

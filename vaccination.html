@@ -226,7 +226,7 @@
                                     <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">約3ヶ月間（接種後2週間で免疫獲得）</p>
                                     
                                     <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">問診票</h4>
-                                    <a href="C:\Users\takat\OneDrive\デスクトップ\interview-influ.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: var(--space-sm); background: var(--accent-emerald); color: white; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: var(--transition);">
+                                    <a href="images/interview-influ.pdf" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: var(--space-sm); background: var(--accent-emerald); color: white; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: var(--transition);">
                                         <span style="font-size: 1rem;">📄</span>
                                         65才未満の方の問診票
                                     </a>
@@ -328,6 +328,9 @@
                             
                             <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">発症要因</h4>
                             <p style="color: var(--text-secondary); line-height: 1.8;">発症要因は加齢などによる免疫力の低下です。疲労やストレスなどもきっかけとなります。糖尿病やがんなどの免疫力の低下する病気が原因となることもあります。</p>
+                            
+                            <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md); margin-top: var(--space-lg);">帯状疱疹ワクチンについて</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.8;">帯状疱疹には予防のためのワクチンがあります。帯状疱疹を完全に防ぐものではありませんが、発症や重症化を抑える効果が期待できますので重症化や合併症のリスクを鑑みて接種を検討していただきたいと思います。</p>
                         </div>
 
                         <div class="card glass" style="margin-bottom: var(--space-2xl);">
@@ -698,8 +701,13 @@
             }
         }
         
-        // アンカーリンククリック時（「詳細を見る」リンクも含む）- メニュートリガーを除外してオーバーライド
+        // アンカーリンククリック時（ワクチンカード内の「詳細を見る」リンクは完全に除外）
         document.querySelectorAll('a[href^="#"]:not(#mobile-menu-trigger)').forEach(anchor => {
+            // ワクチンカード内のリンクは除外
+            if (anchor.closest('.vaccine-card')) {
+                console.log('ワクチンカード内のリンクをスキップ:', anchor.getAttribute('href'));
+                return;
+            }
             // 既存のイベントを削除
             anchor.removeAttribute('onclick');
             
@@ -718,28 +726,42 @@
         // カード全体をクリック可能にする
         document.querySelectorAll('.vaccine-card').forEach(card => {
             card.style.cursor = 'pointer';
+            
+            // カードに対応する詳細セクションIDを特定する関数
+            function getCardTargetId(cardElement) {
+                if (cardElement.innerHTML.includes('インフルエンザワクチン')) {
+                    return '#influenza-detail';
+                } else if (cardElement.innerHTML.includes('肺炎球菌ワクチン')) {
+                    return '#pneumonia-detail';
+                } else if (cardElement.innerHTML.includes('帯状疱疹ワクチン')) {
+                    return '#herpes-zoster-detail';
+                }
+                return null;
+            }
+            
+            const targetId = getCardTargetId(card);
+            
+            // カード全体のクリック処理
             card.addEventListener('click', function(e) {
-                // "詳細を見る"リンク内のクリックは除外（リンクは別途処理）
-                if (e.target.tagName === 'A' || e.target.closest('a')) {
-                    console.log('アンカーリンククリックを検出、カード処理をスキップ');
-                    return;
-                }
-                
-                // カードに対応する詳細セクションIDを取得
-                let targetId;
-                if (this.innerHTML.includes('インフルエンザワクチン')) {
-                    targetId = '#influenza-detail';
-                } else if (this.innerHTML.includes('肺炎球菌ワクチン')) {
-                    targetId = '#pneumonia-detail';
-                } else if (this.innerHTML.includes('帯状疱疹ワクチン')) {
-                    targetId = '#herpes-zoster-detail';
-                }
-                
                 if (targetId) {
                     console.log('カードクリック:', targetId); // デバッグ用
                     scrollToDetailSection(targetId);
                 }
             });
+            
+            // カード内の「詳細を見る」リンクのクリック処理を統一
+            const detailLink = card.querySelector('a[href^="#"]');
+            if (detailLink && targetId) {
+                // href属性を修正して、統一されたターゲットIDを使用
+                detailLink.setAttribute('href', targetId);
+                
+                detailLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // カードクリック処理との重複を防ぐ
+                    console.log('詳細リンククリック:', targetId); // デバッグ用
+                    scrollToDetailSection(targetId);
+                }, true); // キャプチャフェーズで実行して確実に制御
+            }
         });
     </script>
     

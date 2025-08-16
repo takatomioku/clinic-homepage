@@ -116,11 +116,11 @@
                     <h1>地域のみなさまに信頼される<br>クリニックを目指して</h1>
                     <p>胃腸の不調から生活習慣病まで、患者様一人ひとりに寄り添った丁寧な診療を心がけています</p>
                     <div class="hero-buttons" style="display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; margin-top: var(--space-2xl);">
-                        <a href="https://waitline.3bees.com/dd82/web_stats" class="btn btn-cool-primary" target="_blank">
+                        <a href="https://waitline.3bees.com/dd82/web_stats" class="btn btn-cool-primary" target="_blank" rel="noopener noreferrer">
                             <span class="btn-icon">⏱️</span>
                             <span class="btn-text">現在の待ち時間</span>
                         </a>
-                        <a href="https://web.star7.jp/mypage/mobile_info.php?p=bd5d0e534a" class="btn btn-cool-secondary" target="_blank">
+                        <a href="https://web.star7.jp/mypage/mobile_info.php?p=bd5d0e534a" class="btn btn-cool-secondary" target="_blank" rel="noopener noreferrer">
                             <span class="btn-icon">📅</span>
                             <span class="btn-text">健診WEB予約</span>
                         </a>
@@ -519,6 +519,13 @@
     </footer>
 
     <style>
+        /* デスクトップ版のみ：お知らせ項目の間隔を狭く */
+        @media (min-width: 769px) {
+            .grid.grid-1[style*="gap: var(--space-md)"] {
+                gap: 0.25rem !important; /* 1.5rem → 0.25rem */
+            }
+        }
+        
         /* 診療時間テーブルのレスポンシブ対応 */
         .schedule-table-container {
             overflow-x: visible; /* デスクトップではスクロールなし */

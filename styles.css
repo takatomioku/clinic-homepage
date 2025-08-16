@@ -898,7 +898,7 @@ header {
     padding: var(--space-lg);
     background: var(--bg-glass-light);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     text-decoration: none;
     color: var(--text-primary);
     transition: var(--transition);
@@ -1026,9 +1026,19 @@ header {
         grid-template-columns: 1fr;
     }
     
+    .faq-nav-item h3,
+    .faq-nav-item p {
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    
     .faq-question {
         font-size: 1rem;
         padding: var(--space-md);
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        white-space: normal;
     }
     
     .faq-answer p {
@@ -2141,18 +2151,35 @@ footer {
     .faq-question {
         padding: var(--space-md);
         font-size: 1rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        white-space: normal;
     }
     
     /* すべてのFAQ質問項目の高さを調整（モバイル） */
     .faq-section .faq-question,
     .faq-container .faq-question {
         padding: var(--space-lg) var(--space-md);
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        white-space: normal;
     }
     
     .faq-answer p {
         padding: var(--space-lg) var(--space-md);
     }
 }
+}
+
+/* モバイル専用改行 */
+.mobile-break {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-break {
+        display: inline;
+    }
 }
 
 /* アクセシビリティ */

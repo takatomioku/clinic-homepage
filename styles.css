@@ -2171,14 +2171,19 @@ footer {
 }
 }
 
-/* モバイル専用改行 */
-.mobile-break {
-    display: none;
+/* モバイル専用改行（疑似要素方式） */
+.br-sp {
+    display: inline;
+}
+
+.br-sp::after {
+    content: "";
 }
 
 @media (max-width: 768px) {
-    .mobile-break {
-        display: inline;
+    .br-sp::after {
+        content: "\A";
+        white-space: pre;
     }
 }
 

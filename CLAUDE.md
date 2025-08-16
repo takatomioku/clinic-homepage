@@ -240,3 +240,33 @@ When making changes that affect mobile display:
 2. **Verify CSS variable inheritance**: Changes to `:root` variables affect the entire mobile override system
 3. **Check inline style conflicts**: Inline styles with CSS variables may need attribute selector overrides
 4. **Test hero section specifically**: Hero content has custom mobile scaling that differs from other page headers
+
+### Icon System and FontAwesome Integration
+**FontAwesome Integration:**
+- FontAwesome 6.0.0 CDN is loaded in pages that use icon libraries
+- Mix of custom image icons and FontAwesome icons across the site
+- Custom medical icons stored in `images/` directory (e.g., `liver_icon.png`, `SAS.ico`, `fat_man.ico`)
+
+**Icon Usage Patterns:**
+- Navigation icons: FontAwesome icons for home (`fa-home`), phone (`fa-phone-alt`), location (`fa-map-marker-alt`)
+- Medical specialty icons: Custom `.ico` and `.png` files for specific medical conditions
+- Section headers: Mix of emoji, FontAwesome, and custom icons
+- Consistent sizing: 2-3.5rem for larger icons, 1.5-2rem for inline icons
+- Positioning: Use `margin: var(--space-sm) auto var(--space-md) auto` for centered icons
+
+**Icon Color and Styling:**
+- Default icon colors inherit from parent elements
+- White icons (`style="color: white;"`) used for section headers with colored backgrounds
+- Filter effects for custom icons: `filter: contrast(1.2) brightness(1.1);` to enhance visibility
+- Responsive behavior: Icons scale appropriately on mobile devices
+
+### Layout and Typography Fixes
+**Text Wrapping Issues:**
+- Japanese text wrapping: Use `word-break: keep-all` for proper line breaks
+- Icon positioning with wrapped text: Use `align-items: flex-start` instead of `center` to prevent centering issues
+- Multi-line headers: Separate icons and text into individual spans for better control
+
+**Mobile Layout Optimizations:**
+- Text alignment fixes for wrapped titles in mobile view
+- Icon positioning adjustments to maintain visual hierarchy
+- Consistent spacing using CSS custom properties for scalable design

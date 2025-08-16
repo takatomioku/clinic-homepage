@@ -13,6 +13,7 @@
     <link rel="canonical" href="https://www.oku-clinic.com/health-check.html">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -92,7 +93,7 @@
                 
                 <div class="grid grid-2" style="gap: var(--space-xl); margin-bottom: var(--space-2xl);">
                     <div class="card glass" style="text-align: center; padding: var(--space-2xl);">
-                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);">🏛️</div>
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);"><i class="fa-solid fa-city"></i></div>
                         <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">公的健診</h3>
                         <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
                             帯広市・音更町・協会けんぽの特定健診、各種がん検診など。
@@ -102,7 +103,7 @@
                     </div>
                     
                     <div class="card glass" style="text-align: center; padding: var(--space-2xl);">
-                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);">🏥</div>
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg);"><i class="fa-solid fa-house-chimney-medical"></i></div>
                         <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg);">クリニック独自健診</h3>
                         <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
                             進学・就職用健診、企業健診、人間ドックなど。
@@ -124,8 +125,8 @@
 
                 <!-- 特定健診 -->
                 <div class="card glass" style="margin-bottom: var(--space-2xl);">
-                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                        <span style="font-size: 1.5rem;"><span class="text-split">🩺特定健診（市民・<span class="br-sp"></span>後期高齢者健康診査）</span>
+                    <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: flex-start; gap: var(--space-sm);">
+                        <span style="font-size: 1.5rem; line-height: 1; margin-top: 0.1em;"><i class="fa-solid fa-laptop-medical"></i></span><span style="line-height: 1.5;">特定健診（市民・後期高齢者健康診査）</span>
                     </h3>
                     <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
                         メタボリック症候群の予防・早期発見を目的に2008年より実施されています。帯広市、音更町、協会けんぽから受診券が送られてきます。
@@ -162,7 +163,7 @@
                 <!-- がん検診 -->
                 <div class="card glass" style="margin-bottom: var(--space-2xl);">
                     <h3 style="color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-sm);">
-                        <span style="font-size: 1.5rem;">🔬</span>がん検診・肝炎ウイルス検診
+                        <img src="images/liver_icon.png" alt="肝臓アイコン" style="width: 2rem; height: 2rem;">がん検診・肝炎ウイルス検診
                     </h3>
                     
                     <div class="grid grid-3" style="gap: var(--space-lg);">
@@ -218,7 +219,7 @@
                     </div>
                     
                     <div class="notice-card" style="padding: var(--space-lg); background: var(--bg-glass-strong); border-radius: var(--radius-lg); text-align: left;">
-                        <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">📋 WEB予約について</h4>
+                        <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md); font-size: 1.3rem;"><i class="fa-solid fa-earth-americas" style="color: white;"></i> WEB予約について</h4>
                         <ul style="color: var(--text-secondary); line-height: 1.8;">
                             <li><strong>個人のお客様専用</strong>となっております</li>
                             <li>健診結果の作成には1週間程度かかる場合があります</li>
@@ -533,7 +534,7 @@
 
                 <!-- 注意事項 -->
                 <div class="notice-card" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--bg-glass-light); border-radius: var(--radius-xl); border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);">
-                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">📋 健康診断に関する注意事項</h4>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md); font-size: 1.3rem;"><i class="fa-solid fa-book-open" style="color: white;"></i> 健康診断に関する注意事項</h4>
                     <ul style="color: var(--text-secondary); line-height: 1.8;">
                         <li>健康診断は予約制となっております　お電話かWEBでご予約ください</li>
                         <li>血液検査がある場合は10時間以上の絶食でお越しください</li>
@@ -561,19 +562,19 @@
         <ul>
             <li>
                 <a href="index.html">
-                    <div class="nav-icon">🏠</div>
+                    <div class="nav-icon"><i class="fas fa-home"></i></div>
                     <span>ホーム</span>
                 </a>
             </li>
             <li>
                 <a href="tel:0155-66-6170">
-                    <div class="nav-icon phone-icon"></div>
+                    <div class="nav-icon"><i class="fas fa-phone-alt"></i></div>
                     <span>電話</span>
                 </a>
             </li>
             <li>
                 <a href="index.html#access">
-                    <div class="nav-icon location-icon"></div>
+                    <div class="nav-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <span>アクセス</span>
                 </a>
             </li>

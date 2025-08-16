@@ -3292,3 +3292,37 @@ footer {
         color: #333;
     }
 }
+
+/* Android等でのテキスト自動拡大対策 */
+html { 
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* FAQ: モバイル時は回答の文字サイズを質問と揃える */
+@media (max-width: 768px) {
+  .faq-question {
+    font-size: 1.1rem !important;
+  }
+  
+  .faq-answer p {
+    font-size: 1rem !important;
+    line-height: 1.7; /* お好みで */
+  }
+}
+
+/* FAQ：モバイルで質問文を必ず折り返す */
+@media (max-width: 768px) {
+  .faq-question {                 /* ボタン全体 */
+    white-space: normal !important;
+    word-break: break-word !important;   /* = overflow-wrap:anywhere 相当 */
+    overflow-wrap: anywhere !important;
+  }
+  .faq-question span:first-child { /* テキスト部分（アイコンの左） */
+    flex: 1 1 auto;
+    min-width: 0;                  /* Flex項目が縮められず溢れるのを防ぐ */
+  }
+  .faq-icon {                      /* 右側の＋アイコンは幅固定 */
+    flex: 0 0 auto;
+  }
+}

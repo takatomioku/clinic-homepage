@@ -31,9 +31,9 @@ The website uses a **hierarchical medical practice structure** with 16 HTML page
 - `vaccine.html` - Detailed vaccine information page
 
 **Core Assets:**
-- `styles.css` - 61KB comprehensive design system with CSS custom properties
-- `script.js` - 10KB interactive JavaScript with advanced animation system
-- `images/` - 66 organized medical equipment, facility photos, and specialty icons
+- `styles.css` - Comprehensive design system with CSS custom properties and sophisticated mobile responsive architecture
+- `script.js` - Interactive JavaScript with smooth scrolling, mobile menu controls, and intersection observer animations
+- `images/` - 66+ organized medical equipment, facility photos, and specialty icons with responsive logo system
 
 ### Design System
 
@@ -214,15 +214,29 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 - Some pages may have missing `script.js` includes (check `norovirus.html` and `pyroli.html`)
 
 ### File Management
-- Multiple vaccination-related files exist (`vaccination.html`, `vaccine.html`, `vaccination-health-check.html`)
-- Consider consolidating or clearly documenting the purpose of each
+- **Active Files**: 16 main HTML pages, with `vaccination.html` and `health-check.html` as the current standard
+- **Legacy/Backup Files**: `vaccine-backup.html`, `vaccination-backup.html` exist for reference
+- **Obsolete**: `vaccine.html` and `vaccination-health-check.html` are legacy files that should not be modified
+- **Image Assets**: 66+ organized medical images in `images/` directory with consistent naming conventions
 
 ### CSS Architecture
 - 20 media queries across the codebase with efficient responsive breakpoints
 - Background image system for medical symptom cards with mobile-friendly fallbacks
 - Schedule table containers with horizontal scrolling for mobile devices
 
-### Mobile Optimizations
-- All tables should use `.schedule-table-container` wrapper for horizontal scrolling
-- Background images automatically hidden on mobile devices
-- Touch-optimized navigation and interactions implemented
+### Mobile Optimizations (Critical Implementation Details)
+- **CSS Variable Override System**: Mobile breakpoints use custom property overrides to reduce spacing (`--space-lg: 1rem` instead of `2rem`)
+- **Inline Style Force Override**: Uses attribute selectors with `!important` to override inline styles: `[style*="padding: var(--space-lg)"]`
+- **Hero Section Special Handling**: Hero titles use `clamp(1.3rem, 4.5vw, 2.2rem)` for responsive scaling
+- **Long Title Typography**: All titles use `word-break: keep-all` for proper Japanese text wrapping
+- **Container Width Control**: Mobile containers use `padding: 0 8px !important` for maximum content area
+- **Background Image Fallbacks**: Medical symptom card backgrounds automatically hidden on mobile via media queries
+- **Table Responsive Patterns**: All tables should use `.schedule-table-container` wrapper for horizontal scrolling
+- **Touch-Optimized Interactions**: JavaScript detects mobile viewport and adjusts dropdown behavior
+
+### Development Best Practices for Mobile
+When making changes that affect mobile display:
+1. **Always test text overflow**: Long Japanese medical terms require special attention
+2. **Verify CSS variable inheritance**: Changes to `:root` variables affect the entire mobile override system
+3. **Check inline style conflicts**: Inline styles with CSS variables may need attribute selector overrides
+4. **Test hero section specifically**: Hero content has custom mobile scaling that differs from other page headers

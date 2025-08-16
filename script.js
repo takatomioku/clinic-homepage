@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // スムーススクロール
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    // スムーススクロール（メニュートリガーを除外）
+    const anchorLinks = document.querySelectorAll('a[href^="#"]:not(#mobile-menu-trigger)');
     
     anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {

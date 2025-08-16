@@ -596,48 +596,80 @@
 
     <script src="script.js"></script>
     <script>
-        // モバイルメニューの制御
+        // vaccination.html専用のメニュー制御（script.jsと重複しないように）
         document.addEventListener('DOMContentLoaded', function() {
+            // 安全なガード：すべての要素が存在する場合のみ処理
             const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
             const mobileFullscreenMenu = document.getElementById('mobile-fullscreen-menu');
             const menuCloseBtn = document.getElementById('menu-close-btn');
 
-            function openMenu() {
-                mobileFullscreenMenu.classList.add('active');
-                mobileMenuTrigger.querySelector('.nav-icon').textContent = '✕';
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeMenu() {
-                mobileFullscreenMenu.classList.remove('active');
-                mobileMenuTrigger.querySelector('.nav-icon').textContent = '☰';
-                document.body.style.overflow = '';
-            }
-
-            if (mobileMenuTrigger) {
-                mobileMenuTrigger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (mobileFullscreenMenu.classList.contains('active')) {
-                        closeMenu();
-                    } else {
-                        openMenu();
+            if (mobileMenuTrigger && mobileFullscreenMenu && menuCloseBtn) {
+                console.log('Vaccination page: メニュー要素が正常に読み込まれました');
+                
+                function openMenu() {
+                    try {
+                        mobileFullscreenMenu.classList.add('active');
+                        const navIcon = mobileMenuTrigger.querySelector('.nav-icon');
+                        if (navIcon) {
+                            navIcon.textContent = '✕';
+                        }
+                        document.body.style.overflow = 'hidden';
+                    } catch (error) {
+                        console.error('メニューオープンエラー:', error);
                     }
+                }
+
+                function closeMenu() {
+                    try {
+                        mobileFullscreenMenu.classList.remove('active');
+                        const navIcon = mobileMenuTrigger.querySelector('.nav-icon');
+                        if (navIcon) {
+                            navIcon.textContent = '☰';
+                        }
+                        document.body.style.overflow = '';
+                    } catch (error) {
+                        console.error('メニュークローズエラー:', error);
+                    }
+                }
+
+                // イベントリスナーの重複防止：一度だけ追加
+                if (!mobileMenuTrigger.hasAttribute('data-listener-added')) {
+                    mobileMenuTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (mobileFullscreenMenu.classList.contains('active')) {
+                            closeMenu();
+                        } else {
+                            openMenu();
+                        }
+                    });
+                    mobileMenuTrigger.setAttribute('data-listener-added', 'true');
+                }
+
+                if (!menuCloseBtn.hasAttribute('data-listener-added')) {
+                    menuCloseBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        closeMenu();
+                    });
+                    menuCloseBtn.setAttribute('data-listener-added', 'true');
+                }
+            } else {
+                console.error('メニュー要素が見つかりません:', {
+                    trigger: !!mobileMenuTrigger,
+                    menu: !!mobileFullscreenMenu,
+                    closeBtn: !!menuCloseBtn
                 });
             }
 
-            if (menuCloseBtn) {
-                menuCloseBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    closeMenu();
+            // メニューリンクのクリック処理も安全に
+            if (mobileFullscreenMenu) {
+                const menuLinks = mobileFullscreenMenu.querySelectorAll('.menu-list a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        closeMenu();
+                    });
                 });
             }
-
-            const menuLinks = mobileFullscreenMenu.querySelectorAll('.menu-list a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    closeMenu();
-                });
-            });
         });
         
         // 詳細セクションへのスムーズスクロール制御（より精密な位置調整）
@@ -666,17 +698,20 @@
             }
         }
         
-        // アンカーリンククリック時（「詳細を見る」リンクも含む）- すべてのイベントをオーバーライド
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // アンカーリンククリック時（「詳細を見る」リンクも含む）- メニュートリガーを除外してオーバーライド
+        document.querySelectorAll('a[href^="#"]:not(#mobile-menu-trigger)').forEach(anchor => {
             // 既存のイベントを削除
             anchor.removeAttribute('onclick');
             
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const targetId = this.getAttribute('href');
-                console.log('アンカーリンククリック:', targetId); // デバッグ用
-                scrollToDetailSection(targetId);
+                // メニュートリガーでない場合のみ処理
+                if (this.id !== 'mobile-menu-trigger') {
+                    e.preventDefault();
+                    // stopPropagationはスクロール処理のみに使用（メニューの妨げにならないよう）
+                    const targetId = this.getAttribute('href');
+                    console.log('アンカーリンククリック:', targetId); // デバッグ用
+                    scrollToDetailSection(targetId);
+                }
             }, true); // キャプチャフェーズで実行
         });
         
@@ -707,5 +742,20 @@
             });
         });
     </script>
+    
+    <style>
+        /* vaccination.html専用：すべてのカードタイトルを中央揃えに */
+        .card h3 {
+            text-align: center !important;
+        }
+        
+        /* モバイルメニューの表示設定を正しく調整 */
+        @media (max-width: 768px) {
+            .mobile-fullscreen-menu {
+                display: block !important;
+                z-index: 9999 !important; /* 確実に最前面に表示 */
+            }
+        }
+    </style>
 </body>
 </html>

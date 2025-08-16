@@ -1645,6 +1645,26 @@ footer {
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
+    /* 水平スクロール防止の強化 */
+    html, body {
+        max-width: 100vw;
+        overflow-x: hidden !important;
+    }
+    
+    /* すべての要素の幅制限 */
+    *, *::before, *::after {
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    /* モバイル用CSS変数のオーバーライド */
+    :root {
+        --space-lg: 1rem;
+        --space-xl: 1.5rem;
+        --space-2xl: 2rem;
+        --space-3xl: 2.5rem;
+    }
+
     /* モバイル用ロゴ切り替え */
     .logo-desktop {
         display: none;
@@ -1688,6 +1708,111 @@ footer {
         display: block;
     }
     
+    /* インラインでpaddingが設定された要素を上書き */
+    [style*="padding: var(--space-lg)"],
+    [style*="padding: var(--space-xl)"],
+    [style*="padding: var(--space-2xl)"] {
+        padding: 0.75rem !important;
+    }
+    
+    [style*="padding: var(--space-lg); border-radius"],
+    [style*="padding: var(--space-xl); border-radius"],
+    [style*="padding: var(--space-2xl); border-radius"] {
+        padding: 0.75rem !important;
+    }
+
+    /* margin調整 */
+    [style*="margin-bottom: var(--space-lg)"] {
+        margin-bottom: 1rem !important;
+    }
+    
+    [style*="margin-bottom: var(--space-xl)"] {
+        margin-bottom: 1.25rem !important;
+    }
+    
+    /* 長いタイトルの特別対応 */
+    .page-header h1 {
+        font-size: clamp(1.5rem, 4vw, 2rem) !important;
+        line-height: 1.3 !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* heroセクションのタイトル特別調整 */
+    .hero h1, .hero-fullscreen h1 {
+        font-size: clamp(1.3rem, 4.5vw, 2.2rem) !important;
+        line-height: 1.25 !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+        text-align: center !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* heroセクションのコンテンツ調整 */
+    .hero-content {
+        padding: 0 0.5rem !important;
+        max-width: 100% !important;
+    }
+    
+    .hero p {
+        font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1.5rem !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .hero-buttons {
+        gap: var(--space-md) !important;
+        margin-top: var(--space-lg) !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    /* パンくずナビの長いテキスト対応 */
+    .breadcrumb ol li {
+        font-size: 0.8rem !important;
+        word-break: keep-all !important;
+    }
+    
+    /* カード内の長いタイトルの調整 */
+    .card h2, .card h3 {
+        font-size: clamp(1.1rem, 3.5vw, 1.4rem) !important;
+        line-height: 1.4 !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* テーブル内の長いテキスト対応 */
+    table th, table td {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* すべてのコンテナの幅を調整 */
+    .container {
+        padding: 0 8px !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* カードや主要要素の幅制限 */
+    .card, .section, .hero, .page-header {
+        max-width: 100% !important;
+        width: auto !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 画像とメディア要素の幅制限 */
+    img, video, iframe, embed, object {
+        max-width: 100% !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+    }
+    
     /* モバイル版健診カードの幅を最大限活用 */
     .health-check-course-card {
         margin: 0 auto var(--space-lg) auto;
@@ -1695,9 +1820,9 @@ footer {
         width: 100%;
     }
     
-    /* モバイル版でのコンテナ幅を調整 */
+    /* モバイル版でのコンテナ幅を調整 - より広く */
     .container {
-        padding: 0 var(--space-xs);
+        padding: 0 8px;
     }
     
     /* 健診ページの背景セクションパディングも調整 */
@@ -1763,7 +1888,8 @@ footer {
     }
     
     .card {
-        padding: 1.5rem;
+        padding: 1rem;
+        margin: 0 4px;
     }
     
     .grid {
@@ -1787,8 +1913,28 @@ footer {
 }
 
 @media (max-width: 480px) {
+    /* 水平スクロール防止の強化 - 極小画面 */
+    html, body {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* すべての要素の幅制限 - 極小画面 */
+    *, *::before, *::after {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 極小画面用CSS変数のオーバーライド */
+    :root {
+        --space-lg: 0.75rem;
+        --space-xl: 1rem;
+        --space-2xl: 1.5rem;
+        --space-3xl: 2rem;
+    }
+
     .container {
-        padding: 0 8px;
+        padding: 0 4px;
     }
     
     .hero {
@@ -1796,7 +1942,8 @@ footer {
     }
     
     .card {
-        padding: 1.25rem;
+        padding: 0.75rem;
+        margin: 0 2px;
     }
     
     .btn {
@@ -2737,7 +2884,8 @@ footer {
     
     /* カードとコンテンツのモバイルマージン調整 */
     .card {
-        margin: 0 1rem;
+        margin: 0 2px !important;
+        padding: 1rem !important;
     }
     
     .container {
@@ -2749,11 +2897,257 @@ footer {
     .section h2 {
         padding: 0 1rem;
         margin-bottom: 1.5rem;
+        font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+    }
+    
+    /* カードタイトルのモバイル調整 */
+    .card h3 {
+        font-size: 1.3rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    /* ページヘッダータイトルのモバイル調整 */
+    .page-header h1 {
+        font-size: clamp(2rem, 5vw, 3rem) !important;
+        line-height: 1.2 !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* 長いタイトル専用の調整 */
+    h3[style*="gallery-category-title"],
+    .gallery-category-title {
+        font-size: 1.1rem !important;
+        line-height: 1.4 !important;
+        word-break: keep-all !important;
+    }
+    
+    /* モーダルや詳細ページのタイトル調整 */
+    .modal-section h3,
+    .modal-section h4 {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
+        word-break: keep-all !important;
     }
     
     /* テキストコンテンツのモバイル調整 */
     .card p {
-        padding: 0 0.5rem;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* リストアイテムのpadding調整 */
+    .card ul, .card ol {
+        padding-left: 1rem !important;
+        margin-left: 0 !important;
+    }
+    
+    /* 全体的な文字調整 - 無用な改行を減らす */
+    h1, h2, h3, h4 {
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+        hyphens: none !important;
+    }
+    
+    /* リストアイテムの調整 */
+    li {
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* ボタンテキストの調整 */
+    .btn, button, a[style*="background"] {
+        word-break: keep-all !important;
+        white-space: nowrap !important;
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* テーブル内のテキスト調整 */
+    table th, table td {
+        padding: 0.5rem !important;
+        font-size: 0.85rem !important;
+        word-break: keep-all !important;
+    }
+    
+    /* ナビゲーションアイテムの調整 */
+    .main-nav a {
+        font-size: 0.9rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    /* モバイルメニューの文字サイズを大きく */
+    .mobile-fullscreen-menu a {
+        font-size: 1.1rem !important;
+        padding: 1rem 0 !important;
+    }
+    
+    /* モバイル版でカード内テキストの改行調整 - より強力な指定 */
+    a[href="metabolic-syndrome.html"] div p,
+    a[href="metabolic-syndrome.html"] p {
+        max-width: 100% !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        hyphens: auto !important;
+        word-wrap: break-word !important;
+    }
+    
+    a[href="sleep-apnea-syndrome.html"] div p,
+    a[href="sleep-apnea-syndrome.html"] p {
+        max-width: 100% !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        hyphens: auto !important;
+        word-wrap: break-word !important;
+    }
+    
+
+    /* metabolic-syndrome.html: 治療法カードの間隔を統一 */
+    .grid.grid-2 > div:first-child > div {
+        margin-bottom: var(--space-md) !important;
+    }
+
+    
+    /* 診療時間表のモバイル自動調整 */
+    .schedule-table-container {
+        margin: 0 -4px !important;
+        overflow-x: visible !important; /* スクロールバーを無効化 */
+        max-width: calc(100vw - 8px) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* テーブル自体の自動幅調整 - フッタースタイルを参考 */
+    .schedule-table-container table {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important; /* 固定レイアウトで均等配分 */
+        min-width: unset !important;
+    }
+    
+    /* テーブルセルの調整 - フッタースタイルを参考 */
+    .schedule-table-container th,
+    .schedule-table-container td {
+        padding: 0.6rem 0.3rem !important;
+        text-align: center !important;
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        border-bottom: 1px solid var(--glass-border) !important;
+    }
+    
+    /* 8列で均等配分（空白+月火水木金土日） */
+    .schedule-table-container th,
+    .schedule-table-container td {
+        width: 12.5% !important; /* 8列で100%/8=12.5% */
+    }
+    
+    /* 第1列（時間列）を少し広く */
+    .schedule-table-container th:first-child,
+    .schedule-table-container td:first-child {
+        width: 25% !important;
+        font-size: 0.8rem !important;
+    }
+    
+    /* 曜日列を狭く均等に */
+    .schedule-table-container th:not(:first-child),
+    .schedule-table-container td:not(:first-child) {
+        width: 10.7% !important; /* 残り75%を7列で配分 */
+    }
+    
+    /* モバイル版で予約・お問い合わせカードを非表示 */
+    .schedule-table-container + div[style*="margin-top"][style*="background"] {
+        display: none !important;
+    }
+    
+    /* お知らせセクションのタイトルフォントサイズ調整 */
+    .card article h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* health-check.html専用：モバイル版でセクション間マージンを調整 */
+    body[data-page="health-check"] .section,
+    .section[style*="background"][style*="margin"] {
+        margin: var(--space-xl) 0 !important;
+        padding: var(--space-xl) !important;
+    }
+    
+    /* セクション間の追加マージン */
+    .section + .section {
+        margin-top: var(--space-2xl) !important;
+    }
+    
+    /* ページヘッダーと最初のセクション間の余白 */
+    .page-header + .section {
+        margin-top: var(--space-2xl) !important;
+    }
+    
+    /* 背景付きセクション内のカード間余白 */
+    .section .card + .card {
+        margin-top: var(--space-lg) !important;
+    }
+    
+    /* health-check.html：注意事項カードのリストマーク調整 */
+    .notice-card ul {
+        padding-left: 1.5rem !important;
+        margin-left: 0.3rem !important;
+        list-style-position: outside !important;
+        list-style-type: disc !important;
+    }
+    
+    .notice-card li {
+        margin-bottom: 0.5rem !important;
+        padding-left: 0.5rem !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+        line-height: 1.6 !important;
+    }
+    
+    /* 全てのカード内リストの調整 */
+    .card ul, .card ol {
+        padding-left: 1.5rem !important;
+        margin-left: 0.3rem !important;
+        list-style-position: outside !important;
+    }
+    
+    .card li {
+        padding-left: 0.5rem !important;
+        margin-bottom: 0.4rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    /* 予防接種ページ：カードタイトルを中央揃えに統一 */
+    .vaccine-card h3 {
+        text-align: center !important;
+    }
+    
+    /* フッター内容の調整 */
+    footer {
+        padding: 1rem 4px !important;
+    }
+    
+    footer p, footer a {
+        font-size: 0.8rem !important;
+    }
+    
+    /* インラインスタイルpadding の強制オーバーライド */
+    [style*="padding: var(--space-lg)"],
+    [style*="padding: var(--space-xl)"],
+    [style*="padding: var(--space-2xl)"] {
+        padding: 0.75rem !important;
+    }
+    
+    /* 特定の構造化要素の調整 */
+    .card > div[style*="padding"],
+    div[style*="background"][style*="padding"] {
+        padding: 0.5rem !important;
     }
     
     /* モバイル版で背景画像を非表示 */
@@ -2762,11 +3156,7 @@ footer {
         display: none;
     }
     
-    /* 診療時間表のモバイル対応 */
-    .schedule-table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+    /* 診療時間表のモバイル対応 - 重複削除済み */
     
     .schedule-table-container table {
         min-width: 600px;

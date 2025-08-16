@@ -20,7 +20,9 @@
       "Bash(find:*)",
       "Bash(start index.html)",
       "Bash(start clinic-introduction.html)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(start vaccine.html)",
+      "Bash(start:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

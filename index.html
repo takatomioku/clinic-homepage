@@ -528,15 +528,38 @@
             min-width: auto; /* デスクトップでは最小幅制限なし */
         }
         
-        /* モバイル版のみスクロール対応 */
+        /* モバイル版の自動幅調整 */
         @media (max-width: 768px) {
             .schedule-table-container {
-                overflow-x: auto; /* モバイルでスクロール有効 */
+                overflow-x: visible; /* スクロールバーを無効化 */
             }
             
             .schedule-table-container table {
-                min-width: 600px; /* モバイルで最小幅を設定 */
+                min-width: unset;
+                table-layout: fixed; /* 固定レイアウトで均等配分 */
+                border-collapse: collapse;
             }
+            
+            .schedule-table-container th,
+            .schedule-table-container td {
+                padding: 0.6rem 0.3rem;
+                font-size: 0.85rem;
+                text-align: center;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            
+            /* 第1列（時間列）を広く */
+            .schedule-table-container th:first-child,
+            .schedule-table-container td:first-child {
+                width: 25%;
+            }
+            
+            /* 曜日列を均等に */
+            .schedule-table-container th:not(:first-child),
+            .schedule-table-container td:not(:first-child) {
+                width: 10.7%;
+            }
+        }
             
             /* index.html専用: heroセクション用のbody調整 */
             body {

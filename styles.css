@@ -3326,3 +3326,33 @@ html {
     flex: 0 0 auto;
   }
 }
+
+/* health-check：モバイルでテキストを必ず折り返す */
+@media (max-width: 768px) {
+  .health-check-course-card .item-name,
+  .health-check-table-desktop td,
+  .health-check-table-desktop th {
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+  
+  .health-check-course-card .course-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  
+  .health-check-course-card .item-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: var(--space-sm);
+  }
+  
+  .health-check-course-card .item-included,
+  .health-check-course-card .item-not-included {
+    flex: 0 0 auto;
+  }
+}

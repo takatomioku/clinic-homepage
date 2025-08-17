@@ -3031,6 +3031,13 @@ footer {
         word-wrap: break-word !important;
     }
     
+    /* 医師紹介の写真を中央寄せ */
+    img[src="images/profile-photo.jpg"] {
+        margin-left: auto !important;
+        margin-right: auto !important;  /* または margin-inline:auto; */
+        display: block !important;
+    }
+    
     /* リストアイテムの調整 */
     li {
         word-break: keep-all !important;
@@ -3099,6 +3106,22 @@ footer {
     body[data-page="sleep-apnea"] .grid.grid-2 > div:first-child > div {
         margin-bottom: 0 !important;
     }
+
+/* 医師写真：モバイルは現状維持、デスクトップで可変に */
+@media (min-width: 1024px) {
+    /* indexは .doctor-photo、clinic-introduction は src名で拾う */
+    .doctor-photo img,
+    img[src*="profile-photo"] {
+        /* 画面幅に応じて 260〜420pxの範囲で拡大 */
+        width: clamp(260px, 22vw, 420px) !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1;        /* 正方形を維持 */
+        object-fit: cover;          /* トリミングで見栄え維持 */
+        display: block;
+        margin: 0 auto;             /* 中央寄せ（左寄り防止） */
+        max-width: 100%;            /* 親幅を超えない安全策 */
+    }
+}
 
     
     /* 診療時間表のモバイル自動調整 */
@@ -3461,4 +3484,56 @@ button, a, [role="button"] {
 /* アプリケーション全体の安全領域対応 */
 .app-safe-area {
     padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom)) 16px;
+}
+
+/* 医師写真：モバイルは現状維持、デスクトップで大きめに可変 */
+@media (min-width: 1024px) {
+    /* 1) 画像そのものを"より大きく"スケールさせる */
+    .doctor-photo img,
+    #about img[src$="profile-photo.jpg"] {
+        /* 280〜450pxの範囲で、画面幅に応じて拡大 */
+        width: clamp(280px, 32vw, 450px) !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto; /* 中央寄せ（左寄り対策） */
+        max-width: 100%;
+    }
+
+    /* 2) 医師紹介セクションだけ画像側のカラムを少し広めにする（文章との比率を調整） */
+    #about .grid.grid-2 {
+        grid-template-columns: minmax(360px, 1.2fr) 1fr;
+        align-items: flex-start; /* 上揃えに変更 */
+    }
+    
+    /* 3) indexページのお知らせセクション：デスクトップ版のみフォントサイズを少し大きく */
+    .grid.grid-1 .card article time {
+        font-size: 1rem !important;
+    }
+    
+    .grid.grid-1 .card article h3 {
+        font-size: 1.3rem !important;
+    }
+    
+    .grid.grid-1 .card article p {
+        font-size: 1.05rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* 4) お知らせカード全体のリンク効果 */
+    .grid.grid-1 a.card {
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
+    }
+    
+    .grid.grid-1 a.card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: var(--shadow-hover) !important;
+        border-color: var(--accent-cyan) !important;
+    }
+    
+    .grid.grid-1 a.card:hover h3 {
+        color: var(--accent-cyan) !important;
+    }
 }

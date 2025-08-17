@@ -89,7 +89,7 @@
         <section class="section">
             <div class="container">
                 <div class="card glass">
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                    <p class="clinical-result-intro" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-lg);">
                         当院での内視鏡検査、大腸ポリープ切除術、ピロリ菌除菌および健診の実績です。たくさんの方に検査および治療をうけていただいております。今後も実績を重ねてまいりたいと思いますので宜しくお願いいたします。
                     </p>
                 </div>
@@ -700,6 +700,15 @@
             </div>
         </div>
     </footer>
+
+    <style>
+        /* デスクトップ版のみ：診療実績の概要文のフォントサイズを大きく */
+        @media (min-width: 769px) {
+            .clinical-result-intro {
+                font-size: 1.2rem !important;
+            }
+        }
+    </style>
 
     <script src="script.js"></script>
     <script>

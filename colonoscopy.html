@@ -65,15 +65,17 @@
 
     <main>
         <!-- パンくずナビ -->
-        <nav class="breadcrumb">
+        <section class="breadcrumb-section">
             <div class="container">
-                <a href="index.html">ホーム</a>
-                <span>＞</span>
-                <a href="medical-services.html">診療案内</a>
-                <span>＞</span>
-                <span>大腸カメラ検査</span>
+                <nav class="breadcrumb" aria-label="パンくずナビ">
+                    <ol>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li>大腸カメラ検査</li>
+                    </ol>
+                </nav>
             </div>
-        </nav>
+        </section>
 
         <!-- ページヘッダー -->
         <section class="page-header">
@@ -354,7 +356,7 @@
             <div class="container">
                 <h2>よくある質問</h2>
                 <div class="faq-container">
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>予約は必要ですか？</span>
                             <span class="faq-icon">+</span>
@@ -364,7 +366,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>大腸カメラの検査は痛いのでしょうか？</span>
                             <span class="faq-icon">+</span>
@@ -374,7 +376,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>眠るお薬（鎮静剤）を用いて大腸カメラを受けることは可能でしょうか？</span>
                             <span class="faq-icon">+</span>
@@ -384,7 +386,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>ポリープを切除した後は普通の生活はできますか？</span>
                             <span class="faq-icon">+</span>
@@ -394,7 +396,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>予約を変更またはキャンセルしたい場合はどうしたらよいですか？</span>
                             <span class="faq-icon">+</span>
@@ -410,16 +412,8 @@
                     <h3 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">大腸カメラ検査のご予約</h3>
                     <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
                         大腸カメラ検査は完全予約制です。<br>
-                        お電話または直接ご来院にてご予約ください。
+                        直接ご来院にてご予約ください。
                     </p>
-                    <div style="background: var(--bg-glass-light); padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
-                        <span style="color: var(--accent-cyan); font-size: 2rem;">📞</span>
-                        <div style="margin-left: var(--space-sm); display: inline-block;">
-                            <span style="color: var(--text-primary); font-weight: 600; font-size: 1.3rem;">0155-66-6170</span>
-                            <br>
-                            <span style="color: var(--text-muted); font-size: 0.9rem;">受付時間: 8:30〜18:00</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

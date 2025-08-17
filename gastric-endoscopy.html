@@ -41,8 +41,6 @@
                             <li><a href="medical-services.html#internal">内科</a></li>
                             <li><a href="medical-services.html#gastroenterology">消化器内科</a></li>
                             <li><a href="medical-services.html#endoscopy">内視鏡内科</a></li>
-                            <li><a href="gastric-endoscopy.html">胃カメラ検査</a></li>
-                            <li><a href="colonoscopy.html">大腸カメラ検査</a></li>
                             <li><a href="clinical-result.html">診療実績</a></li>
                         </ul>
                     </li>
@@ -67,15 +65,17 @@
 
     <main>
         <!-- パンくずナビ -->
-        <nav class="breadcrumb">
+        <section class="breadcrumb-section">
             <div class="container">
-                <a href="index.html">ホーム</a>
-                <span>＞</span>
-                <a href="medical-services.html">診療案内</a>
-                <span>＞</span>
-                <span>胃カメラ検査</span>
+                <nav class="breadcrumb" aria-label="パンくずナビ">
+                    <ol>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li>胃カメラ検査</li>
+                    </ol>
+                </nav>
             </div>
-        </nav>
+        </section>
 
         <!-- ページヘッダー -->
         <section class="page-header">
@@ -265,7 +265,7 @@
             <div class="container">
                 <h2>よくある質問</h2>
                 <div class="faq-container">
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>予約は必要ですか？</span>
                             <span class="faq-icon">+</span>
@@ -275,7 +275,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>口からと鼻からではどちらの方が楽ですか？</span>
                             <span class="faq-icon">+</span>
@@ -285,7 +285,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>内視鏡検査のときに鎮静剤を使用して眠っている間に検査をすることはできますか？</span>
                             <span class="faq-icon">+</span>
@@ -295,7 +295,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>胃カメラ検査と同時にピロリ菌検査ができるとありますが、どのように調べるのでしょうか？</span>
                             <span class="faq-icon">+</span>
@@ -305,7 +305,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>胃カメラ検査なしでピロリ菌を調べることは可能ですか？</span>
                             <span class="faq-icon">+</span>
@@ -315,7 +315,7 @@
                         </div>
                     </div>
 
-                    <div class="faq-item card glass">
+                    <div class="faq-item glass">
                         <button class="faq-question" onclick="toggleFaq(this)">
                             <span>夕方の胃カメラは可能でしょうか？</span>
                             <span class="faq-icon">+</span>

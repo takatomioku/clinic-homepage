@@ -1178,10 +1178,11 @@ footer {
     color: var(--text-muted);
 }
 
-/* パンくずナビ */
+/* パンくずナビ - デスクトップで表示、モバイルで非表示 */
 .breadcrumb-section {
     padding: 120px 0 2rem;
     background: transparent;
+    display: block; /* デスクトップで表示 */
 }
 
 .breadcrumb ol {
@@ -1724,9 +1725,9 @@ footer {
         display: block;
     }
     
-    /* パンくずナビを非表示 */
+    /* パンくずナビを非表示（モバイル版） */
     .breadcrumb-section {
-        display: none;
+        display: none !important;
     }
     
     /* デスクトップヘッダーを非表示 */
@@ -2003,11 +2004,6 @@ footer {
     }
 }
 
-/* 胃カメラページ専用スタイル */
-.breadcrumb span {
-    color: var(--text-muted);
-    margin: 0 var(--space-xs);
-}
 
 /* 検査の流れスタイル */
 .procedure-flow {

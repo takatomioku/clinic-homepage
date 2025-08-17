@@ -1791,7 +1791,7 @@ footer {
     
     /* heroセクションのタイトル特別調整 */
     .hero h1, .hero-fullscreen h1 {
-        font-size: clamp(1.3rem, 4.5vw, 2.2rem) !important;
+        font-size: clamp(1.5rem, 5vw, 2.5rem) !important;
         line-height: 1.25 !important;
         word-break: keep-all !important;
         overflow-wrap: break-word !important;
@@ -1829,8 +1829,9 @@ footer {
     .card h2, .card h3 {
         font-size: clamp(1.1rem, 3.5vw, 1.4rem) !important;
         line-height: 1.4 !important;
-        word-break: keep-all !important;
-        overflow-wrap: break-word !important;
+        word-break: normal !important;        /* keep-all を解除 */
+        overflow-wrap: anywhere !important;   /* iOS Safari でも強制的に折り返し */
+        white-space: normal !important;
     }
     
     /* テーブル内の長いテキスト対応 */
@@ -3018,9 +3019,16 @@ footer {
     
     /* 全体的な文字調整 - 無用な改行を減らす */
     h1, h2, h3, h4 {
-        word-break: keep-all !important;
-        overflow-wrap: break-word !important;
+        word-break: normal !important;        /* iOS対応：keep-allを解除 */
+        overflow-wrap: anywhere !important;   /* iOS Safariでも強制的に折り返し */
+        white-space: normal !important;
         hyphens: none !important;
+    }
+    
+    /* グリッド子要素の横はみ出し抑制（iOS対応） */
+    .grid > * {
+        min-width: 0 !important;
+        word-wrap: break-word !important;
     }
     
     /* リストアイテムの調整 */
@@ -3083,8 +3091,13 @@ footer {
     
 
     /* metabolic-syndrome.html: 治療法カードの間隔を統一 */
-    .grid.grid-2 > div:first-child > div {
+    body[data-page="metabolic-syndrome"] .grid.grid-2 > div:first-child > div {
         margin-bottom: var(--space-md) !important;
+    }
+    
+    /* sleep-apnea では先頭カードの余分な間隔を打ち消す */
+    body[data-page="sleep-apnea"] .grid.grid-2 > div:first-child > div {
+        margin-bottom: 0 !important;
     }
 
     

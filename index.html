@@ -131,29 +131,6 @@
             </div>
         </section>
 
-        <!-- モバイル版クイックアクセスメニュー -->
-        <div class="mobile-quick-access">
-            <div class="quick-access-grid">
-                <a href="gastric-endoscopy.html" class="quick-access-item">
-                    <span>胃カメラ</span>
-                </a>
-                <a href="colonoscopy.html" class="quick-access-item">
-                    <span>大腸カメラ</span>
-                </a>
-                <a href="pyroli.html" class="quick-access-item">
-                    <span>ピロリ菌</span>
-                </a>
-                <a href="liver.html" class="quick-access-item">
-                    <span>肝臓の病気</span>
-                </a>
-                <a href="health-check.html" class="quick-access-item">
-                    <span>健康診断</span>
-                </a>
-                <a href="vaccination.html" class="quick-access-item">
-                    <span>予防接種</span>
-                </a>
-            </div>
-        </div>
 
         <section class="section mobile-services-section">
             <div class="container">
@@ -603,21 +580,15 @@
         
         /* モバイル版クイックアクセスメニュー */
         .mobile-quick-access {
-            display: none; /* デスクトップでは非表示 */
+            margin-top: -20px; /* hero画像にくっつける */
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            /* border-bottom: 10px solid #ff0000; */ /* 境界線削除 */
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2); /* 下に追加の影 */
+            position: relative;
+            z-index: 10; /* 重なり問題を解決 */
         }
-        
-        @media (max-width: 768px) {
-            .mobile-quick-access {
-                display: block;
-                margin-top: -20px; /* hero画像にくっつける */
-                background: rgba(10, 14, 26, 0.95);
-                backdrop-filter: blur(20px);
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* 縦線と同じ細さ */
-                box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2); /* 下に追加の影 */
-                position: relative;
-                z-index: 10; /* 重なり問題を解決 */
-            }
             
             .quick-access-grid {
                 display: grid;
@@ -680,6 +651,87 @@
     </style>
     <script src="script.js"></script>
     <script>
+        // モバイル版クイックアクセスメニューの動的制御
+        document.addEventListener('DOMContentLoaded', function() {
+            // モバイル判定
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            // クイックアクセスメニューを追加
+            function addQuickAccessMenu() {
+                const existingMenu = document.querySelector('.mobile-quick-access');
+                
+                if (isMobile() && !existingMenu) {
+                    const heroSection = document.querySelector('.hero');
+                    const quickAccessHTML = `
+                        <div class="mobile-quick-access">
+                            <div class="quick-access-grid">
+                                <a href="gastric-endoscopy.html" class="quick-access-item">
+                                    <span>胃カメラ</span>
+                                </a>
+                                <a href="colonoscopy.html" class="quick-access-item">
+                                    <span>大腸カメラ</span>
+                                </a>
+                                <a href="pyroli.html" class="quick-access-item">
+                                    <span>ピロリ菌</span>
+                                </a>
+                                <a href="liver.html" class="quick-access-item">
+                                    <span>肝臓の病気</span>
+                                </a>
+                                <a href="health-check.html" class="quick-access-item">
+                                    <span>健康診断</span>
+                                </a>
+                                <a href="vaccination.html" class="quick-access-item">
+                                    <span>予防接種</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="quick-access-separator" style="height: 1px; background: rgba(255, 255, 255, 0.15); margin: 0;"></div>
+                    `;
+                    heroSection.insertAdjacentHTML('afterend', quickAccessHTML);
+                    
+                    // 診療科目セクションにマージンを追加して重なりを防ぐ
+                    const servicesSection = document.querySelector('.mobile-services-section');
+                    if (servicesSection) {
+                        servicesSection.style.marginTop = '2rem';
+                    }
+                }
+            }
+            
+            // クイックアクセスメニューを削除
+            function removeQuickAccessMenu() {
+                const quickAccess = document.querySelector('.mobile-quick-access');
+                if (quickAccess) {
+                    quickAccess.remove();
+                }
+                
+                const separator = document.querySelector('.quick-access-separator');
+                if (separator) {
+                    separator.remove();
+                }
+                
+                // 診療科目セクションのマージンをリセット
+                const servicesSection = document.querySelector('.mobile-services-section');
+                if (servicesSection) {
+                    servicesSection.style.marginTop = '';
+                    servicesSection.style.backgroundColor = '';
+                }
+            }
+            
+            // 初期実行
+            addQuickAccessMenu();
+            
+            // リサイズ時の処理
+            window.addEventListener('resize', function() {
+                if (isMobile()) {
+                    addQuickAccessMenu();
+                } else {
+                    removeQuickAccessMenu();
+                }
+            });
+        });
+        
         // モバイルメニューウィンドウの制御
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');

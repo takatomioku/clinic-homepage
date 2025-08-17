@@ -1,8 +1,40 @@
-/* リセットCSS */
-* {
+/* モダン最小リセット + スマホ機種差分対策 */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* アンカーリンクスクロール時のヘッダー隠れ防止 */
+html {
+    scroll-padding-top: 150px; /* デスクトップ用 */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+img, svg, video, canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* タイポとレイアウトのブレ対策 */
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%; /* iOS拡大抑制 */
 }
 
 /* カスタムプロパティ（CSS変数） - 濃紺×ガラス質感×洗練された大人の雰囲気 */
@@ -80,13 +112,15 @@
 
 /* 基本設定 */
 body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     line-height: 1.8;
     color: var(--text-primary);
     background: var(--bg-primary);
     font-weight: 400;
     letter-spacing: 0.025em;
-    min-height: 100vh;
+    /* 100vh問題対応（iOSのURLバーの出入り） */
+    min-height: 100dvh; /* 新しい動的vhが使える環境で優先 */
+    min-height: 100vh; /* フォールバック */
     overflow-x: hidden;
 }
 
@@ -1022,6 +1056,11 @@ header {
 }
 
 @media (max-width: 768px) {
+    /* モバイルでのアンカーリンクスクロール時のヘッダー隠れ防止 */
+    html {
+        scroll-padding-top: 130px; /* モバイルヘッダー(60px) + ナビ(60px) + 余白(10px) */
+    }
+    
     .faq-nav-grid {
         grid-template-columns: 1fr;
     }
@@ -1036,9 +1075,10 @@ header {
     .faq-question {
         font-size: 1rem;
         padding: var(--space-md);
-        word-break: keep-all;
+        word-break: normal;
         overflow-wrap: break-word;
         white-space: normal;
+        line-break: strict;
     }
     
     .faq-answer p {
@@ -2160,9 +2200,10 @@ footer {
     .faq-section .faq-question,
     .faq-container .faq-question {
         padding: var(--space-lg) var(--space-md);
-        word-break: keep-all;
+        word-break: normal;
         overflow-wrap: break-word;
         white-space: normal;
+        line-break: strict;
     }
     
     .faq-answer p {
@@ -3315,12 +3356,21 @@ html {
 @media (max-width: 768px) {
   .faq-question {                 /* ボタン全体 */
     white-space: normal !important;
-    word-break: break-word !important;   /* = overflow-wrap:anywhere 相当 */
-    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    line-break: strict !important;
   }
   .faq-question span:first-child { /* テキスト部分（アイコンの左） */
     flex: 1 1 auto;
     min-width: 0;                  /* Flex項目が縮められず溢れるのを防ぐ */
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-break: strict;
+  }
+  
+  /* Q. の後ろで改行されないよう、Q と文章の結合を強化 */
+  .faq-question span:first-child::first-line {
+    word-break: keep-all;
   }
   .faq-icon {                      /* 右側の＋アイコンは幅固定 */
     flex: 0 0 auto;
@@ -3355,4 +3405,47 @@ html {
   .health-check-course-card .item-not-included {
     flex: 0 0 auto;
   }
+}
+
+/* =============================================================================
+   スマホ機種差分対策
+============================================================================= */
+
+/* iOSでのフォーム拡大防止（16px未満でズームされる） */
+input, select, textarea {
+    font-size: 16px;
+}
+
+/* クリック遅延・ダブルタップ拡大対策 */
+button, a, [role="button"] {
+    touch-action: manipulation;
+}
+
+/* ビューポート高さの差異（iOSの100vh問題）対応クラス */
+.full-viewport {
+    /* 新しい動的vhが使える環境で優先 */
+    min-height: 100dvh;
+    /* フォールバック */
+    min-height: 100vh;
+}
+
+/* 画像のレイアウトシフト防止（幅/高さまたはaspect-ratio必須） */
+.responsive-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+/* 安全領域（ノッチ）対応のための変数定義 */
+:root {
+    --safe-top: env(safe-area-inset-top);
+    --safe-right: env(safe-area-inset-right);
+    --safe-bottom: env(safe-area-inset-bottom);
+    --safe-left: env(safe-area-inset-left);
+}
+
+/* アプリケーション全体の安全領域対応 */
+.app-safe-area {
+    padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom)) 16px;
 }

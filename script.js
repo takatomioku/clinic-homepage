@@ -22,8 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                let offsetHeight = 20; // デフォルトの余白
+                
+                // モバイル時は固定ヘッダーとナビの高さを考慮
+                if (window.innerWidth <= 768) {
+                    offsetHeight = 130; // モバイルヘッダー(60px) + ナビ(60px) + 余白(10px)
+                } else {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    offsetHeight = headerHeight + 20;
+                }
+                
+                const targetPosition = targetElement.offsetTop - offsetHeight;
                 
                 window.scrollTo({
                     top: targetPosition,

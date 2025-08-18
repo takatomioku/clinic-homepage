@@ -33,7 +33,7 @@ The website uses a **hierarchical medical practice structure** with 16 HTML page
 **Core Assets:**
 - `styles.css` - Comprehensive design system with CSS custom properties and sophisticated mobile responsive architecture
 - `script.js` - Interactive JavaScript with smooth scrolling, mobile menu controls, and intersection observer animations
-- `images/` - 66+ organized medical equipment, facility photos, and specialty icons with responsive logo system
+- `images/` - 82 organized medical equipment, facility photos, specialty icons, and SVG graphics with responsive logo system
 
 ### Design System
 
@@ -134,7 +134,7 @@ The design system is centralized in `:root` CSS custom properties. To modify col
 - Image files: `internal-medicine-symptoms.jpg` and `gastroenterology-symptoms.jpg`
 
 ### Image Management
-Medical equipment and facility images are stored in `images/` directory with **66 organized assets**:
+Medical equipment and facility images are stored in `images/` directory with **82 organized assets**:
 
 **Naming Conventions:**
 - **Medical Equipment:** Descriptive technical names (e.g., `fujifilm-endoscopy-processor-ep8000.jpg`, `hitachi-digital-xray-machine.jpg`)
@@ -144,8 +144,10 @@ Medical equipment and facility images are stored in `images/` directory with **6
 
 **Technical Requirements:**
 - **Responsive Logo System:** `logo-desktop.png` and `logo-mobile.png` for different screen sizes
-- **Multiple Format Support:** PNG for icons/logos, JPG for photography, SVG for scalable graphics
+- **Multiple Format Support:** PNG for icons/logos, JPG for photography, SVG for scalable graphics and custom icons
+- **Custom SVG Icons:** Include `clock-icon.svg` and `important-svgrepo-com.svg` for specialized UI elements
 - **Icon Sizing:** Medical specialty icons displayed as 100x100px circular images with `border-radius: 50%`
+- **SVG Color Management:** Use CSS filters to match SVG icon colors with text colors (e.g., `filter: invert(1)` for white icons)
 - **Optimization:** Recommended 300-400px width for equipment photos, comprehensive alt text for accessibility
 
 ## Deployment
@@ -217,7 +219,7 @@ Changes typically appear on GitHub Pages within 1-3 minutes.
 - **Active Files**: 16 main HTML pages, with `vaccination.html` and `health-check.html` as the current standard
 - **Legacy/Backup Files**: `vaccine-backup.html`, `vaccination-backup.html` exist for reference
 - **Obsolete**: `vaccine.html` and `vaccination-health-check.html` are legacy files that should not be modified
-- **Image Assets**: 66+ organized medical images in `images/` directory with consistent naming conventions
+- **Image Assets**: 82 organized medical images in `images/` directory with consistent naming conventions
 
 ### CSS Architecture
 - 20 media queries across the codebase with efficient responsive breakpoints

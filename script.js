@@ -77,6 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
         visibility: hidden;
         transition: all 0.3s ease;
         z-index: 1000;
+        // iOSのタップハイライト/フォーカス痕を無効化
+        scrollToTopBtn.style.webkitTapHighlightColor = 'transparent';
+        scrollToTopBtn.style.outline = 'none';
     `;
     
     document.body.appendChild(scrollToTopBtn);
@@ -87,11 +90,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // ページトップボタンの表示/非表示
         if (scrollTop > 300) {
+            scrollToTopBtn.style.display = 'block';
+            requestAnimationFrame(() => {  // レイアウト確定後に反映
             scrollToTopBtn.style.opacity = '1';
             scrollToTopBtn.style.visibility = 'visible';
+    });
         } else {
             scrollToTopBtn.style.opacity = '0';
             scrollToTopBtn.style.visibility = 'hidden';
+            // トランジション完了後に display:none で完全に消す
+            setTimeout(() => { scrollToTopBtn.style.display = 'none'; }, 320);
         }
         
         // ヘッダーの背景色変更
@@ -107,10 +115,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ページトップボタンのクリックイベント
     scrollToTopBtn.addEventListener('click', function() {
+          // クリック直後にフォーカス痕を消す
+          scrollToTopBtn.blur();
+
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
+        
+          // スクロールし切る前に非表示を予約（モバイル描画の残像対策）
+          scrollToTopBtn.style.opacity = '0';
+          scrollToTopBtn.style.visibility = 'hidden';
+          setTimeout(() => { scrollToTopBtn.style.display = 'none'; }, 320);
     });
     
     // 高度なアニメーション効果

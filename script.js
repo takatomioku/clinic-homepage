@@ -77,10 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
         visibility: hidden;
         transition: all 0.3s ease;
         z-index: 1000;
+
+    `;
         // iOSのタップハイライト/フォーカス痕を無効化
         scrollToTopBtn.style.webkitTapHighlightColor = 'transparent';
         scrollToTopBtn.style.outline = 'none';
-    `;
     
     document.body.appendChild(scrollToTopBtn);
     
@@ -92,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollTop > 300) {
             scrollToTopBtn.style.display = 'block';
             requestAnimationFrame(() => {  // レイアウト確定後に反映
-            scrollToTopBtn.style.opacity = '1';
-            scrollToTopBtn.style.visibility = 'visible';
+             scrollToTopBtn.style.opacity = '1';
+             scrollToTopBtn.style.visibility = 'visible';
     });
         } else {
             scrollToTopBtn.style.opacity = '0';

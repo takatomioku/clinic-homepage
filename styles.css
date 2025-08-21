@@ -888,7 +888,7 @@ header {
 .section-intro {
     text-align: center;
     margin-bottom: var(--space-2xl);
-    padding: var(--space-lg);
+    padding: var(--space-md);
 }
 
 .section-intro p {
@@ -929,7 +929,7 @@ header {
 
 .faq-nav-item {
     display: block;
-    padding: var(--space-lg);
+    padding: var(--space-md);
     background: var(--bg-glass-light);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
@@ -987,7 +987,7 @@ header {
     width: 100%;
     background: none;
     border: none;
-    padding: var(--space-lg);
+    padding: var(--space-md);
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -1002,7 +1002,7 @@ header {
 /* すべてのFAQ質問項目の高さを調整 */
 .faq-section .faq-question,
 .faq-container .faq-question {
-    padding: var(--space-lg) var(--space-xl);
+    padding: var(--space-md) var(--space-xl);
 }
 
 .faq-question:hover {
@@ -1074,7 +1074,7 @@ header {
     
     .faq-question {
         font-size: 1rem;
-        padding: var(--space-md);
+        padding: var(--space-sm);
         word-break: normal;
         overflow-wrap: break-word;
         white-space: normal;
@@ -1612,7 +1612,7 @@ footer {
     background: var(--bg-glass-light);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    padding: var(--space-md);
     margin-bottom: var(--space-lg);
 }
 
@@ -2016,7 +2016,7 @@ footer {
 .procedure-step {
     text-align: center;
     max-width: 500px;
-    padding: var(--space-lg);
+    padding: var(--space-md);
     background: var(--bg-glass-light);
     border-radius: var(--radius-lg);
     border: 1px solid var(--glass-border);
@@ -2058,11 +2058,11 @@ footer {
 
 /* 麻酔手順スタイル */
 .anesthesia-steps {
-    padding: var(--space-lg);
+    padding: var(--space-md);
 }
 
 .anesthesia-step {
-    padding: var(--space-lg);
+    padding: var(--space-md);
     background: var(--bg-glass-light);
     border-radius: var(--radius-md);
     border: 1px solid var(--glass-border);
@@ -2113,7 +2113,7 @@ footer {
     width: 100%;
     background: none;
     border: none;
-    padding: var(--space-lg);
+    padding: var(--space-md);
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -2186,7 +2186,7 @@ footer {
     }
     
     .faq-question {
-        padding: var(--space-md);
+        padding: var(--space-sm);
         font-size: 1rem;
         word-break: keep-all;
         overflow-wrap: break-word;
@@ -2196,7 +2196,7 @@ footer {
     /* すべてのFAQ質問項目の高さを調整（モバイル） */
     .faq-section .faq-question,
     .faq-container .faq-question {
-        padding: var(--space-lg) var(--space-md);
+        padding: var(--space-sm) var(--space-md);
         word-break: normal;
         overflow-wrap: break-word;
         white-space: normal;
@@ -2402,7 +2402,7 @@ footer {
     opacity: 0;
     transition: opacity var(--transition-smooth);
     overflow-y: auto;
-    padding: var(--space-lg);
+    padding: var(--space-md);
 }
 
 .modal-overlay.active {
@@ -2560,7 +2560,7 @@ footer {
 .modal-warning {
     background: var(--bg-glass-light);
     border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    padding: var(--space-md);
     border: 1px solid var(--glass-border);
     margin: var(--space-lg) 0;
 }
@@ -2780,7 +2780,7 @@ footer {
     transition: opacity 0.3s ease;
     align-items: center;
     justify-content: center;
-    padding: var(--space-lg);
+    padding: var(--space-md);
 }
 
 .gallery-lightbox.active {
@@ -2913,7 +2913,7 @@ footer {
     }
     
     .lightbox-info {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
     
     .lightbox-info h3 {

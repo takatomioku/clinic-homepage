@@ -429,6 +429,77 @@
             </div>
         </section>
 
+        <!-- AIチャットボット -->
+        <section class="chatbot-section">
+            <div class="container">
+                <div class="card glass" style="padding: var(--space-xl) var(--space-lg);">
+                    <div style="text-align: center; margin-bottom: var(--space-lg);">
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--space-md);">
+                            <i class="fas fa-robot" style="margin-right: var(--space-sm); color: var(--accent-cyan);"></i>
+                            AIチャットボット
+                        </h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                            クリニックに関するご質問にお答えします。お気軽にお尋ねください。
+                        </p>
+                    </div>
+                    
+                    <!-- チャット履歴エリア -->
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                こんにちは！おく内科消化器クリニックのAIアシスタントです。<br>
+                                診療に関するご質問、検査について、予約方法など、何でもお気軽にお尋ねください。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 入力エリア -->
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                id="chat-input" 
+                                placeholder="ご質問をお書きください..." 
+                                rows="2"
+                                style="resize: none;"
+                            ></textarea>
+                            <button id="send-button" class="send-button" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="chat-controls">
+                            <button id="clear-chat" class="clear-button">
+                                <i class="fas fa-trash-alt"></i>
+                                履歴を削除
+                            </button>
+                            <div class="api-key-section" style="display: none;" id="api-key-section">
+                                <input 
+                                    type="password" 
+                                    id="api-key-input" 
+                                    placeholder="OpenAI APIキーを入力してください"
+                                    style="width: 300px;"
+                                >
+                                <button id="save-api-key">保存</button>
+                            </div>
+                            <button id="toggle-api-key" class="settings-button">
+                                <i class="fas fa-cog"></i>
+                                設定
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- ローディング表示 -->
+                    <div id="loading-indicator" class="loading-indicator" style="display: none;">
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span>回答を生成しています...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- お問い合わせ案内 -->
         <section class="contact-section">
             <div class="container">
@@ -663,6 +734,242 @@
                     closeMenu();
                 });
             });
+
+            // チャットボット機能
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-button');
+            const clearButton = document.getElementById('clear-chat');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const apiKeySection = document.getElementById('api-key-section');
+            const apiKeyInput = document.getElementById('api-key-input');
+            const saveApiKeyButton = document.getElementById('save-api-key');
+            const toggleApiKeyButton = document.getElementById('toggle-api-key');
+
+            // APIキー管理
+            function getApiKey() {
+                return localStorage.getItem('openai-api-key') || '';
+            }
+
+            function saveApiKey(key) {
+                localStorage.setItem('openai-api-key', key);
+            }
+
+            function hasApiKey() {
+                return getApiKey().length > 0;
+            }
+
+            // クリニック情報システムプロンプト
+            const clinicSystemPrompt = `あなたは「おく内科消化器クリニック」の受付スタッフとして、患者様からの質問に答えるアシスタントです。
+
+【クリニック基本情報】
+・名称：医療法人社団 陸仁会 おく内科消化器クリニック
+・住所：〒080-0015 北海道帯広市西5条南21丁目2-2 イオン帯広店南向い
+・電話：0155-66-6170
+・FAX：050-3730-6562
+
+【診療時間】
+・月火木金：午前9:00-12:00、午後2:30-6:30
+・水土：午前9:00-12:00のみ
+・日曜・祝日・第1,3,5土曜は休診
+・受付時間：8:30〜18:00（昼休みも受付可能）
+
+【診療科目】
+・内科（高血圧、脂質異常症、糖尿病などの生活習慣病、風邪などの一般内科）
+・消化器内科（胃腸、肝臓などの腹部疾患）
+・内視鏡内科（胃カメラ、大腸カメラ）
+
+【検査・設備】
+・胃カメラ（経鼻・経口、鎮静剤使用可能）
+・大腸カメラ
+・ピロリ菌検査
+・各種超音波検査
+・デジタルレントゲン
+・心電図
+・無料WiFi完備
+
+【予約について】
+・一般診察：予約不要（直接来院）
+・胃カメラ・大腸カメラ：要予約
+・健康診断（個人）：ネット予約可能
+・特定健診・がん検診：予約不要
+
+【年齢制限】
+・一般診察：高校生以上
+・インフルエンザワクチン：中学3年生以上
+・その他ワクチン：高校生以上
+
+【支払い】
+・各種クレジットカード
+・楽天ペイ、WAON、nanaco、Edy
+・交通系電子マネー対応
+
+【駐車場】
+・クリニック前、向かい側、少し離れた場所にも駐車場完備
+
+あなたは以下の特徴を持ってください：
+1. 丁寧で親切な口調
+2. 医療の専門的な内容は分かりやすく説明
+3. 不明な点は「お電話でお問い合わせください」と案内
+4. 緊急時は「すぐに受診してください」と適切に案内
+5. 上記の情報を基に正確に回答`;
+
+            // メッセージ表示
+            function addMessage(content, isBot = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.innerHTML = content.replace(/\n/g, '<br>');
+                
+                messageDiv.appendChild(contentDiv);
+                chatMessages.appendChild(messageDiv);
+                
+                // スクロールを最下部に
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // 入力チェック
+            function checkInput() {
+                const hasText = chatInput.value.trim().length > 0;
+                const hasKey = hasApiKey();
+                sendButton.disabled = !hasText || !hasKey;
+                
+                if (!hasKey && hasText) {
+                    sendButton.title = 'APIキーが設定されていません';
+                } else {
+                    sendButton.title = '';
+                }
+            }
+
+            // ChatGPT API呼び出し
+            async function callChatGPT(message) {
+                const apiKey = getApiKey();
+                if (!apiKey) {
+                    throw new Error('APIキーが設定されていません');
+                }
+
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: clinicSystemPrompt
+                            },
+                            {
+                                role: 'user',
+                                content: message
+                            }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 1000
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error?.message || 'APIエラーが発生しました');
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content;
+            }
+
+            // メッセージ送信
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message || !hasApiKey()) return;
+
+                // ユーザーメッセージ追加
+                addMessage(message, false);
+                chatInput.value = '';
+                checkInput();
+
+                // ローディング表示
+                loadingIndicator.style.display = 'flex';
+                sendButton.disabled = true;
+
+                try {
+                    const response = await callChatGPT(message);
+                    addMessage(response, true);
+                } catch (error) {
+                    console.error('Error:', error);
+                    addMessage(
+                        `申し訳ございません。エラーが発生しました。<br>
+                        お急ぎの場合は、お電話（0155-66-6170）でお問い合わせください。<br>
+                        <small>エラー詳細: ${error.message}</small>`,
+                        true
+                    );
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    checkInput();
+                }
+            }
+
+            // イベントリスナー
+            if (chatInput) {
+                chatInput.addEventListener('input', checkInput);
+                chatInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+
+            if (sendButton) {
+                sendButton.addEventListener('click', sendMessage);
+            }
+
+            if (clearButton) {
+                clearButton.addEventListener('click', function() {
+                    if (confirm('チャット履歴を削除しますか？')) {
+                        chatMessages.innerHTML = `
+                            <div class="message bot-message">
+                                <div class="message-content">
+                                    こんにちは！おく内科消化器クリニックのAIアシスタントです。<br>
+                                    診療に関するご質問、検査について、予約方法など、何でもお気軽にお尋ねください。
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            if (toggleApiKeyButton) {
+                toggleApiKeyButton.addEventListener('click', function() {
+                    const isVisible = apiKeySection.style.display !== 'none';
+                    apiKeySection.style.display = isVisible ? 'none' : 'flex';
+                    if (!isVisible) {
+                        apiKeyInput.value = getApiKey();
+                        apiKeyInput.focus();
+                    }
+                });
+            }
+
+            if (saveApiKeyButton) {
+                saveApiKeyButton.addEventListener('click', function() {
+                    const key = apiKeyInput.value.trim();
+                    if (key) {
+                        saveApiKey(key);
+                        apiKeySection.style.display = 'none';
+                        checkInput();
+                        alert('APIキーを保存しました');
+                    } else {
+                        alert('APIキーを入力してください');
+                    }
+                });
+            }
+
+            // 初期化
+            checkInput();
         });
     </script>
 </body>

@@ -3533,3 +3533,362 @@ button, a, [role="button"] {
         color: var(--accent-cyan) !important;
     }
 }
+
+/* ===== CHATBOT STYLES ===== */
+
+/* チャットボットセクション */
+.chatbot-section {
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+}
+
+/* チャットメッセージエリア */
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border-light);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-inset);
+    scroll-behavior: smooth;
+}
+
+/* カスタムスクロールバー（Webkit系ブラウザ用） */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: rgba(247, 250, 252, 0.05);
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+    transition: var(--transition-fast);
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}
+
+/* メッセージ共通スタイル */
+.message {
+    margin-bottom: var(--space-md);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.message-content {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    line-height: 1.6;
+    word-wrap: break-word;
+    position: relative;
+}
+
+/* ボット（AI）メッセージ */
+.bot-message .message-content {
+    background: var(--bg-glass-strong);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    margin-right: var(--space-xl);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-glass);
+}
+
+.bot-message .message-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid var(--bg-glass-strong);
+    filter: blur(0.5px);
+}
+
+/* ユーザーメッセージ */
+.user-message .message-content {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: var(--text-primary);
+    margin-left: var(--space-xl);
+    margin-right: 0;
+    text-align: right;
+    box-shadow: var(--shadow-glass);
+}
+
+.user-message .message-content::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid var(--accent-cyan);
+}
+
+/* チャット入力エリア */
+.chat-input-container {
+    margin-top: var(--space-lg);
+}
+
+.chat-input-wrapper {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    align-items: flex-end;
+}
+
+#chat-input {
+    flex: 1;
+    padding: var(--space-md);
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 44px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: var(--transition-fast);
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.2);
+    background: var(--bg-glass-light);
+}
+
+#chat-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* 送信ボタン */
+.send-button {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-glass);
+    flex-shrink: 0;
+}
+
+.send-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.send-button:disabled {
+    background: var(--bg-glass);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* チャットコントロール */
+.chat-controls {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.clear-button, .settings-button, #save-api-key {
+    padding: var(--space-xs) var(--space-md);
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.clear-button:hover, .settings-button:hover, #save-api-key:hover {
+    background: var(--bg-glass-light);
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+}
+
+/* API設定エリア */
+.api-key-section {
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+#api-key-input {
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#api-key-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.2);
+}
+
+/* ローディング表示 */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin-top: var(--space-md);
+    justify-content: center;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.loading-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    animation: loadingDot 1.5s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loadingDot {
+    0%, 20% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+    80%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .chatbot-section {
+        margin: var(--space-lg) 0;
+    }
+    
+    .chat-messages {
+        max-height: 300px;
+        padding: var(--space-md);
+    }
+    
+    .bot-message .message-content {
+        margin-right: var(--space-md);
+    }
+    
+    .user-message .message-content {
+        margin-left: var(--space-md);
+    }
+    
+    .chat-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-sm);
+    }
+    
+    .api-key-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    #api-key-input {
+        width: 100% !important;
+    }
+    
+    /* モバイルでの文字サイズ調整 */
+    #chat-input {
+        font-size: 16px; /* iOSのズーム防止 */
+    }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+    .chat-messages {
+        border-width: 2px;
+    }
+    
+    .bot-message .message-content,
+    .user-message .message-content {
+        border-width: 2px;
+    }
+}
+
+/* 動きを減らす設定への対応 */
+@media (prefers-reduced-motion: reduce) {
+    .message,
+    .send-button,
+    .clear-button,
+    .settings-button {
+        animation: none;
+        transition: none;
+    }
+    
+    .loading-dots span {
+        animation: none;
+    }
+}

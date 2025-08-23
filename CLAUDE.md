@@ -272,3 +272,42 @@ When making changes that affect mobile display:
 - Text alignment fixes for wrapped titles in mobile view
 - Icon positioning adjustments to maintain visual hierarchy
 - Consistent spacing using CSS custom properties for scalable design
+
+## AI Chatbot Integration
+
+### ChatGPT-Powered FAQ Assistant
+The FAQ page (`faq.html`) includes an integrated AI chatbot system:
+
+**Architecture:**
+- Direct OpenAI API integration using GPT-4 model
+- Client-side JavaScript implementation with no backend required
+- LocalStorage-based API key management for user convenience
+- Comprehensive clinic information embedded in system prompt
+
+**Technical Implementation:**
+- **Glass-morphism UI:** Seamlessly integrated with existing design system
+- **Real-time messaging:** Instant responses with loading indicators and animations
+- **Error handling:** Graceful degradation with fallback to phone contact information
+- **Mobile responsive:** Touch-optimized input and scrollable chat history
+- **Accessibility:** Proper ARIA labels and keyboard navigation support
+
+**System Prompt Configuration:**
+The chatbot includes comprehensive clinic information:
+- Basic information (address, phone, hours, services)
+- Medical specialties and equipment details
+- Appointment and reservation policies
+- Payment methods and age restrictions
+- Professional medical tone with appropriate escalation protocols
+
+**User Experience Features:**
+- Persistent chat history during session
+- One-click history clearing
+- Settings panel for API key management
+- Visual feedback for all user interactions
+- Professional medical assistant persona
+
+**Development Notes:**
+- API key is stored securely in localStorage (client-side only)
+- Chatbot styles are isolated in dedicated CSS section at end of `styles.css`
+- All interactive elements follow existing `.card.glass` design patterns
+- Loading animations use consistent CSS custom properties for timing

@@ -627,7 +627,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
         // FAQ アコーディオン機能
         document.addEventListener('DOMContentLoaded', function() {
@@ -722,70 +721,22 @@
                 });
             });
 
-            // チャットボット機能
-            const chatMessages = document.getElementById('chat-messages');
-            const chatInput = document.getElementById('chat-input');
-            const sendButton = document.getElementById('send-button');
-            const clearButton = document.getElementById('clear-chat');
-            const loadingIndicator = document.getElementById('loading-indicator');
+            // チャットボット機能を非同期で初期化
+            setTimeout(function() {
+                initializeChatbot();
+            }, 100);
+            
+            function initializeChatbot() {
+                const chatMessages = document.getElementById('chat-messages');
+                const chatInput = document.getElementById('chat-input');
+                const sendButton = document.getElementById('send-button');
+                const clearButton = document.getElementById('clear-chat');
+                const loadingIndicator = document.getElementById('loading-indicator');
 
             // サーバーAPI設定
             const API_BASE_URL = 'https://clinic-chatbot-824498304111.asia-northeast1.run.app';
 
-            // クリニック情報システムプロンプト
-            const clinicSystemPrompt = `あなたは「おく内科消化器クリニック」の受付スタッフとして、患者様からの質問に答えるアシスタントです。
-
-【クリニック基本情報】
-・名称：医療法人社団 陸仁会 おく内科消化器クリニック
-・住所：〒080-0015 北海道帯広市西5条南21丁目2-2 イオン帯広店南向い
-・電話：0155-66-6170
-・FAX：050-3730-6562
-
-【診療時間】
-・月火木金：午前9:00-12:00、午後2:30-6:30
-・水土：午前9:00-12:00のみ
-・日曜・祝日・第1,3,5土曜は休診
-・受付時間：8:30〜18:00（昼休みも受付可能）
-
-【診療科目】
-・内科（高血圧、脂質異常症、糖尿病などの生活習慣病、風邪などの一般内科）
-・消化器内科（胃腸、肝臓などの腹部疾患）
-・内視鏡内科（胃カメラ、大腸カメラ）
-
-【検査・設備】
-・胃カメラ（経鼻・経口、鎮静剤使用可能）
-・大腸カメラ
-・ピロリ菌検査
-・各種超音波検査
-・デジタルレントゲン
-・心電図
-・無料WiFi完備
-
-【予約について】
-・一般診察：予約不要（直接来院）
-・胃カメラ・大腸カメラ：要予約
-・健康診断（個人）：ネット予約可能
-・特定健診・がん検診：予約不要
-
-【年齢制限】
-・一般診察：高校生以上
-・インフルエンザワクチン：中学3年生以上
-・その他ワクチン：高校生以上
-
-【支払い】
-・各種クレジットカード
-・楽天ペイ、WAON、nanaco、Edy
-・交通系電子マネー対応
-
-【駐車場】
-・クリニック前、向かい側、少し離れた場所にも駐車場完備
-
-あなたは以下の特徴を持ってください：
-1. 丁寧で親切な口調
-2. 医療の専門的な内容は分かりやすく説明
-3. 不明な点は「お電話でお問い合わせください」と案内
-4. 緊急時は「すぐに受診してください」と適切に案内
-5. 上記の情報を基に正確に回答`;
+            // 注意: 実際のプロンプトはサーバー側（Google Cloud Run）で管理されています
 
             // メッセージ表示
             function addMessage(content, isBot = false) {
@@ -824,7 +775,7 @@
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     if (errorData.code === 'RATE_LIMIT_EXCEEDED') {
-                        throw new Error('本日の利用上限に達しました。明日以降にご利用ください。');
+                        throw new Error('本日の利用上限に達しました。明日以降にご利用いただくか、お電話（0155-66-6170）でお問い合わせください。');
                     }
                     throw new Error(errorData.error || 'サーバーエラーが発生しました');
                 }
@@ -895,9 +846,11 @@
             }
 
 
-            // 初期化
-            checkInput();
+                // 初期化
+                checkInput();
+            } // initializeChatbot関数終了
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

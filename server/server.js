@@ -7,7 +7,7 @@ const OpenAI = require('openai');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // OpenAI設定
 const openai = new OpenAI({
@@ -15,23 +15,34 @@ const openai = new OpenAI({
 });
 
 // データベース設定
-const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-};
-
-const pool = mysql.createPool(dbConfig);
+let pool = null;
+if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_NAME) {
+  const dbConfig = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  };
+  
+  try {
+    pool = mysql.createPool(dbConfig);
+    console.log('Database pool created successfully');
+  } catch (error) {
+    console.error('Database pool creation failed:', error);
+    pool = null;
+  }
+} else {
+  console.log('Database configuration not found, running without database');
+}
 
 // ミドルウェア設定
 app.use(helmet());
 app.use(cors({
-  origin: ['https://takatomioku.github.io', 'http://localhost:3000'],
+  origin: ['https://takatomioku.github.io', 'http://localhost:3000', null],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -104,38 +115,20 @@ const clinicSystemPrompt = `あなたは「おく内科消化器クリニック�
 4. 緊急時は「すぐに受診してください」と適切に案内
 5. 上記の情報を基に正確に回答`;
 
-// 日次使用量チェック関数
+// 簡易使用量チェック関数（データベース不要）
 async function checkDailyUsage() {
-  const today = new Date().toISOString().split('T')[0];
-  const maxDailyRequests = parseInt(process.env.MAX_DAILY_REQUESTS) || 100;
+  const maxDailyRequests = parseInt(process.env.MAX_DAILY_REQUESTS) || 1000;
   
-  try {
-    const [rows] = await pool.execute(
-      'SELECT total_requests FROM daily_usage WHERE date = ?',
-      [today]
-    );
-    
-    const currentUsage = rows.length > 0 ? rows[0].total_requests : 0;
-    return { currentUsage, maxDailyRequests, canProceed: currentUsage < maxDailyRequests };
-  } catch (error) {
-    console.error('Database error:', error);
-    return { currentUsage: 0, maxDailyRequests, canProceed: true };
-  }
+  // データベースなしの場合は制限なしで許可
+  console.log('Running without database usage tracking');
+  return { currentUsage: 0, maxDailyRequests, canProceed: true };
 }
 
-// 使用量更新関数
+// 簡易使用量更新関数（データベース不要）
 async function updateDailyUsage() {
-  const today = new Date().toISOString().split('T')[0];
-  
-  try {
-    await pool.execute(`
-      INSERT INTO daily_usage (date, total_requests) 
-      VALUES (?, 1) 
-      ON DUPLICATE KEY UPDATE total_requests = total_requests + 1
-    `, [today]);
-  } catch (error) {
-    console.error('Failed to update usage:', error);
-  }
+  // データベースなしの場合はログのみ
+  console.log('Chat request processed at:', new Date().toISOString());
+  return;
 }
 
 // チャットAPI エンドポイント
@@ -158,23 +151,12 @@ app.post('/api/chat', async (req, res) => {
       });
     }
     
-    // 日次使用量チェック
+    // 簡易使用量チェック（高速化）
     const usageCheck = await checkDailyUsage();
-    if (!usageCheck.canProceed) {
-      return res.status(429).json({
-        success: false,
-        error: '本日の利用上限に達しました。明日以降にご利用ください。',
-        code: 'RATE_LIMIT_EXCEEDED',
-        usage: {
-          today: usageCheck.currentUsage,
-          limit: usageCheck.maxDailyRequests
-        }
-      });
-    }
     
-    // OpenAI API呼び出し
+    // OpenAI API呼び出し（高速化のためGPT-4o-miniを使用）
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
@@ -186,23 +168,18 @@ app.post('/api/chat', async (req, res) => {
         }
       ],
       temperature: 0.7,
-      max_tokens: 1000
+      max_tokens: 500
     });
     
     const response = completion.choices[0].message.content;
     
-    // 使用量更新
+    // 使用量更新（簡易ログ）
     await updateDailyUsage();
     
-    // レスポンス
-    const updatedUsage = await checkDailyUsage();
+    // レスポンス（シンプル化）
     res.json({
       success: true,
-      response: response,
-      usage: {
-        today: updatedUsage.currentUsage + 1,
-        limit: updatedUsage.maxDailyRequests
-      }
+      response: response
     });
     
   } catch (error) {
@@ -235,18 +212,26 @@ app.post('/api/chat', async (req, res) => {
 // ヘルスチェック
 app.get('/health', async (req, res) => {
   try {
-    await pool.execute('SELECT 1');
+    const dbStatus = pool ? 'connected' : 'not_configured';
+    
+    if (pool) {
+      // データベースがある場合は接続テスト
+      await pool.execute('SELECT 1');
+    }
+    
     res.json({ 
       status: 'healthy',
       timestamp: new Date().toISOString(),
-      database: 'connected'
+      database: dbStatus,
+      environment: process.env.NODE_ENV || 'development'
     });
   } catch (error) {
-    res.status(500).json({ 
-      status: 'unhealthy',
+    res.status(200).json({ 
+      status: 'healthy_with_warnings',
       timestamp: new Date().toISOString(),
       database: 'disconnected',
-      error: error.message
+      error: error.message,
+      message: 'Service running without database'
     });
   }
 });
@@ -293,17 +278,23 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`OpenAI configured: ${!!process.env.OPENAI_API_KEY}`);
+  console.log(`Database configured: ${!!pool}`);
 });
 
 // グレースフルシャットダウン
 process.on('SIGTERM', async () => {
   console.log('SIGTERM received, shutting down gracefully');
-  await pool.end();
+  if (pool) {
+    await pool.end();
+  }
   process.exit(0);
 });
 
 process.on('SIGINT', async () => {
   console.log('SIGINT received, shutting down gracefully');
-  await pool.end();
+  if (pool) {
+    await pool.end();
+  }
   process.exit(0);
 });

@@ -279,10 +279,10 @@ When making changes that affect mobile display:
 The FAQ page (`faq.html`) includes an integrated AI chatbot system:
 
 **Architecture:**
-- Direct OpenAI API integration using GPT-4 model
-- Client-side JavaScript implementation with no backend required
-- LocalStorage-based API key management for user convenience
-- Comprehensive clinic information embedded in system prompt
+- Google Cloud Run backend service integration
+- Server-side API handling with rate limiting and security features
+- Client-side JavaScript for UI interactions only
+- Comprehensive clinic information managed server-side in system prompt
 
 **Technical Implementation:**
 - **Glass-morphism UI:** Seamlessly integrated with existing design system
@@ -302,12 +302,21 @@ The chatbot includes comprehensive clinic information:
 **User Experience Features:**
 - Persistent chat history during session
 - One-click history clearing
-- Settings panel for API key management
+- Real-time typing indicators and loading animations
 - Visual feedback for all user interactions
-- Professional medical assistant persona
+- Professional medical assistant persona with detailed clinic knowledge
+- Graceful error handling with fallback to phone contact
 
 **Development Notes:**
-- API key is stored securely in localStorage (client-side only)
+- Backend API endpoint: `https://clinic-chatbot-824498304111.asia-northeast1.run.app/api/chat`
+- Server-side system prompt contains detailed clinic information (fees, schedules, equipment)
+- Client-side handles only UI interactions and API calls
 - Chatbot styles are isolated in dedicated CSS section at end of `styles.css`
 - All interactive elements follow existing `.card.glass` design patterns
 - Loading animations use consistent CSS custom properties for timing
+
+**Server-side Configuration:**
+- System prompt updates require Google Cloud Run deployment
+- Access via Google Cloud Console → Cloud Run → clinic-chatbot service
+- Use Cloud Shell with nano editor for code modifications
+- Rate limiting and error handling implemented server-side

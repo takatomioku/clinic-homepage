@@ -57,31 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ページトップへ戻るボタンを確実に初期化
-    function initScrollToTopButton() {
-        const scrollToTopBtn = document.createElement('button');
-        scrollToTopBtn.innerHTML = '↑';
-        scrollToTopBtn.classList.add('scroll-to-top');
-        scrollToTopBtn.style.cssText = `
-        position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        width: 50px !important;
-        height: 50px !important;
-        background-color: #2c5282 !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 50% !important;
-        font-size: 20px !important;
-        cursor: pointer !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transition: all 0.3s ease !important;
-        z-index: 999999 !important;
-        display: block !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-        `;
-        // iOSのタップハイライト/フォーカス痕を無効化
+    // ページトップへ戻るボタン
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.innerHTML = '↑';
+    scrollToTopBtn.classList.add('scroll-to-top');
+    /* styles moved to CSS class .scroll-to-top */
+// iOSのタップハイライト/フォーカス痕を無効化
         scrollToTopBtn.style.webkitTapHighlightColor = 'transparent';
         scrollToTopBtn.style.outline = 'none';
     
@@ -91,21 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        // ページトップボタンの表示/非表示
-        if (scrollTop > 300) {
-            scrollToTopBtn.style.setProperty('opacity', '1', 'important');
-            scrollToTopBtn.style.setProperty('visibility', 'visible', 'important');
-        } else {
-            scrollToTopBtn.style.setProperty('opacity', '0', 'important');
-            scrollToTopBtn.style.setProperty('visibility', 'hidden', 'important');
-        }
-        
-        // ヘッダーの背景色変更
+        // ページトップボタンの表示/非表示（クラス切替）
+if (scrollTop > 200) {
+  scrollToTopBtn.classList.add('is-visible');
+} else {
+  scrollToTopBtn.classList.remove('is-visible');
+}
+
+// ヘッダーの背景色変更
         const header = document.querySelector('header');
-        if (scrollTop > 50) {
+if (header && scrollTop > 50) {
             header.style.backgroundColor = 'rgba(10, 14, 26, 0.98)';
             header.style.backdropFilter = 'blur(24px)';
-        } else {
+        } else if (header) {
             header.style.backgroundColor = 'rgba(10, 14, 26, 0.95)';
             header.style.backdropFilter = 'blur(20px)';
         }
@@ -113,29 +92,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ページトップボタンのクリックイベント
     scrollToTopBtn.addEventListener('click', function() {
-        // クリック直後にフォーカス痕を消す
-        scrollToTopBtn.blur();
+          // クリック直後にフォーカス痕を消す
+          scrollToTopBtn.blur();
 
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
         
-        // スクロールし切る前に非表示を予約（モバイル描画の残像対策）
-        scrollToTopBtn.style.opacity = '0';
-        scrollToTopBtn.style.visibility = 'hidden';
-    });
-    } // initScrollToTopButton関数終了
-    
-    // DOMが完全に読み込まれた後に初期化実行
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initScrollToTopButton);
-    } else {
-        // 既にDOM読み込み完了済みの場合
-        initScrollToTopButton();
-    }
-    
-    // 高度なアニメーション効果
+          // 高度なアニメーション効果
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
@@ -259,9 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ライトボックスコンテナの初期化
-    initLightboxContainer();
-    
 });
 
 // ギャラリーライトボックス機能
@@ -299,7 +261,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ライトボックス内のクリックイベントを制御
-function initLightboxContainer() {
+document.addEventListener('DOMContentLoaded', function() {
     const lightboxContainer = document.querySelector('.lightbox-container');
     
     if (lightboxContainer) {
@@ -307,4 +269,4 @@ function initLightboxContainer() {
             e.stopPropagation(); // バブリングを停止して背景クリックでの閉じる動作を防ぐ
         });
     }
-}
+});

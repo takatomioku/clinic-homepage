@@ -135,6 +135,33 @@ document.addEventListener('DOMContentLoaded', function() {
         initScrollToTopButton();
     }
     
+    // AI アシスタント フローティングボタンを初期化
+    function initAIAssistantButton() {
+        const aiAssistantBtn = document.createElement('a');
+        aiAssistantBtn.href = 'faq.html#chatbot-section';
+        aiAssistantBtn.classList.add('ai-assistant-floating-extended');
+        aiAssistantBtn.innerHTML = `
+            <div class="ai-content">
+                <span class="ai-text">AIアシスタント</span>
+                <span class="ai-mobile-text">AI</span>
+                <img src="images/robot-svgrepo-com.svg" alt="AIアシスタント">
+            </div>
+        `;
+        
+        // iOSのタップハイライト/フォーカス痕を無効化
+        aiAssistantBtn.style.webkitTapHighlightColor = 'transparent';
+        aiAssistantBtn.style.outline = 'none';
+        
+        document.body.appendChild(aiAssistantBtn);
+    }
+    
+    // AI アシスタントボタンの初期化実行
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAIAssistantButton);
+    } else {
+        initAIAssistantButton();
+    }
+    
     // 高度なアニメーション効果
     const observerOptions = {
         threshold: 0.1,

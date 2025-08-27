@@ -22,7 +22,10 @@
       "Bash(start clinic-introduction.html)",
       "Bash(rg:*)",
       "Bash(start vaccine.html)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Read(/C:\\Users\\takat\\OneDrive\\画像\\Screenshots/**)",
+      "Read(/C:\\Users\\takat\\OneDrive\\画像\\Screenshots/**)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

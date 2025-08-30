@@ -2791,7 +2791,7 @@ footer {
     right: var(--space-lg);
     background: var(--bg-glass-strong);
     border: 1px solid var(--glass-border);
-    color: var(--text-primary);
+    color: var(--primary-navy);
     font-size: 2rem;
     cursor: pointer;
     padding: var(--space-sm);

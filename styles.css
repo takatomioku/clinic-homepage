@@ -1798,6 +1798,14 @@ footer {
         padding: 0 0.5rem !important;
     }
     
+    /* モバイルでボタンの高さを統一 */
+    .btn-cool-primary,
+    .btn-cool-secondary {
+        min-height: 60px !important;
+        padding: 16px var(--space-lg) !important;
+        align-items: center !important;
+    }
+    
     /* パンくずナビの長いテキスト対応 */
     .breadcrumb ol li {
         font-size: 0.8rem !important;

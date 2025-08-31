@@ -516,16 +516,71 @@
                 </div>
 
                 <!-- 注意事項 -->
-                <div class="notice-card card glass" style="margin-top: var(--space-2xl); padding: var(--space-xl);">
-                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-md); font-size: 1.3rem;"><i class="fa-solid fa-book-open" style="color: white;"></i> 健康診断に関する注意事項</h4>
-                    <ul style="color: var(--text-secondary); line-height: 1.8;">
-                        <li>健康診断は予約制となっております　お電話かWEBでご予約ください</li>
-                        <li>血液検査がある場合は10時間以上の絶食でお越しください</li>
-                        <li>薬を服用中の方は事前にお申し出ください</li>
-                        <li>妊娠中または妊娠の可能性がある方は事前にご相談ください</li>
-                        <li>検査当日は動きやすい服装でお越しください</li>
-                        <li>診断書作成には1週間程度かかる場合があります</li>
-                    </ul>
+                <div id="notice" class="notice-card card glass" style="margin-top: var(--space-2xl); padding: var(--space-xl);">
+                    <h4 style="color: var(--accent-cyan); margin-bottom: var(--space-lg); font-size: 1.3rem;"><i class="fa-solid fa-book-open" style="color: white;"></i> 健康診断に関する注意事項</h4>
+                    
+                    <!-- 持ち物 -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">持ち物</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>当日は保険証をお持ちください</li>
+                            <li>眼鏡を使用されている方、または普段使用でない方でも、車の運転や読書などで使用している眼鏡をお持ちの方は、検査の際に持参ください。コンタクトレンズをご使用の方は、検査の際にお知らせください。装着したまま検査を行います</li>
+                        </ul>
+                    </div>
+
+                    <!-- 食事について -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">食事について</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>健診前日はできるだけ禁酒してください</li>
+                            <li>血液検査のある方は、午前の健診の場合は前日の21時以降、午後の健診の場合は当日の8時以降は食事をせずにお越しください</li>
+                            <li>水、お茶などは直前まではお飲み頂けます</li>
+                        </ul>
+                    </div>
+
+                    <!-- 薬について -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">薬について</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>心臓、高血圧の薬を服用されている方は、当日朝7時までに服用後受診してください</li>
+                            <li>その他の薬を服用の方は、主治医に相談の上、受診してください</li>
+                            <li>糖尿病の薬は、当日の朝は飲まないでください</li>
+                            <li>インスリン注射も当日の朝は打たないでください</li>
+                        </ul>
+                    </div>
+
+                    <!-- 服装について -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">服装について</h5>
+                        <p style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">レントゲン検査の際には時計やアクセサリー類の金属類、金具のついた下着は、お外しください</p>
+                    </div>
+
+                    <!-- 女性の方へ -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">女性の方へ</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>妊娠中の方は、レントゲン検査はお受けになれません</li>
+                            <li>生理中の方は尿検査を受けることができません。該当される方は、必ず受付にお伝えください。後日あらためて尿検査のみ行います</li>
+                        </ul>
+                    </div>
+
+                    <!-- 受付時間について -->
+                    <div style="margin-bottom: var(--space-lg);">
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">受付時間について</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>予約時間に間に合わない場合、当日来院できない場合は、なるべく早めにご連絡ください</li>
+                            <li>外来の混雑具合によってはお待たせすることがございます。予定に余裕をもってお越し下さいますようお願い申し上げます</li>
+                        </ul>
+                    </div>
+
+                    <!-- その他の注意事項 -->
+                    <div>
+                        <h5 style="color: var(--accent-emerald); margin-bottom: var(--space-sm); font-weight: 600; font-size: 1.1rem;">その他の注意事項</h5>
+                        <ul style="color: var(--text-secondary); line-height: 1.7; margin-left: var(--space-md);">
+                            <li>健康診断は予約制となっております　お電話かWEBでご予約ください</li>
+                            <li>診断書作成には1週間程度かかる場合があります</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Web予約案内 -->

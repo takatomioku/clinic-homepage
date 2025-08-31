@@ -2059,6 +2059,7 @@ footer {
     font-size: 0.8rem;
     font-weight: 600;
     margin-right: var(--space-sm);
+    white-space: nowrap;
 }
 
 .anesthesia-step h4 {
@@ -3549,6 +3550,19 @@ button, a, [role="button"] {
     filter: invert(1) !important;
 }
 
+/* モバイルでのAIアシスタントアイコンサイズ調整 */
+@media (max-width: 768px) {
+    .ai-assistant-floating img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    .ai-assistant-floating-extended img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
 /* AI アシスタント フローティングボタン（拡張版 - テキスト付き） */
 .ai-assistant-floating-extended {
     position: fixed !important;
@@ -3632,8 +3646,8 @@ button, a, [role="button"] {
     }
     
     .ai-assistant-floating-extended img {
-        width: 16px !important;
-        height: 16px !important;
+        width: 22px !important;
+        height: 22px !important;
     }
 }
 

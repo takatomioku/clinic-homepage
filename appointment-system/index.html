@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アポイント予約システム</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google APIs -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase設定
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrSQMWnnBEU_8PeDiSkYQ5RboVYvpc",
+            authDomain: "appointment-system-e689c.firebaseapp.com",
+            projectId: "appointment-system-e689c",
+            storageBucket: "appointment-system-e689c.firebasestorage.app",
+            messagingSenderId: "172297300170",
+            appId: "1:172297300170:web:101cbe92af2afc29c36c33"
+        };
+
+        // Firebase初期化
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // グローバル変数として設定
+        window.firebaseDB = db;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>アポイント予約</h1>
+
+        <div class="booking-form">
+            <h2>予約情報入力</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="name">お名前 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">製薬会社名 *</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">電話番号 *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="例: 090-1234-5678">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">希望日 *</label>
+                    <select id="date" name="date" required>
+                        <option value="">日付を選択してください</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="slot">予約枠 *</label>
+                    <select id="slot" name="slot" required disabled>
+                        <option value="">まず日付を選択してください</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn">予約する</button>
+            </form>
+        </div>
+
+        <div class="calendar-section">
+            <h2>利用可能な日程</h2>
+            <div id="calendar"></div>
+        </div>
+
+        <div class="booking-status" id="bookingStatus" style="display: none;">
+            <h3>予約状況</h3>
+            <div id="statusMessage"></div>
+        </div>
+
+        <!-- 管理者用セクション -->
+        <div class="admin-section" id="adminSection" style="display: none;">
+            <h2>管理者用メニュー</h2>
+            <div class="admin-controls">
+                <button type="button" id="adminToggle">管理者モード</button>
+                <button type="button" id="showReservations" style="display: none;">予約一覧表示</button>
+                <button type="button" id="hideReservations" style="display: none;">予約一覧非表示</button>
+                <button type="button" id="syncToGoogleCalendar" style="display: none;">Googleカレンダーに同期</button>
+                <button type="button" id="migrateData" style="display: none;">データをクラウドに移行</button>
+            </div>
+
+            <div class="reservations-list" id="reservationsList" style="display: none;">
+                <h3>現在の予約一覧</h3>
+                <div id="reservationsContent"></div>
+            </div>
+        </div>
+
+        <!-- 予約キャンセル用モーダル -->
+        <div class="modal" id="cancelModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h3>予約キャンセル</h3>
+                <p>以下の予約をキャンセルしますか？</p>
+                <div id="cancelDetails"></div>
+                <div class="modal-buttons">
+                    <button type="button" id="confirmCancel" class="btn-danger">キャンセル実行</button>
+                    <button type="button" id="cancelCancel" class="btn-secondary">戻る</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 予備枠警告モーダル -->
+        <div class="modal" id="reserveModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeReserveModal">&times;</span>
+                <h3>予備枠への予約</h3>
+                <div class="warning-content">
+                    <p><strong>注意:</strong> この予約は予備枠です。</p>
+                    <p>通常の予約枠が満席のため、予備枠での予約となります。予備枠は緊急時や特別な場合にのみ使用されます。</p>
+                    <p class="permission-warning"><strong>⚠️ 許可なく入力しないでください</strong></p>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" id="confirmReserve" class="btn-warning">予備枠で予約する</button>
+                    <button type="button" id="cancelReserve" class="btn-secondary">キャンセル</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- データ移行モーダル -->
+        <div class="modal" id="migrateModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeMigrateModal">&times;</span>
+                <h3>データ移行</h3>
+                <p>ローカル保存されている予約データをクラウドに移行しますか？</p>
+                <div class="modal-buttons">
+                    <button type="button" id="confirmMigrate" class="btn-warning">移行実行</button>
+                    <button type="button" id="cancelMigrate" class="btn-secondary">キャンセル</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 管理者パスワード認証モーダル -->
+        <div class="modal" id="adminPasswordModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="closeAdminPasswordModal">&times;</span>
+                <h3>管理者認証</h3>
+                <p>管理者モードにアクセスするにはパスワードを入力してください。</p>
+                <div class="form-group">
+                    <label for="adminPassword">パスワード:</label>
+                    <input type="password" id="adminPassword" placeholder="パスワードを入力">
+                </div>
+                <div id="passwordError" style="color: red; display: none; margin: 10px 0;">
+                    パスワードが正しくありません。
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" id="confirmAdminPassword" class="btn-primary">認証</button>
+                    <button type="button" id="cancelAdminPassword" class="btn-secondary">キャンセル</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="appointment-firestore.js"></script>
+</body>
+</html>

@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <title>アポイント予約システム</title>
+    <title>MR面談Web予約（おく内科消化器クリニック）</title>
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Google APIs -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://accounts.google.com/gsi/client"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
 
     <!-- Firebase SDKs -->
     <script type="module">
@@ -37,7 +36,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>アポイント予約</h1>
+        <h1>MR面談Web予約（おく内科消化器クリニック）</h1>
+
+        <div class="notice-section">
+            <h3>注意事項</h3>
+            <ul>
+                <li>予約可能な日程を確認し、予約を入れてください</li>
+                <li>1日に2件まで（３件目は予備ですので、許可された方のみ）</li>
+                <li>キャンセル、日程変更は電話にて承ります</li>
+                <li>月に１回程度としてください</li>
+                <li>面談は診療後になりますので、駐車場にて待機してください</li>
+            </ul>
+        </div>
 
         <div class="booking-form">
             <h2>予約情報入力</h2>
@@ -58,6 +68,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="email">メールアドレス *</label>
+                    <input type="email" id="email" name="email" required placeholder="例: yamada@example.com">
+                    <small style="display: block; margin-top: 5px; color: #666;">予約確認メールを送信します</small>
+                </div>
+
+                <div class="form-group">
                     <label for="date">希望日 *</label>
                     <select id="date" name="date" required>
                         <option value="">日付を選択してください</option>
@@ -75,14 +91,14 @@
             </form>
         </div>
 
-        <div class="calendar-section">
-            <h2>利用可能な日程</h2>
-            <div id="calendar"></div>
-        </div>
-
         <div class="booking-status" id="bookingStatus" style="display: none;">
             <h3>予約状況</h3>
             <div id="statusMessage"></div>
+        </div>
+
+        <div class="calendar-section">
+            <h2>利用可能な日程</h2>
+            <div id="calendar"></div>
         </div>
 
         <!-- 管理者用セクション -->
@@ -92,8 +108,22 @@
                 <button type="button" id="adminToggle">管理者モード</button>
                 <button type="button" id="showReservations" style="display: none;">予約一覧表示</button>
                 <button type="button" id="hideReservations" style="display: none;">予約一覧非表示</button>
-                <button type="button" id="syncToGoogleCalendar" style="display: none;">Googleカレンダーに同期</button>
                 <button type="button" id="migrateData" style="display: none;">データをクラウドに移行</button>
+                <button type="button" id="testEmailJS" style="display: none;">EmailJS接続テスト</button>
+
+                <!-- ダミー予約機能 -->
+                <div id="dummyBookingSection" style="display: none; margin-top: 15px; padding: 15px; border: 2px solid #95a5a6; border-radius: 8px; background-color: #f8f9fa;">
+                    <h4 style="margin: 0 0 10px 0; color: #2c3e50;">ダミー予約作成</h4>
+                    <div style="display: flex; gap: 10px; align-items: end; flex-wrap: wrap;">
+                        <div>
+                            <label for="dummyDateSelect" style="display: block; margin-bottom: 5px; font-size: 14px;">日付選択:</label>
+                            <select id="dummyDateSelect" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <option value="">日付を選択してください</option>
+                            </select>
+                        </div>
+                        <button type="button" id="createDummyBooking" style="padding: 8px 16px; background: linear-gradient(135deg, #95a5a6, #7f8c8d); border: none; border-radius: 4px; color: white; cursor: pointer; font-weight: 500; width: auto;">ダミー予約作成</button>
+                    </div>
+                </div>
             </div>
 
             <div class="reservations-list" id="reservationsList" style="display: none;">
@@ -167,6 +197,21 @@
         </div>
     </div>
 
+    <!-- EmailJS初期化を先に実行 -->
+    <script type="text/javascript">
+        (function(){
+            // EmailJSの読み込みを待つ
+            function initEmailJS() {
+                if (typeof emailjs !== 'undefined') {
+                    emailjs.init("hTM2ZpRABZXseBb-p");
+                    console.log('EmailJS初期化完了');
+                } else {
+                    setTimeout(initEmailJS, 100);
+                }
+            }
+            initEmailJS();
+        })();
+    </script>
     <script src="appointment-firestore.js"></script>
 </body>
 </html>

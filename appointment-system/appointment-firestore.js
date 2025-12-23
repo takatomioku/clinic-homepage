@@ -6,8 +6,6 @@ class AppointmentSystem {
         this.availableDays = [1, 2, 4, 5]; // 月(1), 火(2), 木(4), 金(5)
         this.isAdminMode = false;
         this.pendingReservation = null; // 予備枠予約の一時保存
-        this.isGoogleAPIInitialized = false;
-        this.accessToken = localStorage.getItem('google_access_token');
         this.useFirestore = true; // Firestoreを使用するかのフラグ
         this.adminPassword = '@hs1357@'; // 管理者パスワード（本番環境では暗号化推奨）
 
@@ -59,9 +57,9 @@ class AppointmentSystem {
                     name: data.name,
                     company: data.company,
                     phone: data.phone,
+                    email: data.email,
                     createdAt: data.createdAt,
                     isReserve: data.isReserve,
-                    googleEventId: data.googleEventId || null,
                     firestoreId: doc.id
                 };
             });
@@ -83,11 +81,11 @@ class AppointmentSystem {
                 name: appointment.name,
                 company: appointment.company,
                 phone: appointment.phone,
+                email: appointment.email,
                 date: appointment.date,
                 slot: appointment.slot,
                 createdAt: appointment.createdAt,
-                isReserve: appointment.slot > this.maxBookingsPerDay,
-                googleEventId: null
+                isReserve: appointment.slot > this.maxBookingsPerDay
             };
 
             const docRef = await addDoc(collection(window.firebaseDB, 'appointments'), docData);
@@ -99,20 +97,6 @@ class AppointmentSystem {
         }
     }
 
-    // FirestoreのGoogleカレンダーイベントIDを更新
-    async updateGoogleEventIdInFirestore(firestoreId, eventId) {
-        try {
-            const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-
-            const docRef = doc(window.firebaseDB, 'appointments', firestoreId);
-            await updateDoc(docRef, {
-                googleEventId: eventId
-            });
-            console.log('FirestoreのGoogleイベントIDを更新しました');
-        } catch (error) {
-            console.error('FirestoreのGoogleイベントID更新エラー:', error);
-        }
-    }
 
     // Firestoreから予約データを削除
     async deleteBookingFromFirestore(firestoreId) {
@@ -143,8 +127,9 @@ class AppointmentSystem {
         document.getElementById('adminToggle').addEventListener('click', () => this.toggleAdminMode());
         document.getElementById('showReservations').addEventListener('click', () => this.showReservationsList());
         document.getElementById('hideReservations').addEventListener('click', () => this.hideReservationsList());
-        document.getElementById('syncToGoogleCalendar').addEventListener('click', () => this.syncAllToGoogleCalendar());
         document.getElementById('migrateData').addEventListener('click', () => this.showMigrateModal());
+        document.getElementById('createDummyBooking').addEventListener('click', () => this.createDummyBooking());
+        document.getElementById('testEmailJS').addEventListener('click', () => this.testEmailJS());
 
         // モーダル関連のイベント
         document.getElementById('closeModal').addEventListener('click', () => this.closeCancelModal());
@@ -188,22 +173,81 @@ class AppointmentSystem {
         const today = new Date();
         const calendarDiv = document.getElementById('calendar');
 
-        let calendarHTML = '<div class="calendar-grid">';
+        let calendarHTML = '<div class="calendar-container">';
 
-        // 今後4週間分の利用可能日を表示
-        for (let week = 0; week < 4; week++) {
+        // 2か月分の期間を計算
+        const endDate = new Date(today);
+        endDate.setMonth(today.getMonth() + 2);
+
+        // 月ごとにカレンダーを生成
+        const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        while (currentMonth < endDate) {
+            calendarHTML += this.generateMonthCalendar(currentMonth, today);
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+        }
+
+        calendarHTML += '</div>';
+        calendarDiv.innerHTML = calendarHTML;
+    }
+
+    generateMonthCalendar(monthDate, today) {
+        const year = monthDate.getFullYear();
+        const month = monthDate.getMonth();
+        const monthName = `${year}年${month + 1}月`;
+
+        let monthHTML = `
+            <div class="month-calendar">
+                <div class="month-header">
+                    <h3>${monthName}</h3>
+                </div>
+                <div class="weekdays-header">
+                    <div class="weekday">日</div>
+                    <div class="weekday">月</div>
+                    <div class="weekday">火</div>
+                    <div class="weekday">水</div>
+                    <div class="weekday">木</div>
+                    <div class="weekday">金</div>
+                    <div class="weekday">土</div>
+                </div>
+                <div class="calendar-grid">
+        `;
+
+        // 月の最初の日を取得
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+
+        // 最初の週の開始日（日曜日）を計算
+        const startDate = new Date(firstDay);
+        startDate.setDate(firstDay.getDate() - firstDay.getDay());
+
+        // 6週間分のセルを生成（42セル）
+        const currentDate = new Date(startDate);
+        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+        for (let week = 0; week < 6; week++) {
             for (let day = 0; day < 7; day++) {
-                const date = new Date(today);
-                date.setDate(today.getDate() + (week * 7) + day);
+                const isCurrentMonth = currentDate.getMonth() === month;
+                const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+                const isPastDate = currentDateOnly < todayDateOnly;
+                const dayOfWeek = currentDate.getDay();
+                const dateStr = this.formatDate(currentDate);
+                const isAvailable = this.availableDays.includes(dayOfWeek) && !isPastDate && isCurrentMonth;
 
-                const dayOfWeek = date.getDay();
-                const dateStr = this.formatDate(date);
-                const isAvailable = this.availableDays.includes(dayOfWeek) && date >= today;
                 const bookingCount = this.getBookingCount(dateStr);
                 const reserveCount = this.getReserveBookingCount(dateStr);
 
+                // ダミー予約の判定
+                const isDummyBlocked = this.isDummyBookedDate(dateStr);
+
                 let cellClass = 'calendar-cell';
-                if (isAvailable) {
+                if (!isCurrentMonth) {
+                    cellClass += ' other-month';
+                } else if (isPastDate) {
+                    cellClass += ' past-date';
+                } else if (isDummyBlocked) {
+                    cellClass += ' dummy-blocked';
+                } else if (isAvailable) {
                     if (bookingCount >= this.maxBookingsPerDay) {
                         if (reserveCount > 0) {
                             cellClass += ' reserve-used';
@@ -217,22 +261,23 @@ class AppointmentSystem {
                     cellClass += ' unavailable';
                 }
 
-                const totalBookings = bookingCount + reserveCount;
                 const slotInfo = isAvailable ?
                     `<div class="slots">${bookingCount}/${this.maxBookingsPerDay}${reserveCount > 0 ? ' (+' + reserveCount + '予備)' : ''}</div>` : '';
 
-                calendarHTML += `
+                monthHTML += `
                     <div class="${cellClass}" data-date="${dateStr}">
-                        <div class="date">${date.getDate()}</div>
-                        <div class="day">${this.getDayName(dayOfWeek)}</div>
+                        <div class="date">${currentDate.getDate()}</div>
+                        <div class="day">${isCurrentMonth ? this.getDayName(dayOfWeek) : ''}</div>
                         ${slotInfo}
                     </div>
                 `;
+
+                currentDate.setDate(currentDate.getDate() + 1);
             }
         }
 
-        calendarHTML += '</div>';
-        calendarDiv.innerHTML = calendarHTML;
+        monthHTML += '</div></div>';
+        return monthHTML;
     }
 
     updateAvailableDates() {
@@ -244,8 +289,8 @@ class AppointmentSystem {
             dateSelect.removeChild(dateSelect.lastChild);
         }
 
-        // 今後4週間分の利用可能日を追加
-        for (let i = 0; i < 28; i++) {
+        // 今後2か月分の利用可能日を追加
+        for (let i = 0; i < 60; i++) {
             const date = new Date(today);
             date.setDate(today.getDate() + i);
 
@@ -336,13 +381,14 @@ class AppointmentSystem {
             name: formData.get('name'),
             company: formData.get('company'),
             phone: formData.get('phone'),
+            email: formData.get('email'),
             date: formData.get('date'),
             slot: parseInt(formData.get('slot')),
             createdAt: new Date().toISOString()
         };
 
         // バリデーション
-        if (!appointment.name || !appointment.company || !appointment.phone || !appointment.date || !appointment.slot) {
+        if (!appointment.name || !appointment.company || !appointment.phone || !appointment.email || !appointment.date || !appointment.slot) {
             alert('すべての項目を入力してください。');
             return;
         }
@@ -351,6 +397,13 @@ class AppointmentSystem {
         const phonePattern = /^[0-9-+()\\s]+$/;
         if (!phonePattern.test(appointment.phone)) {
             alert('正しい電話番号を入力してください。');
+            return;
+        }
+
+        // メールアドレスの形式チェック
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(appointment.email)) {
+            alert('正しいメールアドレスを入力してください。');
             return;
         }
 
@@ -378,17 +431,8 @@ class AppointmentSystem {
         // 予約を保存
         await this.saveBooking(appointment);
 
-        // Googleカレンダーに自動同期
-        try {
-            console.log('新しい予約をGoogleカレンダーに自動同期中...');
-            const eventId = await this.addToGoogleCalendar(appointment);
-            if (eventId) {
-                console.log('Googleカレンダー自動同期成功:', eventId);
-            }
-        } catch (error) {
-            console.error('Googleカレンダー自動同期エラー:', error);
-            // エラーがあっても予約処理は継続
-        }
+        // 確認メール送信
+        await this.sendConfirmationEmail(appointment);
 
         // 成功メッセージ表示
         this.showBookingStatus(appointment);
@@ -418,9 +462,9 @@ class AppointmentSystem {
             name: appointment.name,
             company: appointment.company,
             phone: appointment.phone,
+            email: appointment.email,
             createdAt: appointment.createdAt,
-            isReserve: appointment.slot > this.maxBookingsPerDay,
-            googleEventId: null
+            isReserve: appointment.slot > this.maxBookingsPerDay
         };
 
         if (this.useFirestore) {
@@ -439,281 +483,48 @@ class AppointmentSystem {
         localStorage.setItem('appointments', JSON.stringify(this.bookings));
     }
 
-    async addToGoogleCalendar(appointment) {
-        try {
-            // Google Calendar API連携を有効化
-            await this.ensureGoogleAPIAccess();
 
-            // gapiが利用可能か確認
-            if (typeof gapi === 'undefined' || !gapi.client || !gapi.client.calendar) {
-                throw new Error('Google Calendar API が利用できません');
-            }
 
-            const event = {
-                summary: `アポイント - ${appointment.company} (${appointment.name})`,
-                description: `製薬会社: ${appointment.company}\n担当者: ${appointment.name}\n電話番号: ${appointment.phone}\n予約枠: ${appointment.slot}${appointment.slot > this.maxBookingsPerDay ? ' (予備枠)' : ''}`,
-                start: {
-                    date: appointment.date,
-                    timeZone: 'Asia/Tokyo'
-                },
-                end: {
-                    date: appointment.date,
-                    timeZone: 'Asia/Tokyo'
-                }
-            };
 
-            console.log('Creating Google Calendar event:', event);
-
-            // Promise形式でAPI呼び出し
-            const response = await new Promise((resolve, reject) => {
-                const request = gapi.client.calendar.events.insert({
-                    calendarId: 'primary',
-                    resource: event
-                });
-
-                request.execute((response) => {
-                    if (response.error) {
-                        console.error('Google Calendar API error:', response.error);
-                        reject(response.error);
-                    } else {
-                        console.log('Google Calendar API raw response:', response);
-                        resolve(response);
-                    }
-                });
-            });
-
-            // レスポンスが正常か確認
-            if (!response || !response.id) {
-                console.error('Invalid response structure:', response);
-                throw new Error('Google Calendar event creation failed: Invalid response');
-            }
-
-            console.log('Google Calendar event created successfully with ID:', response.id);
-
-            // イベントIDを予約データに保存
-            const dateKey = appointment.date;
-            if (this.bookings[dateKey] && this.bookings[dateKey][appointment.slot]) {
-                this.bookings[dateKey][appointment.slot].googleEventId = response.id;
-
-                // Firestoreにも保存
-                if (this.useFirestore && this.bookings[dateKey][appointment.slot].firestoreId) {
-                    try {
-                        await this.updateGoogleEventIdInFirestore(
-                            this.bookings[dateKey][appointment.slot].firestoreId,
-                            response.id
-                        );
-                        console.log('Firestore updated with Google Event ID:', response.id);
-                    } catch (firestoreError) {
-                        console.error('Firestore update failed:', firestoreError);
-                        // Firestoreエラーは無視してローカル更新は続行
-                    }
-                }
-
-                // ローカルストレージも更新
-                localStorage.setItem('appointments', JSON.stringify(this.bookings));
-                console.log('Local storage updated with Google Event ID');
-            }
-
-            return response.id;
-
-        } catch (error) {
-            console.error('Google Calendar連携エラー:', error);
-
-            // 認証エラーの場合は再認証を試行
-            if (error.status === 401 || error.message?.includes('unauthorized') || error.message?.includes('invalid_grant')) {
-                console.log('認証が無効になりました。再認証を実行します。');
-                this.clearStoredAuth();
-                try {
-                    await this.ensureGoogleAPIAccess();
-                    // 再試行（無限ループ防止のため1回のみ）
-                    return await this.addToGoogleCalendar(appointment);
-                } catch (retryError) {
-                    console.error('再認証も失敗しました:', retryError);
-                    throw new Error('Google Calendar認証に失敗しました');
-                }
-            }
-
-            throw error;
+    // 確認メール送信
+    async sendConfirmationEmail(appointment) {
+        // EmailJSが初期化されているか確認
+        if (typeof emailjs === 'undefined') {
+            console.error('EmailJSが初期化されていません');
+            alert('予約は完了しましたが、確認メールの送信に失敗しました。予約内容は保存されています。');
+            return;
         }
-    }
 
-    // Googleカレンダーからイベントを削除
-    async deleteFromGoogleCalendar(eventId) {
+        const slotNames = {
+            '1': '第1枠',
+            '2': '第2枠',
+            '3': '予備枠'
+        };
+
+        const templateParams = {
+            to_email: appointment.email,
+            to_name: appointment.name,
+            company: appointment.company,
+            phone: appointment.phone,
+            date: appointment.date,
+            slot_name: slotNames[appointment.slot] || `第${appointment.slot}枠`,
+            clinic_name: 'おく内科消化器クリニック',
+            clinic_phone: '0155-66-6170'
+        };
+
         try {
-            if (!eventId) {
-                console.log('Google Calendar event ID が無いため、削除をスキップします');
-                return;
-            }
-
-            await this.ensureGoogleAPIAccess();
-
-            // gapiが利用可能か確認
-            if (typeof gapi === 'undefined' || !gapi.client || !gapi.client.calendar) {
-                throw new Error('Google Calendar API が利用できません');
-            }
-
-            console.log('Deleting Google Calendar event:', eventId);
-
-            // Promise形式でAPI呼び出し
-            await new Promise((resolve, reject) => {
-                const request = gapi.client.calendar.events.delete({
-                    calendarId: 'primary',
-                    eventId: eventId
-                });
-
-                request.execute((response) => {
-                    if (response.error) {
-                        console.error('Google Calendar delete error:', response.error);
-                        reject(response.error);
-                    } else {
-                        console.log('Google Calendar delete response:', response);
-                        resolve(response);
-                    }
-                });
-            });
-
-            console.log('Google Calendar event deleted successfully:', eventId);
-            return true;
+            console.log('メール送信開始:', templateParams);
+            const response = await emailjs.send(
+                'service_l3gxbkp',
+                'template_r2rilz7',
+                templateParams
+            );
+            console.log('確認メール送信成功:', response);
         } catch (error) {
-            console.error('Googleカレンダー削除エラー:', error);
-
-            // 認証エラーの場合は再認証を試行
-            if (error.status === 401 || error.message?.includes('unauthorized') || error.message?.includes('invalid_grant')) {
-                console.log('認証が無効になりました。再認証を実行します。');
-                this.clearStoredAuth();
-                try {
-                    await this.ensureGoogleAPIAccess();
-                    // 再試行（無限ループ防止のため1回のみ）
-                    await new Promise((resolve, reject) => {
-                        const request = gapi.client.calendar.events.delete({
-                            calendarId: 'primary',
-                            eventId: eventId
-                        });
-
-                        request.execute((response) => {
-                            if (response.error) {
-                                reject(response.error);
-                            } else {
-                                resolve(response);
-                            }
-                        });
-                    });
-                    console.log('Google Calendar event deleted after retry:', eventId);
-                    return true;
-                } catch (retryError) {
-                    console.error('再認証での削除も失敗しました:', retryError);
-                }
-            }
-
-            // エラーがあってもキャンセル処理は継続
-            return false;
+            console.error('確認メール送信失敗:', error);
+            console.error('エラー詳細:', error.text || error.message);
+            alert('予約は完了しましたが、確認メールの送信に失敗しました。予約内容は保存されています。');
         }
-    }
-
-    // 認証状態の確認とアクセス保証
-    async ensureGoogleAPIAccess() {
-        try {
-            // gapiが利用可能か確認
-            if (typeof gapi === 'undefined') {
-                throw new Error('Google API が読み込まれていません');
-            }
-
-            if (this.isGoogleAPIInitialized && this.accessToken && this.isTokenValid()) {
-                // 既に認証済みで有効なトークンがある場合
-                gapi.client.setToken({ access_token: this.accessToken });
-                return;
-            }
-
-            // 初回または再認証が必要な場合
-            console.log('Google API の初期化または再認証を開始します');
-            await this.initializeGoogleAPI();
-        } catch (error) {
-            console.error('Google API アクセス確保に失敗:', error);
-            throw error;
-        }
-    }
-
-    // 保存された認証情報をクリア
-    clearStoredAuth() {
-        this.accessToken = null;
-        this.isGoogleAPIInitialized = false;
-        localStorage.removeItem('google_access_token');
-        localStorage.removeItem('google_token_expiry');
-    }
-
-    // トークンの有効性を確認
-    isTokenValid() {
-        if (!this.accessToken) return false;
-
-        const expiry = localStorage.getItem('google_token_expiry');
-        if (!expiry) return false;
-
-        return new Date().getTime() < parseInt(expiry);
-    }
-
-    async initializeGoogleAPI() {
-        const API_KEY = 'AIzaSyCmHXVdbDWtv0FZdDLkgWUbDEak5mxTuzQ';
-        const CLIENT_ID = '917502957454-id7ctq4u1fgiv0ol8toi0ej93vv57817.apps.googleusercontent.com';
-        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-        const SCOPES = 'https://www.googleapis.com/auth/calendar';
-
-        return new Promise((resolve, reject) => {
-            gapi.load('client', async () => {
-                try {
-                    await gapi.client.init({
-                        apiKey: API_KEY,
-                        discoveryDocs: [DISCOVERY_DOC]
-                    });
-
-                    // 保存されたトークンが有効な場合は再利用
-                    if (this.isTokenValid()) {
-                        gapi.client.setToken({ access_token: this.accessToken });
-                        this.isGoogleAPIInitialized = true;
-                        resolve({ access_token: this.accessToken });
-                        return;
-                    }
-
-                    // 新しいGoogle Identity Services (GIS)を使用
-                    this.tokenClient = google.accounts.oauth2.initTokenClient({
-                        client_id: CLIENT_ID,
-                        scope: SCOPES,
-                        callback: (response) => {
-                            if (response.error) {
-                                console.error('Google OAuth error:', response.error);
-                                reject(response);
-                            } else {
-                                // トークンを保存
-                                this.accessToken = response.access_token;
-                                this.isGoogleAPIInitialized = true;
-                                localStorage.setItem('google_access_token', response.access_token);
-
-                                // 有効期限を設定（1時間後）
-                                const expiry = new Date().getTime() + (3600 * 1000);
-                                localStorage.setItem('google_token_expiry', expiry.toString());
-
-                                gapi.client.setToken({ access_token: response.access_token });
-                                resolve(response);
-                            }
-                        },
-                        error_callback: (error) => {
-                            console.error('Google OAuth error callback:', error);
-                            reject(error);
-                        }
-                    });
-
-                    // トークンをリクエスト（ユーザーインタラクションが必要）
-                    try {
-                        this.tokenClient.requestAccessToken({ prompt: 'consent' });
-                    } catch (error) {
-                        console.error('Token request failed:', error);
-                        reject(error);
-                    }
-
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        });
     }
 
     showBookingStatus(appointment) {
@@ -728,9 +539,10 @@ class AppointmentSystem {
                 <p><strong>お名前:</strong> ${appointment.name}</p>
                 <p><strong>製薬会社:</strong> ${appointment.company}</p>
                 <p><strong>電話番号:</strong> ${appointment.phone}</p>
+                <p><strong>メールアドレス:</strong> ${appointment.email}</p>
                 <p><strong>予約日:</strong> ${appointment.date}</p>
                 <p><strong>予約枠:</strong> ${appointment.slot}${appointment.slot > this.maxBookingsPerDay ? ' (予備枠)' : ''}</p>
-                <p><small>予約が${storageType}に保存され、Googleカレンダーに自動同期されました。</small></p>
+                <p><small>予約が${storageType}に保存され、確認メールを送信しました。</small></p>
             </div>
         `;
 
@@ -792,21 +604,25 @@ class AppointmentSystem {
     updateAdminUI() {
         const showBtn = document.getElementById('showReservations');
         const hideBtn = document.getElementById('hideReservations');
-        const syncBtn = document.getElementById('syncToGoogleCalendar');
         const migrateBtn = document.getElementById('migrateData');
+        const testEmailBtn = document.getElementById('testEmailJS');
         const adminToggle = document.getElementById('adminToggle');
+        const dummySection = document.getElementById('dummyBookingSection');
 
         if (this.isAdminMode) {
             showBtn.style.display = 'inline-block';
-            syncBtn.style.display = 'inline-block';
             migrateBtn.style.display = this.useFirestore ? 'none' : 'inline-block';
+            testEmailBtn.style.display = 'inline-block';
+            dummySection.style.display = 'block';
             adminToggle.textContent = '管理者モード終了';
             adminToggle.style.backgroundColor = '#e74c3c';
+            this.populateDummyDateOptions();
         } else {
             showBtn.style.display = 'none';
             hideBtn.style.display = 'none';
-            syncBtn.style.display = 'none';
             migrateBtn.style.display = 'none';
+            testEmailBtn.style.display = 'none';
+            dummySection.style.display = 'none';
             document.getElementById('reservationsList').style.display = 'none';
             adminToggle.textContent = '管理者モード';
             adminToggle.style.backgroundColor = '#3498db';
@@ -840,7 +656,6 @@ class AppointmentSystem {
                 for (const slot of sortedSlots) {
                     const booking = dateBookings[slot];
                     const slotType = booking.isReserve ? ' (予備枠)' : '';
-                    const googleStatus = booking.googleEventId ? '📅' : '❌';
                     html += `
                         <div class="reservation-item ${booking.isReserve ? 'reserve-booking' : ''}">
                             <div class="reservation-details">
@@ -848,7 +663,6 @@ class AppointmentSystem {
                                 <span class="name">${booking.name}</span>
                                 <span class="company">${booking.company}</span>
                                 <span class="phone">${booking.phone}</span>
-                                <span class="google-status" title="${booking.googleEventId ? 'Googleカレンダー連携済み' : 'Googleカレンダー未連携'}">${googleStatus}</span>
                                 <span class="created">${new Date(booking.createdAt).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                             <button class="cancel-btn" onclick="appointmentSystem.showCancelModal('${date}', '${slot}')">
@@ -907,7 +721,7 @@ class AppointmentSystem {
         document.getElementById('cancelModal').style.display = 'none';
     }
 
-    // 予約キャンセルの実行（Firestore + Googleカレンダー削除機能付き）
+    // 予約キャンセルの実行
     async executeCancel() {
         const modal = document.getElementById('cancelModal');
         const date = modal.dataset.cancelDate;
@@ -916,22 +730,6 @@ class AppointmentSystem {
         if (this.bookings[date] && this.bookings[date][slot]) {
             const booking = this.bookings[date][slot];
             console.log('キャンセル対象の予約:', booking);
-
-            let googleCalendarDeleted = false;
-
-            // Googleカレンダーからイベントを削除
-            if (booking.googleEventId) {
-                console.log('Googleカレンダーイベント削除を開始:', booking.googleEventId);
-                try {
-                    const deleted = await this.deleteFromGoogleCalendar(booking.googleEventId);
-                    googleCalendarDeleted = deleted;
-                    console.log('Googleカレンダー削除結果:', deleted);
-                } catch (error) {
-                    console.error('Googleカレンダー削除でエラー発生:', error);
-                }
-            } else {
-                console.log('GoogleカレンダーのイベントIDがないため、Googleカレンダー削除をスキップします');
-            }
 
             // Firestoreから削除
             if (this.useFirestore && booking.firestoreId) {
@@ -966,11 +764,7 @@ class AppointmentSystem {
 
             // 削除結果をメッセージに反映
             const storageType = this.useFirestore ? 'クラウドと' : '';
-            const googleMessage = booking.googleEventId ?
-                (googleCalendarDeleted ? 'Googleカレンダーから削除されました。' : 'Googleカレンダーの削除に失敗しました。') :
-                'GoogleカレンダーのイベントIDがありませんでした。';
-
-            alert(`予約がキャンセルされました。${googleMessage} ${storageType}ローカルストレージからも削除されました。`);
+            alert(`予約がキャンセルされました。${storageType}ローカルストレージからも削除されました。`);
         }
     }
 
@@ -1012,9 +806,6 @@ class AppointmentSystem {
                         const firestoreId = await this.saveBookingToFirestore(appointment);
                         // ローカルデータにFirestore IDを追加
                         this.bookings[date][slot].firestoreId = firestoreId;
-                        if (booking.googleEventId) {
-                            await this.updateGoogleEventIdInFirestore(firestoreId, booking.googleEventId);
-                        }
                         migratedCount++;
                     } catch (error) {
                         console.error(`予約データ移行エラー (${date}-${slot}):`, error);
@@ -1062,86 +853,6 @@ class AppointmentSystem {
         }
     }
 
-    // 管理者専用：全予約をGoogleカレンダーに同期
-    async syncAllToGoogleCalendar() {
-        if (!this.isAdminMode) {
-            alert('管理者モードでのみ使用できます。');
-            return;
-        }
-
-        if (!confirm('全ての予約をGoogleカレンダーに同期しますか？\n（既存の予約は重複して作成されます）')) {
-            return;
-        }
-
-        try {
-            // Google Calendar API連携を有効化
-            await this.ensureGoogleAPIAccess();
-
-            let syncCount = 0;
-            let errorCount = 0;
-
-            for (const date in this.bookings) {
-                for (const slot in this.bookings[date]) {
-                    const booking = this.bookings[date][slot];
-
-                    // 既にGoogleカレンダーに登録済みの場合はスキップ
-                    if (booking.googleEventId) {
-                        continue;
-                    }
-
-                    try {
-                        const appointment = {
-                            name: booking.name,
-                            company: booking.company,
-                            phone: booking.phone,
-                            date: date,
-                            slot: parseInt(slot)
-                        };
-
-                        console.log(`同期開始: ${date}-${slot}`, appointment);
-                        const eventId = await this.addToGoogleCalendar(appointment);
-
-                        if (eventId) {
-                            // 予約データにGoogleイベントIDを保存
-                            this.bookings[date][slot].googleEventId = eventId;
-                            console.log(`同期成功: ${date}-${slot}, EventID: ${eventId}`);
-
-                            // Firestoreにも更新
-                            if (this.useFirestore && booking.firestoreId) {
-                                try {
-                                    await this.updateGoogleEventIdInFirestore(booking.firestoreId, eventId);
-                                } catch (firestoreError) {
-                                    console.error('Firestore更新エラー:', firestoreError);
-                                }
-                            }
-
-                            syncCount++;
-                        } else {
-                            console.error(`同期失敗: ${date}-${slot} - EventIDが取得できませんでした`);
-                            errorCount++;
-                        }
-                    } catch (error) {
-                        console.error(`同期エラー (${date}-${slot}):`, error);
-                        errorCount++;
-                    }
-                }
-            }
-
-            // ローカルストレージも更新
-            localStorage.setItem('appointments', JSON.stringify(this.bookings));
-
-            alert(`同期完了: ${syncCount}件成功, ${errorCount}件失敗`);
-
-            // 予約一覧を更新
-            if (document.getElementById('reservationsList').style.display !== 'none') {
-                this.showReservationsList();
-            }
-
-        } catch (error) {
-            console.error('Google Calendar同期エラー:', error);
-            alert('Google Calendar認証に失敗しました。');
-        }
-    }
 
     // 管理者パスワード認証モーダルの表示
     showAdminPasswordModal() {
@@ -1159,7 +870,7 @@ class AppointmentSystem {
     }
 
     // パスワード認証の検証
-    verifyAdminPassword() {
+    async verifyAdminPassword() {
         const inputPassword = document.getElementById('adminPassword').value;
         const errorDiv = document.getElementById('passwordError');
 
@@ -1174,6 +885,188 @@ class AppointmentSystem {
             errorDiv.style.display = 'block';
             document.getElementById('adminPassword').value = '';
             document.getElementById('adminPassword').focus();
+        }
+    }
+
+    // ダミー予約用の日付オプションを生成
+    populateDummyDateOptions() {
+        const select = document.getElementById('dummyDateSelect');
+        select.innerHTML = '<option value="">日付を選択してください</option>';
+
+        const today = new Date();
+        const endDate = new Date();
+        endDate.setMonth(today.getMonth() + 3); // 3ヶ月先まで
+
+        for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+            const dayOfWeek = d.getDay();
+            // 月(1), 火(2), 木(4), 金(5)のみ
+            if (this.availableDays.includes(dayOfWeek)) {
+                const dateStr = d.toISOString().split('T')[0];
+                const formatStr = `${d.getMonth() + 1}/${d.getDate()}(${['日','月','火','水','木','金','土'][dayOfWeek]})`;
+
+                // 過去の日付はスキップ
+                if (d > today) {
+                    select.innerHTML += `<option value="${dateStr}">${formatStr}</option>`;
+                }
+            }
+        }
+    }
+
+    // ダミー予約を作成
+    async createDummyBooking() {
+        const selectedDate = document.getElementById('dummyDateSelect').value;
+
+        if (!selectedDate) {
+            alert('日付を選択してください。');
+            return;
+        }
+
+        // 既に予約がある場合の確認
+        const existingBookings = this.bookings[selectedDate];
+        if (existingBookings && (existingBookings[1] || existingBookings[2])) {
+            if (!confirm('選択した日付に既に予約があります。ダミー予約で上書きしますか？')) {
+                return;
+            }
+        }
+
+        try {
+            const dummyData = {
+                name: 'ダミー',
+                company: 'ダミー',
+                phone: 'ダミー',
+                email: 'dummy@example.com',
+                date: selectedDate,
+                createdAt: new Date().toISOString()
+            };
+
+            // スロット1とスロット2に同時にダミー予約を作成
+            if (!this.bookings[selectedDate]) {
+                this.bookings[selectedDate] = {};
+            }
+
+            // スロット1にダミー予約
+            this.bookings[selectedDate][1] = {
+                name: dummyData.name,
+                company: dummyData.company,
+                phone: dummyData.phone,
+                createdAt: dummyData.createdAt,
+                isReserve: false
+            };
+
+            // スロット2にダミー予約
+            this.bookings[selectedDate][2] = {
+                name: dummyData.name,
+                company: dummyData.company,
+                phone: dummyData.phone,
+                createdAt: dummyData.createdAt,
+                isReserve: false
+            };
+
+            // Firestoreまたはローカルストレージに保存
+            if (this.useFirestore) {
+                // スロット1保存
+                const slot1Data = { ...dummyData, slot: 1 };
+                const firestoreId1 = await this.saveBookingToFirestore(slot1Data);
+                this.bookings[selectedDate][1].firestoreId = firestoreId1;
+
+                // スロット2保存
+                const slot2Data = { ...dummyData, slot: 2 };
+                const firestoreId2 = await this.saveBookingToFirestore(slot2Data);
+                this.bookings[selectedDate][2].firestoreId = firestoreId2;
+            } else {
+                localStorage.setItem('appointments', JSON.stringify(this.bookings));
+            }
+
+            // カレンダーを更新
+            this.generateCalendar();
+            this.updateAvailableDates();
+
+            // 管理者モードの場合は予約一覧も更新
+            if (this.isAdminMode && document.getElementById('reservationsList').style.display !== 'none') {
+                this.showReservationsList();
+            }
+
+            alert(`${selectedDate}にダミー予約を作成しました。（スロット1・2両方）`);
+
+            // 日付選択をリセット
+            document.getElementById('dummyDateSelect').value = '';
+
+        } catch (error) {
+            console.error('ダミー予約作成エラー:', error);
+            alert('ダミー予約の作成に失敗しました。');
+        }
+    }
+
+    // 指定した日付がダミー予約でブロックされているかチェック
+    isDummyBookedDate(dateStr) {
+        const bookings = this.bookings[dateStr];
+        if (!bookings) return false;
+
+        // スロット1と2の両方がダミー予約の場合のみtrue
+        const slot1Dummy = bookings[1] && bookings[1].name === 'ダミー';
+        const slot2Dummy = bookings[2] && bookings[2].name === 'ダミー';
+
+        return slot1Dummy && slot2Dummy;
+    }
+
+    // EmailJS接続テスト
+    async testEmailJS() {
+        // EmailJSが初期化されているか確認
+        if (typeof emailjs === 'undefined') {
+            alert('❌ EmailJS未初期化\n\nEmailJS SDKが読み込まれていません。ページをリロードしてください。');
+            return;
+        }
+
+        const slotNames = {
+            '1': '第1枠',
+            '2': '第2枠',
+            '3': '予備枠'
+        };
+
+        const templateParams = {
+            to_email: 'takatomioku1152@gmail.com',
+            to_name: 'EmailJSテスト',
+            company: 'システムテスト',
+            phone: '000-0000-0000',
+            date: new Date().toISOString().split('T')[0],
+            slot_name: 'テスト送信',
+            clinic_name: 'おく内科消化器クリニック',
+            clinic_phone: '0155-66-6170'
+        };
+
+        try {
+            console.log('EmailJSテスト開始:', templateParams);
+
+            // テストメール送信
+            const response = await emailjs.send(
+                'service_l3gxbkp',
+                'template_r2rilz7',
+                templateParams
+            );
+
+            console.log('EmailJSテスト成功:', response);
+
+            // 成功メッセージ
+            alert('✅ EmailJS接続テスト成功\n\nテストメールを送信しました。\n受信トレイを確認してください。\n\n送信先: takatomioku1152@gmail.com');
+
+        } catch (error) {
+            console.error('EmailJSテスト失敗:', error);
+            console.error('エラー詳細:', error.text || error.message);
+
+            // エラーメッセージを解析
+            let errorMsg = 'EmailJS接続エラーが発生しました。';
+
+            if (error.text) {
+                if (error.text.includes('Invalid grant')) {
+                    errorMsg = '❌ Gmail接続エラー\n\nGmailアカウントの再認証が必要です。\n\n対応方法:\n1. EmailJSダッシュボードにアクセス\n2. Email Services > Gmail を開く\n3. 「Disconnect」→「Connect Gmail」で再認証';
+                } else if (error.text.includes('Template')) {
+                    errorMsg = '❌ テンプレートエラー\n\nEmailJSテンプレート設定を確認してください。';
+                } else {
+                    errorMsg = `❌ EmailJSエラー\n\n${error.text}`;
+                }
+            }
+
+            alert(errorMsg);
         }
     }
 }

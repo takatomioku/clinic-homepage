@@ -4,85 +4,115 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## System Overview
 
-This is a Japanese appointment booking system for a clinic with Google Calendar integration. The system allows pharmaceutical company representatives to book appointments online with the following features:
+MR面談Web予約システム — 製薬会社 MR（Medical Representative）がおく内科消化器クリニックに面談予約を入れる純粋な HTML/CSS/JS アプリ。ビルドプロセスなし。
 
-- 2 regular slots + 1 reserve slot per day
-- Available on Monday, Tuesday, Thursday, Friday only
-- Admin panel for managing reservations
-- Automatic Google Calendar synchronization
-- Local storage with Firebase Firestore cloud backup
-- Reserve slot warnings for authorized use only
+**Production URL**: `https://takatomioku.github.io/clinic-homepage/appointment-system/`  
+**Deployment**: `main` ブランチへの push で GitHub Pages が自動デプロイ（1〜3分）
 
-## Architecture
+## Local Development
 
-### Core Components
-
-**AppointmentSystem Class** (`appointment.js` - legacy local-only version)
-- Main application logic with localStorage persistence
-- Google Calendar API integration using OAuth 2.0
-- Admin features for viewing/canceling reservations
-- Reserve slot functionality with approval modals
-
-**Firebase Integration** (`appointment-firestore.js` - current cloud version)
-- Hybrid storage: Firebase Firestore primary, localStorage fallback
-- Data migration between local and cloud storage
-- Cross-device synchronization capabilities
-
-**UI Structure** (`index.html`)
-- Booking form with validation (name, company, phone required)
-- Calendar grid showing availability status
-- Admin panel with reservation management
-- Multiple modals for confirmations and warnings
-
-### Key Business Logic
-
-- **Slot Management**: 2 regular slots + 1 reserve slot per day
-- **Day Filtering**: Only Mon/Tue/Thu/Fri available for appointments
-- **Reserve Slot Protocol**: Requires warning acknowledgment with "許可なく入力しないでください" message
-- **Calendar Integration**: Bidirectional sync with Google Calendar (create/delete events)
-
-## Deployment Configuration
-
-**Production URL**: `https://www.oku-clinic.com/appointment-system/`
-
-**Google API Configuration** (in setup-guide.md):
-- Calendar API enabled in Google Cloud Console
-- OAuth 2.0 client ID configured for production domain
-- API key with appropriate restrictions
-- Current API credentials configured for `oku-clinic.com` domain
-
-**Firebase Setup**:
-- Project: `appointment-system-e689c`
-- Firestore database for cloud storage
-- Configuration embedded in index.html
+```bash
+# リポジトリルート (clinic-homepage/) から起動
+python -m http.server 8000
+# または
+npx serve .
+# → http://localhost:8000/appointment-system/ でアクセス
+```
 
 ## File Structure
 
-- `index.html` - Main application with Firebase configuration
-- `appointment-firestore.js` - Current cloud-enabled version
-- `appointment.js` - Legacy local-only version (can be removed)
-- `styles.css` - Complete styling including admin panels and modals
-- `setup-guide.md` - Google Cloud Console configuration instructions
+| ファイル | 役割 |
+|---|---|
+| `index.html` | UI全体・Firebase SDK初期化・EmailJS SDK読み込み |
+| `appointment-firestore.js` | `AppointmentSystem` クラス（全ビジネスロジック） |
+| `styles.css` | スタイル（管理者パネル・モーダル・カレンダー含む） |
+| `emailjs-monitor.gs` | Google Apps Script — 毎朝9時にEmailJS疎通チェックし異常時にメール通知 |
 
-## Development Notes
+`appointment.js`（旧ローカル専用版）と `setup-guide.md` は削除済み。参照しないこと。
 
-- System designed for Japanese language interface
-- Phone number validation with Japanese formats
-- Color-coded calendar cells for different availability states
-- Responsive design for mobile devices
-- Admin mode requires manual activation (no authentication system)
+## Architecture
 
-## Authentication & API Keys
+### AppointmentSystem クラス (`appointment-firestore.js`)
 
-- Google OAuth 2.0 for Calendar API access
-- API keys stored in JavaScript (consider environment variables for security)
-- Token persistence to avoid repeated authentication prompts
-- Current credentials configured in appointment.js:
-  - API_KEY: For Calendar API access
-  - CLIENT_ID: For OAuth authentication
+クラス単体でアプリ全体を管理。`DOMContentLoaded` で `new AppointmentSystem()` してグローバル変数 `appointmentSystem` に格納。
 
-## Common Issues
+**初期化フロー**
+```
+constructor
+  └─ waitForFirestore()   // window.firebaseDB を最大5秒ポーリング
+       └─ initializeSystem()
+            ├─ loadBookingsFromFirestore()
+            ├─ initializeCalendar() / generateCalendar()
+            ├─ bindEvents()
+            ├─ updateAvailableDates()
+            └─ initializeAdminMode()
+```
 
-- **OAuth Access Denied**: Requires Google Cloud Console OAuth consent screen configuration
-- **Calendar Not Syncing**: Check API key domain restrictions and OAuth settings
-- **Cross-Device Data Loss**: Ensure Firebase Firestore rules allow read/write access
+**ストレージ戦略**
+- Firestore が primary。失敗時は `this.useFirestore = false` にフォールバックし localStorage を使用。
+- 予約保存・削除は常に localStorage にも同期（`appointments` キー）。
+- Firebase SDK は `index.html` の `<script type="module">` で初期化し `window.firebaseDB` に格納。`appointment-firestore.js` 側は `import()` で動的に Firestore 関数を呼ぶ。
+
+### 予約ルール（定数）
+
+```javascript
+maxBookingsPerDay = 2          // 通常枠
+maxBookingsIncludingReserve = 3 // 通常+予備
+availableDays = [1, 2, 4, 5]   // 月・火・木・金
+```
+
+### Firestore データ構造
+
+コレクション: `appointments`  
+各ドキュメントのフィールド:
+
+```
+name, company, phone, email, date (YYYY-MM-DD), slot (1|2|3), createdAt (ISO), isReserve (bool)
+```
+
+メモリ上のキャッシュ構造:
+```javascript
+this.bookings = {
+  "2026-04-21": {
+    1: { name, company, phone, email, createdAt, isReserve, firestoreId },
+    2: { ... }
+  }
+}
+```
+
+### 管理者機能
+
+管理者モードはパスワード認証で有効化（パスワードは `this.adminPassword` に格納。`appointment-firestore.js` 冒頭の constructor を参照）。
+
+有効化後に表示されるボタン:
+- **予約一覧表示/非表示** — 日付・スロット順に一覧表示
+- **本日の予約** — 一覧を開き今日の date-group へスムーズスクロール。予約なしは4秒メッセージ表示
+- **期間指定削除** — 開始日〜終了日を指定し対象一覧を確認モーダルで表示してから一括削除
+- **ダミー予約作成** — 指定日のスロット1・2を name="ダミー" で埋め、外部予約不可にする
+- **EmailJS接続テスト** — テストメールを `takatomioku1152@gmail.com` に送信
+
+### カレンダーセルの状態
+
+| クラス | 意味 |
+|---|---|
+| `available` | 空き（緑） |
+| `full` | 通常枠満席（赤） |
+| `reserve-used` | 予備枠使用中（黄） |
+| `dummy-blocked` | ダミーで封鎖（グレー） |
+| `unavailable` / `past-date` / `other-month` | 選択不可 |
+
+## 外部サービス
+
+| サービス | 設定値 |
+|---|---|
+| Firebase Project | `appointment-system-e689c` |
+| EmailJS Service | `service_l3gxbkp` |
+| EmailJS Template | `template_r2rilz7` |
+| EmailJS Public Key | `hTM2ZpRABZXseBb-p`（`index.html` で init） |
+| GAS 監視スクリプト | `emailjs-monitor.gs` を Google Apps Script にデプロイし `setupDailyTrigger()` を手動実行してトリガー設定 |
+
+## よくある問題
+
+- **Firestore に保存されない**: Firebase コンソールで Firestore のセキュリティルールが `allow read, write: if true;` になっているか確認。
+- **確認メール未着**: EmailJS ダッシュボードで Gmail 接続を再認証（`Disconnect` → `Connect Gmail`）。管理者画面の「EmailJS接続テスト」で切り分け可能。
+- **ダミー予約の削除**: 管理者モードの「予約一覧表示」からキャンセルボタンで削除。

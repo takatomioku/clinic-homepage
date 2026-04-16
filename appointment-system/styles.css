@@ -834,6 +834,37 @@ button:active {
     transform: none;
 }
 
+/* 本日の予約ボタン */
+#todayReservations {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+}
+
+/* 本日の date-group ハイライトアニメーション */
+@keyframes todayHighlightPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
+    50%  { box-shadow: 0 0 0 8px rgba(39, 174, 96, 0.2); }
+    100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+}
+
+.date-group.today-highlight {
+    animation: todayHighlightPulse 1.4s ease-out 2;
+    border: 2px solid #27ae60 !important;
+}
+
+/* 本日予約なしメッセージ */
+.today-no-reservation {
+    background-color: #e8f8f0;
+    border: 1px solid #27ae60;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    color: #1e8449;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
 /* 期間指定削除ボタン */
 #bulkDeleteToggle {
     background: linear-gradient(135deg, #e74c3c, #c0392b);

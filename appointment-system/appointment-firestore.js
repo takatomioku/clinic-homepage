@@ -130,6 +130,7 @@ class AppointmentSystem {
         document.getElementById('migrateData').addEventListener('click', () => this.showMigrateModal());
         document.getElementById('createDummyBooking').addEventListener('click', () => this.createDummyBooking());
         document.getElementById('testEmailJS').addEventListener('click', () => this.testEmailJS());
+        document.getElementById('todayReservations').addEventListener('click', () => this.showTodayReservations());
         document.getElementById('bulkDeleteToggle').addEventListener('click', () => this.toggleBulkDeleteSection());
         document.getElementById('bulkDeleteBtn').addEventListener('click', () => this.showBulkDeleteModal());
         document.getElementById('closeBulkDeleteModal').addEventListener('click', () => this.closeBulkDeleteModal());
@@ -616,9 +617,11 @@ class AppointmentSystem {
         const dummySection = document.getElementById('dummyBookingSection');
         const bulkDeleteToggle = document.getElementById('bulkDeleteToggle');
         const bulkDeleteSection = document.getElementById('bulkDeleteSection');
+        const todayBtn = document.getElementById('todayReservations');
 
         if (this.isAdminMode) {
             showBtn.style.display = 'inline-block';
+            todayBtn.style.display = 'inline-block';
             migrateBtn.style.display = this.useFirestore ? 'none' : 'inline-block';
             testEmailBtn.style.display = 'inline-block';
             bulkDeleteToggle.style.display = 'inline-block';
@@ -629,6 +632,7 @@ class AppointmentSystem {
         } else {
             showBtn.style.display = 'none';
             hideBtn.style.display = 'none';
+            todayBtn.style.display = 'none';
             migrateBtn.style.display = 'none';
             testEmailBtn.style.display = 'none';
             bulkDeleteToggle.style.display = 'none';
@@ -657,7 +661,7 @@ class AppointmentSystem {
             const dateBookings = this.bookings[date];
             if (Object.keys(dateBookings).length > 0) {
                 hasReservations = true;
-                html += `<div class="date-group">
+                html += `<div class="date-group" data-date="${date}">
                     <h4>${date} (${this.getDayName(new Date(date).getDay())}) - ${this.useFirestore ? 'クラウド保存' : 'ローカル保存'}</h4>
                 `;
 
@@ -1078,6 +1082,46 @@ class AppointmentSystem {
             }
 
             alert(errorMsg);
+        }
+    }
+
+    // 本日の予約にスクロール
+    showTodayReservations() {
+        const todayStr = this.formatDate(new Date());
+
+        // 予約一覧が非表示なら先に表示する
+        if (document.getElementById('reservationsList').style.display === 'none') {
+            this.showReservationsList();
+        }
+
+        // 既存の「本日予約なし」メッセージを除去
+        const existing = document.getElementById('todayNoReservationMsg');
+        if (existing) existing.remove();
+
+        // 本日の date-group を探す
+        const todayGroup = document.querySelector(`.date-group[data-date="${todayStr}"]`);
+
+        if (todayGroup) {
+            todayGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            todayGroup.classList.remove('today-highlight');
+            // 再フローを挟んでアニメーションをリセット
+            void todayGroup.offsetWidth;
+            todayGroup.classList.add('today-highlight');
+        } else {
+            // 予約なしメッセージを一覧の先頭に表示
+            const content = document.getElementById('reservationsContent');
+            const msg = document.createElement('div');
+            msg.id = 'todayNoReservationMsg';
+            msg.className = 'today-no-reservation';
+            msg.textContent = `本日（${todayStr}）の予約はありません。`;
+            content.insertBefore(msg, content.firstChild);
+            msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // 4秒後に自動削除
+            setTimeout(() => {
+                const el = document.getElementById('todayNoReservationMsg');
+                if (el) el.remove();
+            }, 4000);
         }
     }
 

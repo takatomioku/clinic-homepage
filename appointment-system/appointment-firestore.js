@@ -130,6 +130,11 @@ class AppointmentSystem {
         document.getElementById('migrateData').addEventListener('click', () => this.showMigrateModal());
         document.getElementById('createDummyBooking').addEventListener('click', () => this.createDummyBooking());
         document.getElementById('testEmailJS').addEventListener('click', () => this.testEmailJS());
+        document.getElementById('bulkDeleteToggle').addEventListener('click', () => this.toggleBulkDeleteSection());
+        document.getElementById('bulkDeleteBtn').addEventListener('click', () => this.showBulkDeleteModal());
+        document.getElementById('closeBulkDeleteModal').addEventListener('click', () => this.closeBulkDeleteModal());
+        document.getElementById('confirmBulkDelete').addEventListener('click', () => this.executeBulkDelete());
+        document.getElementById('cancelBulkDelete').addEventListener('click', () => this.closeBulkDeleteModal());
 
         // モーダル関連のイベント
         document.getElementById('closeModal').addEventListener('click', () => this.closeCancelModal());
@@ -165,6 +170,7 @@ class AppointmentSystem {
                 this.closeReserveModal();
                 this.closeMigrateModal();
                 this.closeAdminPasswordModal();
+                this.closeBulkDeleteModal();
             }
         });
     }
@@ -608,11 +614,14 @@ class AppointmentSystem {
         const testEmailBtn = document.getElementById('testEmailJS');
         const adminToggle = document.getElementById('adminToggle');
         const dummySection = document.getElementById('dummyBookingSection');
+        const bulkDeleteToggle = document.getElementById('bulkDeleteToggle');
+        const bulkDeleteSection = document.getElementById('bulkDeleteSection');
 
         if (this.isAdminMode) {
             showBtn.style.display = 'inline-block';
             migrateBtn.style.display = this.useFirestore ? 'none' : 'inline-block';
             testEmailBtn.style.display = 'inline-block';
+            bulkDeleteToggle.style.display = 'inline-block';
             dummySection.style.display = 'block';
             adminToggle.textContent = '管理者モード終了';
             adminToggle.style.backgroundColor = '#e74c3c';
@@ -622,6 +631,8 @@ class AppointmentSystem {
             hideBtn.style.display = 'none';
             migrateBtn.style.display = 'none';
             testEmailBtn.style.display = 'none';
+            bulkDeleteToggle.style.display = 'none';
+            bulkDeleteSection.style.display = 'none';
             dummySection.style.display = 'none';
             document.getElementById('reservationsList').style.display = 'none';
             adminToggle.textContent = '管理者モード';
@@ -1068,6 +1079,139 @@ class AppointmentSystem {
 
             alert(errorMsg);
         }
+    }
+
+    // 期間指定削除セクションのトグル
+    toggleBulkDeleteSection() {
+        const section = document.getElementById('bulkDeleteSection');
+        const isVisible = section.style.display !== 'none';
+        section.style.display = isVisible ? 'none' : 'block';
+    }
+
+    // 期間内の予約を取得
+    getBookingsInRange(startDate, endDate) {
+        const targets = [];
+        for (const date of Object.keys(this.bookings)) {
+            if (date >= startDate && date <= endDate) {
+                for (const slot of Object.keys(this.bookings[date])) {
+                    const booking = this.bookings[date][slot];
+                    targets.push({
+                        date,
+                        slot,
+                        name: booking.name,
+                        company: booking.company,
+                        firestoreId: booking.firestoreId,
+                        isReserve: booking.isReserve
+                    });
+                }
+            }
+        }
+        // 日付→スロット順にソート
+        targets.sort((a, b) => a.date.localeCompare(b.date) || parseInt(a.slot) - parseInt(b.slot));
+        return targets;
+    }
+
+    // 期間指定削除の確認モーダルを表示
+    showBulkDeleteModal() {
+        const startDate = document.getElementById('deleteStartDate').value;
+        const endDate = document.getElementById('deleteEndDate').value;
+
+        if (!startDate || !endDate) {
+            alert('開始日と終了日を両方入力してください。');
+            return;
+        }
+        if (startDate > endDate) {
+            alert('開始日は終了日より前の日付を設定してください。');
+            return;
+        }
+
+        const targets = this.getBookingsInRange(startDate, endDate);
+
+        if (targets.length === 0) {
+            alert('指定した期間内に削除対象の予約がありません。');
+            return;
+        }
+
+        const slotLabel = (slot, isReserve) => isReserve ? `枠${slot}（予備）` : `枠${slot}`;
+
+        let rowsHTML = targets.map(t => `
+            <div class="bulk-delete-row">
+                <span class="bulk-date">${t.date}</span>
+                <span class="bulk-slot">${slotLabel(t.slot, t.isReserve)}</span>
+                <span class="bulk-name">${t.name}</span>
+                <span class="bulk-company">${t.company}</span>
+            </div>
+        `).join('');
+
+        document.getElementById('bulkDeletePreview').innerHTML = `
+            <div class="bulk-delete-summary">
+                <p><strong>削除期間:</strong> ${startDate} 〜 ${endDate}</p>
+                <p><strong>削除件数:</strong> <span style="color:#e74c3c; font-size:1.1em;">${targets.length}件</span></p>
+            </div>
+            <div class="bulk-delete-list">
+                ${rowsHTML}
+            </div>
+            <p style="margin-top:10px; font-size:12px; color:#888;">※この操作は取り消せません。</p>
+        `;
+
+        document.getElementById('bulkDeleteModal').style.display = 'block';
+    }
+
+    // 期間指定削除モーダルを閉じる
+    closeBulkDeleteModal() {
+        document.getElementById('bulkDeleteModal').style.display = 'none';
+    }
+
+    // 期間指定削除の実行
+    async executeBulkDelete() {
+        const startDate = document.getElementById('deleteStartDate').value;
+        const endDate = document.getElementById('deleteEndDate').value;
+        const targets = this.getBookingsInRange(startDate, endDate);
+
+        let successCount = 0;
+        let errorCount = 0;
+
+        for (const target of targets) {
+            try {
+                if (this.useFirestore && target.firestoreId) {
+                    await this.deleteBookingFromFirestore(target.firestoreId);
+                }
+
+                if (this.bookings[target.date]) {
+                    delete this.bookings[target.date][target.slot];
+                    if (Object.keys(this.bookings[target.date]).length === 0) {
+                        delete this.bookings[target.date];
+                    }
+                }
+
+                successCount++;
+            } catch (error) {
+                console.error(`削除エラー (${target.date}-${target.slot}):`, error);
+                errorCount++;
+            }
+        }
+
+        // ローカルストレージを更新
+        localStorage.setItem('appointments', JSON.stringify(this.bookings));
+
+        // 画面を更新
+        this.generateCalendar();
+        this.updateAvailableDates();
+        if (this.isAdminMode && document.getElementById('reservationsList').style.display !== 'none') {
+            this.showReservationsList();
+        }
+
+        this.closeBulkDeleteModal();
+
+        // 入力欄をリセット
+        document.getElementById('deleteStartDate').value = '';
+        document.getElementById('deleteEndDate').value = '';
+
+        let msg = `${successCount}件の予約を削除しました。`;
+        if (errorCount > 0) {
+            msg += `\n${errorCount}件の削除に失敗しました。`;
+        }
+        alert(msg);
     }
 }
 

@@ -32,6 +32,40 @@ h2 {
     font-weight: 400;
 }
 
+h3 {
+    color: #34495e;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.notice-section {
+    background: #fff9e6;
+    border: 1px solid #f39c12;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.notice-section h3 {
+    color: #e67e22;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.notice-section ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.notice-section li {
+    margin-bottom: 8px;
+}
+
 .booking-form {
     background: white;
     padding: 30px;
@@ -53,6 +87,7 @@ label {
 
 input[type="text"],
 input[type="tel"],
+input[type="email"],
 select {
     width: 100%;
     padding: 12px;
@@ -64,6 +99,7 @@ select {
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
+input[type="email"]:focus,
 select:focus {
     outline: none;
     border-color: #3498db;
@@ -106,36 +142,90 @@ button:active {
     margin-bottom: 30px;
 }
 
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.month-calendar {
+    border: 2px solid #bdc3c7;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.month-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #34495e;
+}
+
+.month-header h3 {
+    margin: 0 !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+    margin-bottom: 0 !important;
+}
+
+.weekdays-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #ecf0f1;
+}
+
+.weekday {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #2c3e50;
+    border-right: 1px solid #bdc3c7;
+}
+
+.weekday:last-child {
+    border-right: none;
+}
+
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+    border-top: 1px solid #e0e0e0;
 }
 
 .calendar-cell {
     padding: 15px;
     text-align: center;
-    border-radius: 8px;
     transition: all 0.3s ease;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-left: none;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calendar-cell:nth-child(7n) {
+    border-right: none;
 }
 
 .calendar-cell.available {
     background-color: #e8f5e8;
-    border-color: #27ae60;
     color: #27ae60;
 }
 
 .calendar-cell.available:hover {
     background-color: #d5f0d5;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .calendar-cell.full {
     background-color: #ffebee;
-    border-color: #e74c3c;
     color: #e74c3c;
     cursor: not-allowed;
 }
@@ -146,23 +236,36 @@ button:active {
     cursor: not-allowed;
 }
 
+.calendar-cell.other-month {
+    background-color: #fafafa;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-cell.past-date {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
 .calendar-cell .date {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .calendar-cell .day {
-    font-size: 12px;
-    margin-bottom: 5px;
+    font-size: 11px;
+    margin-bottom: 3px;
 }
 
 .calendar-cell .slots {
-    font-size: 11px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 2px 6px;
-    border-radius: 12px;
+    font-size: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2px 4px;
+    border-radius: 8px;
     display: inline-block;
+    margin-top: auto;
 }
 
 .booking-status {
@@ -546,21 +649,58 @@ button:active {
     .booking-form,
     .calendar-section,
     .booking-status,
-    .admin-section {
-        padding: 20px;
+    .admin-section,
+    .notice-section {
+        padding: 15px;
+    }
+
+    .notice-section ul {
+        font-size: 0.8rem;
+        padding-left: 15px;
+    }
+
+    .notice-section h3 {
+        font-size: 1rem;
+    }
+
+    .calendar-container {
+        gap: 20px;
+    }
+
+    .month-header {
+        padding: 10px;
+    }
+
+    .month-header h3 {
+        font-size: 1rem;
+    }
+
+    .weekday {
+        padding: 8px 4px;
+        font-size: 12px;
     }
 
     .calendar-grid {
-        gap: 5px;
+        gap: 1px;
     }
 
     .calendar-cell {
-        padding: 10px;
-        font-size: 14px;
+        padding: 8px 4px;
+        font-size: 12px;
+        min-height: 60px;
     }
 
     .calendar-cell .date {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .calendar-cell .day {
+        font-size: 9px;
+    }
+
+    .calendar-cell .slots {
+        font-size: 8px;
+        padding: 1px 3px;
     }
 
     button {
@@ -614,7 +754,7 @@ button:active {
 
 @media (max-width: 480px) {
     .calendar-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(7, 1fr);
     }
 
     .calendar-cell {
@@ -680,4 +820,102 @@ button:active {
 .legend-unavailable .legend-color {
     background-color: #f8f9fa;
     border-color: #6c757d;
+}
+
+/* ダミー予約で埋められた日付のスタイル */
+.calendar-cell.dummy-blocked {
+    background-color: #e0e0e0 !important;
+    color: #888 !important;
+    cursor: not-allowed;
+}
+
+.calendar-cell.dummy-blocked:hover {
+    background-color: #d0d0d0 !important;
+    transform: none;
+}
+
+/* 期間指定削除ボタン */
+#bulkDeleteToggle {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+/* 期間指定削除モーダル */
+.bulk-delete-summary {
+    background-color: #fff3f3;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+.bulk-delete-summary p {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.bulk-delete-summary p:last-child {
+    margin-bottom: 0;
+}
+
+.bulk-delete-list {
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.bulk-delete-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.bulk-delete-row:last-child {
+    border-bottom: none;
+}
+
+.bulk-delete-row:hover {
+    background-color: #fafafa;
+}
+
+.bulk-date {
+    font-weight: bold;
+    color: #2c3e50;
+    min-width: 90px;
+}
+
+.bulk-slot {
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.bulk-name {
+    color: #27ae60;
+    font-weight: 500;
+}
+
+.bulk-company {
+    color: #555;
+}
+
+/* date input のスタイル統一 */
+input[type="date"] {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border-color: #3498db;
 }
